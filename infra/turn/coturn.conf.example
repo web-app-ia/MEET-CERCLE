@@ -1,0 +1,60 @@
+# ---------------------------------------------------------------------------
+# coturn — TURN/STUN mutualisé PERMANENT (architecture recommandée, devis V4 §13)
+#
+# Le TURN n'est PAS détruit avec chaque SFU éphémère : il est mutualisé sur
+# une petite instance permanente (ex. Hetzner CX22 ~3,79 €/mois ou tout
+# fournisseur facturé au trafic). Les SFU LiveKit éphémères restent introuvables
+# sans lui pour les réseaux restrictifs.
+#
+# Installation :
+#   apt install coturn
+#   systemctl enable --now coturn   (décommenter TURNSERVER_ENABLED=1 dans
+#                                    /etc/default/coturn)
+#   copier ce fichier vers /etc/turnserver.conf
+#
+# CREDENTIALS : en production préférer l'auth REST à durée courte
+#   (shared secret + username=timestamp:crc32) à un couple statique.
+#   Voir https://webrtc.org/getting-started/turn-server (génération HMAC).
+# ---------------------------------------------------------------------------
+
+# Nom DNS avec certificat valide (TURN/TLS exige un domaine + Let's Encrypt)
+server-name=turn.example.com
+realm=turn.example.com
+
+listening-port=3478
+# TLS
+tls-listening-port=5349
+cert=/etc/letsencrypt/live/turn.example.com/fullchain.pem
+pkey=/etc/letsencrypt/live/turn.example.com/privkey.pem
+
+# Traversée IPv6 : le TURN écoute sur les deux piles (no-loopback-peers ok)
+listening-ip=0.0.0.0
+external-ip=<IP_PUBLIQUE_TURN>[/<IP_PUBLIQUE_TURN_V6_SI_DUAL>]
+relay-ip=<IP_PUBLIQUE_TURN>
+
+# Auth
+lt-cred-mech
+# Option A — utilisateurs statiques (test seulement) :
+# user=<utilisateur>:<motdepasse>
+# Option B — REST (recommandé) :
+use-auth-secret
+static-auth-secret=<SECRET_PARTAGE_FORT>
+
+# Sécurité : ne pas être un relais ouvert
+no-multicast-peers
+denied-peer-ip=0.0.0.0-0.255.255.255
+denied-peer-ip=10.0.0.0-10.255.255.255
+denied-peer-ip=172.16.0.0-172.31.255.255
+denied-peer-ip=192.168.0.0-192.168.255.255
+denied-peer-ip=127.0.0.0-127.255.255.255
+denied-peer-ip=169.254.0.0-169.254.255.255
+denied-peer-ip=::1
+denied-peer-ip=fe80::-febf:ffff:ffff:ffff:ffff:ffff:ffff:ffff
+
+# Journalisation minimale (devis §14)
+log-file=/var/log/turnserver.log
+simple-log
+
+# Ports de relais à ouvrir dans le firewall (Hetzner Firewall + ufw)
+min-port=49160
+max-port=49200

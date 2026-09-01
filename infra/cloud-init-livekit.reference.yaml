@@ -1,0 +1,66 @@
+#cloud-config
+# ---------------------------------------------------------------------------
+# RÉFÉRENCE — cloud-init d'un SFU LiveKit éphémère MEET-CERCLE.
+#
+# En usage normal ce fichier est GÉNÉRÉ À LA VOLÉE par l'orchestrateur
+# (worker/src/hetzner.ts → renderCloudInit) : la clé/secret LiveKit et le
+# domaine y sont injectés au moment de la création du serveur Hetzner.
+#
+# Cette copie sert au déploiement MANUEL de test (Hetzner console →
+# Cloud → Servers → Create → Cloud-Init) : remplacer les placeholders.
+#
+# Politique réseau associée (devis V4 §7) :
+#   A — IPv6-only       : créer le serveur SANS IPv4 (primary IP v4 désactivée)
+#   B — IPv6 + TURN     : idem A ; la compatibilité vient du TURN mutualisé
+#   C — IPv4 + IPv6     : dual stack (Primary IPv4 facturée 0,50 €/mois HT)
+# ---------------------------------------------------------------------------
+
+package_update: true
+packages: [ca-certificates, curl, dnsutils]
+
+runcmd:
+  # Installeur officiel LiveKit (binaire + service systemd de base)
+  - curl -sSL https://get.livekit.io/install | bash
+  - systemctl disable livekit-server 2>/dev/null || true
+  - |
+    cat > /etc/livekit/livekit.yaml <<'YAML'
+    port: 7880
+    bind_addresses:
+      - "::"
+    rtc:
+      tcp_port: 7881
+      port_range_start: 50000
+      port_range_end: 50200
+      use_external_ip: true
+    region: fsn1
+    keys:
+      APIKeyPlaceholder: APISecretPlaceholder
+    turn:
+      enabled: false
+    YAML
+  - |
+    cat > /etc/systemd/system/livekit-server.service <<'UNIT'
+    [Unit]
+    Description=LiveKit SFU (éphémère MEET-CERCLE)
+    After=network-online.target
+    Wants=network-online.target
+
+    [Service]
+    ExecStart=/usr/bin/livekit-server --config /etc/livekit/livekit.yaml
+    Restart=always
+    RestartSec=3
+    LimitNOFILE=65535
+
+    [Install]
+    WantedBy=multi-user.target
+    UNIT
+  - systemctl daemon-reload
+  - systemctl enable --now livekit-server
+
+# ---------------------------------------------------------------------------
+# Firewall Hetzner à appliquer (console ou API) :
+#   TCP 22 (SSH, si administration), 7881 (ICE/TCP), 50000-50200 (ICE/UDP)
+#   UDP 50000-50200
+# Le port 7880 (API twirp) est appelé par l'orchestrateur en HTTPS via
+# un reverse-proxy TLS en production — voir docs/DEPLOYMENT.md (Caddy).
+# ---------------------------------------------------------------------------

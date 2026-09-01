@@ -1,0 +1,15 @@
+# Dépendances Node
+node_modules/
+
+# Wrangler
+.wrangler/
+.dev.vars
+.dryrun/
+
+# Secrets locaux (ne jamais committer)
+.env
+*.local
+
+# OS / éditeurs
+Thumbs.db
+.DS_Store

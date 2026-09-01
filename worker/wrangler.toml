@@ -1,0 +1,68 @@
+# ---------------------------------------------------------------------------
+# MEET-CERCLE — Orchestrateur Cloudflare Workers
+# Déploiement : npx wrangler deploy  (secrets : voir docs/DEPLOYMENT.md)
+# ---------------------------------------------------------------------------
+
+name = "meet-cercle-worker"
+main = "src/index.ts"
+compatibility_date = "2025-08-01"
+
+# ---------------------------------------------------------------------------
+# Durable Object : état transactionnel par salon (participants, verrous,
+# phase p2p/provisioning/sfu, fanout signalisation WebSocket)
+# ---------------------------------------------------------------------------
+[[durable_objects.bindings]]
+name = "ROOMS"
+class_name = "RoomDO"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RoomDO"]
+
+# ---------------------------------------------------------------------------
+# KV : index global des salons + journal d'événements (traçabilité)
+# ---------------------------------------------------------------------------
+[[kv_namespaces]]
+binding = "STATE"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+# ---------------------------------------------------------------------------
+# Cron : nettoyage / destruction des SFU éphémères toutes les 5 minutes
+# ---------------------------------------------------------------------------
+[triggers]
+crons = ["*/5 * * * *"]
+
+# ---------------------------------------------------------------------------
+# Variables non secrètes (à adapter avant déploiement)
+# ---------------------------------------------------------------------------
+[vars]
+ENVIRONMENT = "production"
+# Nombre max de participants en P2P (mesh). Au-delà -> bascule SFU.
+P2P_MAX_PARTICIPANTS = "4"
+# Politique réseau du SFU : "ipv6_only" (A) | "ipv6_plus_turn" (B) | "dual_stack" (C)
+SFU_NET_POLICY = "ipv6_only"
+# Dimensionnement Hetzner
+SFU_SERVER_TYPE = "cpx22"
+SFU_LOCATION = "fsn1"
+SFU_IMAGE = "ubuntu-24.04"
+# Délai de sécurité avant destruction d'un SFU sans participants (ms)
+SFU_GRACE_PERIOD_MS = "600000"
+# Suffixe DNS des SFU : <sfu-id>.SFU_DOMAIN doit être une zone gérée par
+# le compte Cloudflare identifié par CF_ZONE_ID (record AAAA créé à chaud).
+SFU_DOMAIN = "sfu.example.com"
+# STUN publics (JSON array) — la liste finale est renvoyée par /api/config
+STUN_URLS = "[\"stun:stun.l.google.com:19302\",\"stun:stun1.l.google.com:19302\"]"
+
+# ---------------------------------------------------------------------------
+# Secrets (npx wrangler secret put <NAME>) :
+#   HETZNER_API_TOKEN   — jeton API Hetzner Cloud
+#   LIVEKIT_API_KEY     — clé API LiveKit (générée côté serveur éphémère)
+#   LIVEKIT_API_SECRET  — secret API LiveKit (signature des tokens JWT)
+#   CF_DNS_TOKEN        — jeton Cloudflare (Zone:DNS:Edit) pour les records SFU
+#   CF_ZONE_ID          — identifiant de zone Cloudflare de SFU_DOMAIN
+#   TURN_URL            — ex. turn:turn.example.com:3478 (TURN mutualisé permanent)
+#   TURN_TCP_URL        — ex. turn:turn.example.com:3478?transport=tcp
+#   TURN_TLS_URL        — ex. turns:turn.example.com:5349
+#   TURN_USERNAME       — identifiant TURN (statique ou REST auth)
+#   TURN_CREDENTIAL     — secret TURN
+# ---------------------------------------------------------------------------

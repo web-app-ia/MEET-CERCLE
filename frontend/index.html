@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MEET-CERCLE — Visioconférence éphémère</title>
+  <meta name="description" content="Réunions P2P prioritaires, serveur média LiveKit provisionné à la demande, détruit après usage. IPv6-first + TURN." />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script>
+    // Pointez vers le Worker si le frontend est hébergé séparément :
+    // window.MEET_CERCLE_API_BASE = "https://meet-cercle-worker.<compte>.workers.dev";
+  </script>
+</head>
+<body class="lobby">
+  <header class="topbar">
+    <div class="brand"><span class="brand-dot"></span> MEET-CERCLE</div>
+    <div class="tagline">P2P prioritaire · SFU éphémère · IPv6-first</div>
+  </header>
+
+  <main class="lobby-main">
+    <section class="hero">
+      <h1>Réunions instantanées,<br /><em>infrastructure éphémère</em></h1>
+      <p class="hero-sub">
+        Petits cercles en pair-à-pair direct. Au-delà, un serveur média LiveKit est
+        provisionné à la demande puis détruit automatiquement — vous ne payez que
+        les minutes réellement utilisées.
+      </p>
+
+      <div class="card actions-card">
+        <div class="field">
+          <label for="identity">Votre nom</label>
+          <input id="identity" type="text" maxlength="64" placeholder="ex. Alice" autocomplete="name" />
+        </div>
+        <button id="create-room" class="btn primary">Créer un salon</button>
+        <div class="divider"><span>ou rejoindre</span></div>
+        <div class="join-row">
+          <input id="room-name" type="text" maxlength="64" placeholder="code du salon (ex. abc-def-ghi)" />
+          <button id="join-room" class="btn">Rejoindre</button>
+        </div>
+        <p id="lobby-error" class="error hidden"></p>
+      </div>
+    </section>
+
+    <section class="features">
+      <article class="feature">
+        <h3>P2P d'abord</h3>
+        <p>Jusqu'à 4 participants, la connexion est directe entre navigateurs via WebRTC mesh : zéro serveur média, zéro coût.</p>
+      </article>
+      <article class="feature">
+        <h3>SFU à la demande</h3>
+        <p>Au-delà du seuil, un LiveKit CPX22 Hetzner est créé en ~2 min, DNS et certificats compris, puis détruit après la réunion.</p>
+      </article>
+      <article class="feature">
+        <h3>IPv6-first + TURN</h3>
+        <p>Primary IPv6 gratuite par défaut ; IPv4 conditionnelle et TURN mutualisé pour les réseaux restrictifs. Coût minimal.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a href="https://github.com/web-app-ia/MEET-CERCLE" target="_blank" rel="noopener">Code source</a>
+    <span>·</span>
+    <span>Architecture éphémère — devis V4</span>
+  </footer>
+
+  <script type="module" src="/assets/js/app.js"></script>
+</body>
+</html>

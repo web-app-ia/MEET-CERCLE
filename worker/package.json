@@ -1,0 +1,17 @@
+{
+  "name": "meet-cercle-worker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Orchestrateur éphémère MEET-CERCLE : P2P prioritaire, LiveKit SFU à la demande (Hetzner), IPv6-first + TURN",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250830.0",
+    "typescript": "^5.6.0",
+    "wrangler": "^4.0.0"
+  }
+}

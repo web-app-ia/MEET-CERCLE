@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Salon — MEET-CERCLE</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <script>
+    // window.MEET_CERCLE_API_BASE = "https://meet-cercle-worker.<compte>.workers.dev";
+  </script>
+</head>
+<body class="room">
+  <header class="topbar roombar">
+    <a class="brand" href="/"><span class="brand-dot"></span> MEET-CERCLE</a>
+    <div class="room-meta">
+      <span class="room-code" id="room-code">—</span>
+      <span class="mode-badge" id="mode-badge" title="Mode de connexion">…</span>
+    </div>
+    <div class="presence" id="presence">0 participant</div>
+  </header>
+
+  <div id="banner" class="banner hidden"></div>
+
+  <main class="room-main">
+    <section class="video-area">
+      <div id="video-grid" class="video-grid"></div>
+      <div id="join-overlay" class="join-overlay">
+        <div class="card join-card">
+          <h2>Rejoindre le salon</h2>
+          <p id="join-room-label" class="muted"></p>
+          <div class="preview-box">
+            <video id="preview" autoplay muted playsinline></video>
+            <p id="media-error" class="error hidden"></p>
+          </div>
+          <div class="field">
+            <label for="join-identity">Votre nom</label>
+            <input id="join-identity" type="text" maxlength="64" placeholder="ex. Alice" />
+          </div>
+          <button id="join-btn" class="btn primary wide">Rejoindre la réunion</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="chat-panel" id="chat-panel">
+      <div class="chat-head">Discussion</div>
+      <div class="chat-log" id="chat-log"></div>
+      <form class="chat-form" id="chat-form">
+        <input id="chat-input" type="text" maxlength="2000" placeholder="Message…" autocomplete="off" />
+        <button class="btn" type="submit">Envoyer</button>
+      </form>
+    </aside>
+  </main>
+
+  <footer class="controls">
+    <button id="mic-btn" class="ctl" title="Micro">🎙</button>
+    <button id="cam-btn" class="ctl" title="Caméra">📷</button>
+    <button id="leave-btn" class="ctl danger" title="Quitter">⏻</button>
+  </footer>
+
+  <script type="module" src="/assets/js/room.js"></script>
+</body>
+</html>
