@@ -45,28 +45,50 @@ Vérification immédiate :
 BASE_URL=https://meet-cercle-worker.<compte>.workers.dev bash scripts/smoke-test.sh
 ```
 
-## 2. Frontend (statique)
+## 2. App de visio CERCLE MEET (MiroTalk) + portail
 
-Deux options :
+**CERCLE MEET** est l'app de visio (MiroTalk P2P v1.9.31 rebrandé, vendored dans
+`app/mirotalk`). Elle requiert Node.js ≥ 18 et sert sa propre signalisation
+(Socket.io) sur un port unique (3000 par défaut).
 
-**A. Même origine (recommandé au début)** — Pages/asset hosting du même domaine, ou :
+```bash
+cd app/mirotalk
+npm install
+# Le premier démarrage copie config.template.js -> config.js (section brand
+# déjà rebrandée CERCLE MEET) ; personnalisez ensuite config.js si besoin :
+#   PORT, HTTPS, HOST_PROTECTED (login hôte), STUN/TURN, CORS_ORIGIN, etc.
+npm start
+# Vérification : http://<host>:3000/brand -> { "message": { "app": { "name": "CERCLE MEET" ... } } }
+```
+
+- **HTTPS obligatoire en production** (`getUserMedia` exige un contexte sécurisé) :
+  placer un reverse-proxy TLS (Caddy/Nginx) devant le port 3000, ou utiliser la
+  config HTTPS native de MiroTalk (certs dans `app/ssl/`).
+- Ne pas oublier `npm install @mattermost/types --no-save` si `npm start` échoue
+  avec `Cannot find module '@mattermost/types/client4'` (défaut de packaging upstream).
+- L'analytique tierce upstream est désactivée par défaut dans la config CERCLE MEET.
+
+**Portail** (`frontend/`, statique) :
 
 ```bash
 cd frontend
 npx wrangler pages deploy . --project-name meet-cercle
+# ou tout hébergement statique (Puter.com à valider)
 ```
 
-**B. Hébergement séparé (Puter.com ou autre)** — éditer `frontend/index.html` et
-`frontend/room.html` pour décommenter et définir :
+Le bouton « Créer un salon » appelle l'orchestrateur (traçabilité) puis ouvre
+CERCLE MEET sur `/join/?room=...&name=...`. Si l'app et le portail ne partagent
+pas la même origine, définir dans `frontend/index.html` :
 
 ```js
 window.MEET_CERCLE_API_BASE = "https://meet-cercle-worker.<compte>.workers.dev";
+window.MEET_CERCLE_MIROTALK_BASE = "https://meet.votre-domaine.tld";
 ```
 
 L'API du Worker autorise CORS (`*` par défaut) ; **restreindre** `CORS_HEADERS`
-(`worker/src/index.ts`) à l'origine exacte du frontend en production.
+(`worker/src/index.ts`) à l'origine exacte du portail en production.
 
-Le frontend doit être servi en **HTTPS** (ou `http://localhost` en dev).
+Le portail et l'app doivent être servis en **HTTPS** (ou `http://localhost` en dev).
 
 ## 3. Firewall Hetzner
 

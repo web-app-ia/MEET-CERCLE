@@ -4,11 +4,21 @@
 
 | Couche | Composant | Rôle |
 |---|---|---|
-| Interface | `frontend/` (statique) | Lobby, salon vidéo, chat, bascule P2P→SFU transparente |
+| Interface | `frontend/` (statique) | Portail : lobby, création de salon, redirection vers CERCLE MEET |
+| App de visio | `app/mirotalk/` — **CERCLE MEET** (MiroTalk P2P v1.9.31 rebrandé) | Salons vidéo complets : WebRTC P2P mesh, chat, partage d'écran, tableau blanc, signaling Node/Socket.io |
 | Orchestration | `worker/` (Cloudflare Workers) | Décision P2P/SFU, provisionnement/destruction Hetzner, tokens |
 | État | Durable Object `RoomDO` + KV `STATE` | État transactionnel par salon + index/journaux globaux |
 | Média | LiveKit Server éphémère (Hetzner CPX22) | SFU à la demande, détruit après usage |
 | Réseau | IPv6-first + TURN mutualisé | Compatibilité NAT/firewalls sans surcoût IPv4 systématique |
+
+Le portail crée/réserve le salon via l'orchestrateur puis ouvre l'interface
+**CERCLE MEET** (`/join/?room=...&name=...`). MiroTalk embarque sa propre
+signalisation et son app P2P complète ; le rebrandage passe par son système de
+marque intégré (`app/src/config.template.js` section `brand` + `public/js/brand.js`),
+sans modification du code fonctionnel (voir `app/mirotalk/REBRAND-CERCLE-MEET.md`).
+Pour les grandes réunions, la variante [mirotalksfu](https://github.com/miroslavpejic85/mirotalksfu)
+(qui s'appuie sur LiveKit) est la cible naturelle du provisionnement éphémère —
+voir `A-COMPLETER-MANUELLEMENT.md` §5.
 
 ## 2. Cycle de vie d'un salon (devis §8)
 

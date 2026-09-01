@@ -6,6 +6,11 @@ import { createRoom } from "./api.js";
 
 const $ = (sel) => document.querySelector(sel);
 
+// Base de l'app de visio CERCLE MEET (MiroTalk P2P rebrandé).
+// Vide = même origine (MiroTalk servi à la racine ou derrière un reverse-proxy).
+// Sinon ex. "https://meet.mon-domaine.tld" (voir docs/DEPLOYMENT.md).
+const MIROTALK_BASE = (window.MEET_CERCLE_MIROTALK_BASE || "").replace(/\/+$/, "");
+
 const identityInput = $("#identity");
 const roomInput = $("#room-name");
 const createBtn = $("#create-room");
@@ -30,16 +35,32 @@ function showError(msg) {
   errorBox.classList.remove("hidden");
 }
 
+/** Ouvre le salon dans l'interface CERCLE MEET (MiroTalk /join/). */
+function openMiroTalk(room, identity) {
+  const params = new URLSearchParams({
+    room,
+    name: identity,
+    audio: "1",
+    video: "1",
+    screen: "1",
+    chat: "1",
+  });
+  location.href = `${MIROTALK_BASE}/join/?${params.toString()}`;
+}
+
 createBtn.addEventListener("click", async () => {
   const identity = currentIdentity();
   if (!identity) return;
   createBtn.disabled = true;
   try {
     const { room } = await createRoom();
-    location.href = `/room/?room=${encodeURIComponent(room)}`;
+    localStorage.setItem("meet-cercle-last-room", room);
+    openMiroTalk(room, identity);
   } catch (err) {
-    showError(`Création impossible : ${err.message}`);
-    createBtn.disabled = false;
+    // Orchestrateur indisponible : ouverture directe du salon MiroTalk
+    // (le salon est créé à la volée par MiroTalk, sans provisionnement SFU).
+    const fallback = localStorage.getItem("meet-cercle-last-room");
+    openMiroTalk(fallback || `salon-${Math.random().toString(36).slice(2, 10)}`, identity);
   }
 });
 
@@ -51,7 +72,8 @@ joinBtn.addEventListener("click", () => {
     showError("Code de salon invalide (lettres minuscules, chiffres et tirets).");
     return;
   }
-  location.href = `/room/?room=${encodeURIComponent(room)}`;
+  localStorage.setItem("meet-cercle-last-room", room);
+  openMiroTalk(room, identity);
 });
 
 roomInput.addEventListener("keydown", (e) => {

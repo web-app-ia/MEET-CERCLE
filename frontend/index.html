@@ -3,17 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MEET-CERCLE — Visioconférence éphémère</title>
+  <title>CERCLE MEET — Visioconférence éphémère</title>
   <meta name="description" content="Réunions P2P prioritaires, serveur média LiveKit provisionné à la demande, détruit après usage. IPv6-first + TURN." />
+  <link rel="icon" type="image/svg+xml" href="/assets/img/logo-cercle.svg" />
   <link rel="stylesheet" href="/assets/css/style.css" />
   <script>
     // Pointez vers le Worker si le frontend est hébergé séparément :
     // window.MEET_CERCLE_API_BASE = "https://meet-cercle-worker.<compte>.workers.dev";
+    // Base de l'app CERCLE MEET (MiroTalk) si hébergée sur une autre origine :
+    // window.MEET_CERCLE_MIROTALK_BASE = "https://meet.mon-domaine.tld";
   </script>
 </head>
 <body class="lobby">
   <header class="topbar">
-    <div class="brand"><span class="brand-dot"></span> MEET-CERCLE</div>
+    <div class="brand"><span class="brand-dot"></span> CERCLE MEET</div>
     <div class="tagline">P2P prioritaire · SFU éphémère · IPv6-first</div>
   </header>
 
@@ -59,6 +62,8 @@
 
   <footer class="footer">
     <a href="https://github.com/web-app-ia/MEET-CERCLE" target="_blank" rel="noopener">Code source</a>
+    <span>·</span>
+    <span>Visio propulsée par CERCLE MEET (basé sur <a href="https://github.com/miroslavpejic85/mirotalk" target="_blank" rel="noopener">MiroTalk P2P</a>)</span>
     <span>·</span>
     <span>Architecture éphémère — devis V4</span>
   </footer>
