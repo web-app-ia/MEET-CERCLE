@@ -9,7 +9,13 @@ const $ = (sel) => document.querySelector(sel);
 // Base de l'app de visio CERCLE MEET (MiroTalk P2P rebrandé).
 // Vide = même origine (MiroTalk servi à la racine ou derrière un reverse-proxy).
 // Sinon ex. "https://meet.mon-domaine.tld" (voir docs/DEPLOYMENT.md).
-const MIROTALK_BASE = (window.MEET_CERCLE_MIROTALK_BASE || "").replace(/\/+$/, "");
+// En local (localhost), on cible par défaut MiroTalk sur le port 3000.
+const MIROTALK_BASE = (
+  window.MEET_CERCLE_MIROTALK_BASE ||
+  (["127.0.0.1", "localhost", "[::1]"].includes(location.hostname)
+    ? `${location.protocol}//${location.hostname}:3000`
+    : "")
+).replace(/\/+$/, "");
 
 const identityInput = $("#identity");
 const roomInput = $("#room-name");
