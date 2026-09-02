@@ -55,7 +55,7 @@ Détail des modifications : `app/mirotalk/REBRAND-CERCLE-MEET.md`.
 | Dossier | Contenu |
 |---|---|
 | `app/mirotalk/` | **CERCLE MEET** — app de visio (MiroTalk P2P rebrandé, signaling Node/Socket.io + WebRTC) |
-| `frontend/` | Portail statique : lobby, création de salon, redirection vers CERCLE MEET |
+| `frontend/` | Portail statique : lobby, création de salon, **abonnement local démontrable** et redirection vers CERCLE MEET |
 | `worker/` | Orchestrateur Cloudflare Workers (TypeScript) : API, RoomDO, Hetzner, DNS, JWT |
 | `infra/` | Config TURN (coturn) + cloud-init de référence LiveKit |
 | `scripts/` | Smoke test de l'orchestrateur |
@@ -80,13 +80,17 @@ python -m http.server 8080     # ou : npx serve .
 > `npm install @mattermost/types --no-save`
 
 ```bash
-# 3. Orchestrateur (optionnel — provisionnement SFU éphémère Hetzner)
+# 3. Abonnement local démontrable — http://localhost:8080/abonnement.html
+#    Aucun paiement réel : données stockées dans localStorage du navigateur
+```
+
+```bash
+# 4. Orchestrateur (optionnel — provisionnement SFU éphémère Hetzner)
 cd worker
 npm install
 npx wrangler kv namespace create STATE   # reporter l'id dans wrangler.toml
 npx wrangler dev                          # http://127.0.0.1:8787
 ```
-
 En dev local sans secrets Hetzner, la bascule SFU est « demandée » mais le
 provisionnement échoue proprement (journalisé, salon dégradé en P2P, cooldown 2 min) —
 le P2P reste fonctionnel de bout en bout.

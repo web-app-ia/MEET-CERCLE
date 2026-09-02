@@ -97,8 +97,8 @@ health-check en `https://` et que le client se connecte en `wss://`. À faire :
       `expirationTtl`) — aligner sur vos obligations (RGPD/fournisseur d'accès, etc.).
 - [ ] Valider les tarifs Hetzner/Cloudflare à la date de commande (le devis V4 date du
       30/08/2026 ; prix CPX22 19,49 €/mois, IPv4 0,50 €/mois HT).
-- [ ] Paiement/monétisation (pass réunion 5 € mentionné au devis §11) : **hors périmètre**,
-      aucune passerelle n'est implémentée.
+- [ ] Paiement/monétisation en production : la page locale démontrable existe dans `frontend/abonnement.html`, mais elle ne réalise **aucun paiement réel**. Pour Stripe : compte marchand, produits/prix, clé secrète et secret webhook en secrets Worker, session Checkout, webhook signé, base utilisateurs/abonnements, factures, annulation/remboursement et contrôle serveur avant accès aux fonctions payantes.
+- [ ] Authentification en production : la démonstration locale ne possède pas de comptes ; mettre en place une identité serveur avant d'associer un abonnement à un utilisateur.
 - [ ] Surveillance continue : coûts SFU (heures), trafic TURN, erreurs ICE — les
       événements KV suffisent pour démarrer ; prévoir export/métriques si besoin.
 

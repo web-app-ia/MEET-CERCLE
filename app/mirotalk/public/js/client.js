@@ -201,6 +201,7 @@ const snapshotRoomBtn = getId('snapshotRoomBtn');
 const fileShareBtn = getId('fileShareBtn');
 const documentPiPBtn = getId('documentPiPBtn');
 const aboutBtn = getId('aboutBtn');
+const subscriptionBtn = getId('subscriptionBtn');
 
 // Buttons bottom
 const bottomButtons = getId('bottomButtons');
@@ -6277,6 +6278,7 @@ function manageButtons() {
     setMySettingsBtn();
     setMySettingsExtraBtns();
     setAboutBtn();
+    setSubscriptionBtn();
 
     // Buttons bottom
     setAudioBtn();
@@ -7723,6 +7725,18 @@ function updateSettingsExtraGroups() {
 function setAboutBtn() {
     aboutBtn.addEventListener('click', (e) => {
         showAbout();
+    });
+}
+
+/**
+ * Open the CERCLE MEET subscription page.
+ */
+function setSubscriptionBtn() {
+    subscriptionBtn.addEventListener('click', () => {
+        const base = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
+            ? `${window.location.protocol}//${window.location.hostname}:8080`
+            : window.location.origin;
+        window.open(`${base}/abonnement.html`, '_blank', 'noopener,noreferrer');
     });
 }
 

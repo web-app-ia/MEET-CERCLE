@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------
 
 import { createRoom } from "./api.js";
+import { getSubscription, remainingDays } from "./subscription.js";
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -24,6 +25,17 @@ const joinBtn = $("#join-room");
 const errorBox = $("#lobby-error");
 
 identityInput.value = localStorage.getItem("meet-cercle-identity") || "";
+
+// Badge d'abonnement actif dans la barre supérieure.
+function renderSubscriptionBadge() {
+  const badge = $("#subscription-badge");
+  const sub = getSubscription();
+  if (!sub) return;
+  const days = remainingDays(sub);
+  badge.textContent = `${sub.planName} · ${days < 1 ? Math.round(days * 24) + " h" : Math.ceil(days) + " j"}`;
+  badge.classList.remove("hidden");
+}
+renderSubscriptionBadge();
 
 function currentIdentity() {
   const v = identityInput.value.trim();
