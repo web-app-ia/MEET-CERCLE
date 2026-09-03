@@ -611,9 +611,7 @@
                                     <h2 class="m-0">Une visioconférence simple, privée et accessible.</h2>
                                 </div>
                                 <div class="center-content">
-                                    <a class="button button-custom button-wide-mobile br-6 pulse" href="/newcall"
-                                        >Lancer une réunion</a
-                                    >
+                                    <a class="button button-custom button-wide-mobile br-6 pulse" href="/newcall" id="launchMeetingBtn" onclick="(function(e){e.preventDefault();var n=([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g,function(c){return (c^(crypto.getRandomValues(new Uint8Array(1))[0]&(15>>(c/4)))).toString(16);});window.localStorage.lastRoom=n;window.location.href='/join/'+n;})()">Lancer une réunion</a>
                                 </div>
                             </div>
                         </div>
