@@ -98,8 +98,8 @@ let brand = {
     html: {
         topSponsors: false,
         features: true,
-        teams: true, // please keep me always true ;)
-        tryEasier: false,
+        teams: true,
+        tryEasier: true,
         poweredBy: false,
         sponsors: false,
         pastSponsors: false,
@@ -109,32 +109,13 @@ let brand = {
     },
     about: {
         imageUrl: '../images/logo-cercle.svg',
-        title: 'CERCLE MEET — basé sur MiroTalk P2P',
+        title: 'CERCLE MEET — basé sur le moteur open source MiroTalk P2P',
         html: `
-            <button 
-                id="support-button" 
-                data-umami-event="Support button" 
-                onclick="window.open('https://codecanyon.net/user/miroslavpejic85')">
-                <i class="fas fa-heart" ></i>&nbsp;Support
-            </button>
-            <br /><br /><br />
-            Author:<a 
-                id="linkedin-button" 
-                data-umami-event="Linkedin button" 
-                href="https://www.linkedin.com/in/miroslav-pejic-976a07101/" target="_blank"> 
-                Miroslav Pejic
-            </a>
-            <br /><br />
-            Email:<a 
-                id="email-button" 
-                data-umami-event="Email button" 
-                href="mailto:miroslav.pejic.85@gmail.com?subject=MiroTalk P2P info"> 
-                miroslav.pejic.85@gmail.com
-            </a>
-            <br /><br />
+            <p><strong>CERCLE MEET</strong> est votre espace de visioconférence pour les cercles, équipes et communautés.</p>
+            <p>Réunions P2P, chat, partage d'écran, tableau blanc et partage de fichiers directement dans le navigateur.</p>
+            <p><a href="/abonnement.html">Consulter les offres et la validité de votre abonnement</a></p>
             <hr />
-            <span>CERCLE MEET — basé sur MiroTalk P2P (open-source), tous droits réservés</span>
-            <hr />
+            <p class="text-sm">Moteur vidéo : MiroTalk P2P open source sous licence AGPLv3. Attribution et code source conservés conformément à la licence.</p>
         `,
     },
     widget: {

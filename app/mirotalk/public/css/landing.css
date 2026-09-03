@@ -1,4 +1,110 @@
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans:600|Lato:400&display=swap');
+/* CERCLE MEET subscription section */
+.cercle-section {
+    padding: 80px 0;
+    background: linear-gradient(180deg, rgba(55, 109, 249, 0.05), rgba(0, 0, 0, 0));
+}
+
+.cercle-section-inner {
+    border-top: 1px solid #292b32;
+    padding-top: 56px;
+}
+
+.cercle-section-heading {
+    max-width: 680px;
+    margin: 0 auto 36px;
+    text-align: center;
+}
+
+.cercle-kicker,
+.cercle-plan-label {
+    color: #53d8ff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.cercle-section-heading h2 {
+    margin: 10px 0 14px;
+}
+
+.cercle-section-heading p,
+.cercle-plan p,
+.cercle-demo-note {
+    color: #a6a7ab;
+}
+
+.cercle-plans {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.cercle-plan {
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+    border: 1px solid #292b32;
+    border-radius: 12px;
+    background: rgba(23, 23, 23, 0.82);
+    text-align: left;
+}
+
+.cercle-plan-featured {
+    border-color: #376df9;
+    box-shadow: 0 16px 40px rgba(55, 109, 249, 0.16);
+}
+
+.cercle-plan h3 {
+    margin: 12px 0 8px;
+}
+
+.cercle-plan-price {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.cercle-plan-price small {
+    color: #a6a7ab;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.cercle-plan ul {
+    flex: 1;
+    margin: 18px 0 24px;
+    padding: 0;
+    list-style: none;
+}
+
+.cercle-plan li {
+    margin-bottom: 10px;
+    color: #d7d8dc;
+}
+
+.cercle-plan li::before {
+    content: '✓';
+    margin-right: 8px;
+    color: #53d8ff;
+}
+
+.cercle-demo-note {
+    margin: 24px 0 0;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.cercle-demo-note a {
+    color: #53d8ff;
+}
+
+@media (max-width: 800px) {
+    .cercle-plans {
+        grid-template-columns: 1fr;
+    }
+}
+
 
 html {
     line-height: 1.15;

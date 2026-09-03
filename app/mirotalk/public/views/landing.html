@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="fr" class="no-js">
     <head>
         <!-- Title and Icon -->
 
@@ -16,7 +16,7 @@
 
         <meta
             name="description"
-            content="CERCLE MEET is an open-source self-hosted WebRTC video calling and meeting platform. Create fast peer-to-peer video calls with screen sharing, chat, whiteboard and collaboration directly in the browser."
+            content="CERCLE MEET est la solution de visioconférence WebRTC simple, sécurisée et rapide. Réunions P2P, partage d’écran, webcam, chat, enregistrement, tableau blanc et partage de fichiers directement dans le navigateur."
         />
 
         <!-- https://ogp.me -->
@@ -105,17 +105,17 @@
                                             class="mt-32 mb-16 reveal-from-bottom"
                                             data-reveal-delay="150"
                                         >
-                                            CERCLE MEET<br />Free browser based Real-time video calls.<br />
-                                            Simple, Secure, Fast.
+                                            CERCLE MEET<br />La visioconférence libre, simple et sécurisée.<br />
+                                            Pour vos cercles, vos équipes et vos communautés.
                                         </h1>
                                         <p
                                             id="appDescription"
                                             class="mt-0 mb-32 reveal-from-bottom"
                                             data-reveal-delay="300"
                                         >
-                                            Start your next video call with a single click. No download, plug-in, or
-                                            login is required. Just get straight to talking, messaging, and sharing your
-                                            screen.
+                                            Lancez une réunion instantanément. Sans téléchargement, sans plugin et sans
+                                            connexion obligatoire. Parlez, échangez des messages et partagez votre écran
+                                            directement depuis votre navigateur.
                                         </p>
                                     </div>
                                     <style>
@@ -136,20 +136,20 @@
                         <div class="cta-inner section-inner cta-split br-12">
                             <div class="cta-slogan">
                                 <h3 id="appJoinDescription" class="m-0">
-                                    Pick a room name.<br />
-                                    How about this one?
+                                    Choisissez le nom de votre salon.<br />
+                                    Partagez ensuite le lien avec vos participants.
                                 </h3>
                             </div>
                             <div class="cta-action">
                                 <div class="mb-0">
-                                    <label class="form-label screen-reader" for="roomName">CERCLE MEET-P2P</label>
+                                    <label class="form-label screen-reader" for="roomName">Nom du salon CERCLE MEET</label>
                                     <div class="form-group-desktop">
                                         <div class="room-input-wrap">
                                             <input
                                                 id="roomName"
                                                 class="form-input"
                                                 type="text"
-                                                value="mirotalk"
+                                                value="cercle-meet"
                                                 maxlength="64"
                                             />
                                             <button
@@ -158,7 +158,7 @@
                                             ></button>
                                         </div>
                                         <button id="joinRoomButton" class="button button-primary br-6">
-                                            Join Room
+                                            Rejoindre le salon
                                         </button>
                                     </div>
                                     <div class="mt-16">
@@ -166,12 +166,12 @@
                                             id="customizeRoomButton"
                                             class="button button-custom-room button-block br-6"
                                         >
-                                            Customize Room
+                                            Personnaliser le salon
                                         </button>
                                     </div>
                                 </div>
                                 <div id="lastRoomContainer" class="last-room">
-                                    <span id="appJoinLastRoom">Your recent room:</span>
+                                    <span id="appJoinLastRoom">Votre salon récent :</span>
                                     <a id="lastRoom"></a>
                                 </div>
                             </div>
@@ -182,30 +182,80 @@
                 <section id="topSponsors" class="clients section">
                     <div class="container">
                         <div class="clients-inner section-inner has-animations has-top-divider">
-                            <h3 class="tac">This project is proudly sponsored by</h3>
+                            <h3 class="tac">CERCLE MEET pour vos réunions</h3>
                             <ul class="list-reset">
                                 <li class="reveal-from-left" data-reveal-delay="150">
                                     <a
                                         class="sponsor-link"
-                                        href="https://recall.ai/?utm_source=mirotalkp2p&utm_medium=sponsorship"
-                                        target="_blank"
-                                        data-umami-event="RecallButton"
+                                        href="/abonnement.html"
+                                        target="_self"
+                                        data-umami-event="CercleSubscription"
                                     >
                                         <div class="clients-logo">
                                             <img
                                                 class="clients-size-logo"
-                                                src="../sponsors/RecallAI.svg"
-                                                alt="Recall.ai"
+                                                src="../images/logo-cercle.svg"
+                                                alt="CERCLE MEET"
                                             />
                                         </div>
-                                        <div class="mt-16 tac">
-                                            <span class="blue">Recall.ai</span>
-                                            – an API for recording Zoom, Google Meet, Microsoft Teams, and in-person
-                                            meetings.
+                                            <div class="mt-16 tac">
+                                            <span class="blue">CERCLE MEET</span>
+                                            – des réunions en ligne pensées pour vos cercles, équipes et communautés.
                                         </div>
                                     </a>
                                 </li>
                             </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="cercleSubscription" class="cercle-section">
+                    <div class="container">
+                        <div class="cercle-section-inner">
+                            <div class="cercle-section-heading">
+                                <span class="cercle-kicker">CERCLE MEET</span>
+                                <h2>Choisissez l'expérience qui vous correspond</h2>
+                                <p>Commencez gratuitement en P2P, puis activez une offre lorsque vous avez besoin de plus de capacité et de fonctionnalités.</p>
+                            </div>
+                            <div class="cercle-plans">
+                                <article class="cercle-plan">
+                                    <span class="cercle-plan-label">Pour commencer</span>
+                                    <h3>Gratuit</h3>
+                                    <div class="cercle-plan-price">0 €</div>
+                                    <p>Pour les échanges simples entre proches, équipes et communautés.</p>
+                                    <ul>
+                                        <li>Réunions P2P jusqu'à 4 participants</li>
+                                        <li>Salon créé en quelques secondes</li>
+                                        <li>Chat et partage d'écran</li>
+                                    </ul>
+                                    <a class="button button-custom button-block br-6" href="#roomName">Commencer maintenant</a>
+                                </article>
+                                <article class="cercle-plan cercle-plan-featured">
+                                    <span class="cercle-plan-label">Le plus choisi</span>
+                                    <h3>Pass Réunion</h3>
+                                    <div class="cercle-plan-price">5 € <small>/ 24 h</small></div>
+                                    <p>Pour organiser une réunion ponctuelle avec davantage de participants.</p>
+                                    <ul>
+                                        <li>1 réunion à la date de votre choix</li>
+                                        <li>Jusqu'à 8 participants</li>
+                                        <li>Infrastructure SFU à la demande</li>
+                                    </ul>
+                                    <a class="button button-primary button-block br-6" href="/abonnement.html">Voir les offres</a>
+                                </article>
+                                <article class="cercle-plan">
+                                    <span class="cercle-plan-label">Pour les équipes</span>
+                                    <h3>Mensuel</h3>
+                                    <div class="cercle-plan-price">9,99 € <small>/ mois</small></div>
+                                    <p>Pour des réunions régulières et une utilisation professionnelle.</p>
+                                    <ul>
+                                        <li>Réunions illimitées</li>
+                                        <li>Participants et salons privés</li>
+                                        <li>Support par e-mail</li>
+                                    </ul>
+                                    <a class="button button-custom button-block br-6" href="/abonnement.html">Voir les offres</a>
+                                </article>
+                            </div>
+                            <p class="cercle-demo-note">Démonstration locale : aucun paiement réel n'est effectué. <a href="/abonnement.html">Consulter la validité et l'historique</a>.</p>
                         </div>
                     </div>
                 </section>
@@ -216,12 +266,12 @@
                             <div class="section-header">
                                 <div class="container-xs reveal-from-bottom" data-reveal-delay="650">
                                     <h2 class="mt-0 mb-16">
-                                        Unlimited number of conference rooms without call time limitation
+                                        Réunions sans limite de durée avec CERCLE MEET
                                     </h2>
                                     <p class="m-0">
-                                        CERCLE MEET is built radically differently. We left behind slow bulky servers,
-                                        opting for peer-to-peer calling. We engineered a platform with maximum video
-                                        quality lowest latency that makes your calls crystal clear.
+                                        CERCLE MEET privilégie les échanges pair-à-pair pour réduire la latence et préserver
+                                        la confidentialité. Lorsque la taille d'une réunion l'exige, une infrastructure SFU
+                                        éphémère peut prendre le relais.
                                     </p>
                                 </div>
                             </div>
@@ -234,15 +284,15 @@
                                                 <img
                                                     class="wh-200-150"
                                                     src="../svg/screenSharing.svg"
-                                                    alt="Screen Sharing"
+                                        alt="Partage d'écran"
                                                 />
                                             </div>
                                         </div>
                                         <div class="features-tiles-item-content">
-                                            <h4 class="mt-0 mb-8">Screen Sharing</h4>
+                                            <h4 class="mt-0 mb-8">Partage d'écran</h4>
                                             <p class="m-0 text-sm">
-                                                Share your screen, application window, present your documents, slides
-                                                and more. Up to 8k resolution and speed up to 60fps.
+                                                Partagez votre écran, une fenêtre ou vos documents pour présenter vos idées
+                                                avec votre cercle, jusqu'à 60 images par seconde.
                                             </p>
                                         </div>
                                     </div>
@@ -254,16 +304,15 @@
                                             <div class="features-tiles-item-image mb-16">
                                                 <img
                                                     class="wh-200-150"
-                                                    src="../svg/webcamStreaming.svg"
-                                                    alt="WebCam Streaming"
+                                                    src="../svg/webcamStreaming.svg" alt="Webcam"
                                                 />
                                             </div>
                                         </div>
                                         <div class="features-tiles-item-content">
-                                            <h4 class="mt-0 mb-8">WebCam Streaming</h4>
+                                            <h4 class="mt-0 mb-8">Webcam</h4>
                                             <p class="m-0 text-sm">
-                                                Having the webcam on, allows participants to make a deeper connection
-                                                with you. Up to 8k resolution and speed up to 60fps.
+                                                Activez votre caméra pour créer une présence plus humaine et rapprocher
+                                                les participants de votre cercle.
                                             </p>
                                         </div>
                                     </div>
@@ -273,14 +322,14 @@
                                     <div class="tiles-item-inner">
                                         <div class="features-tiles-item-header">
                                             <div class="features-tiles-item-image mb-16">
-                                                <img class="wh-200-150" src="../svg/webcamChat.svg" alt="Chat Room" />
+                                                <img class="wh-200-150" src="../svg/webcamChat.svg" alt="Salon de discussion" />
                                             </div>
                                         </div>
                                         <div class="features-tiles-item-content">
-                                            <h4 class="mt-0 mb-8">Chat Room</h4>
+                                            <h4 class="mt-0 mb-8">Salon de discussion</h4>
                                             <p class="m-0 text-sm">
-                                                Chat with others in the meeting, either public chat or private, save the
-                                                meeting messages. An integrated emoji picker to show your feeling.
+                                                Échangez en public ou en privé, retrouvez les messages importants et utilisez
+                                                les réactions pour faire vivre la conversation.
                                             </p>
                                         </div>
                                     </div>
@@ -293,15 +342,15 @@
                                                 <img
                                                     class="wh-200-150"
                                                     src="../svg/recordingMeeting.svg"
-                                                    alt="Meeting Recording"
+                                                    alt="Enregistrement de réunion"
                                                 />
                                             </div>
                                         </div>
                                         <div class="features-tiles-item-content">
-                                            <h4 class="mt-0 mb-8">Meeting Recording</h4>
+                                            <h4 class="mt-0 mb-8">Enregistrement</h4>
                                             <p class="m-0 text-sm">
-                                                Record your Screen, WebCam and Audio. Save it for use in the future or
-                                                to share with others.
+                                                Enregistrez votre écran, votre webcam et votre audio localement pour
+                                                conserver ou partager le contenu de votre réunion.
                                             </p>
                                         </div>
                                     </div>
@@ -314,15 +363,15 @@
                                                 <img
                                                     class="wh-200-150"
                                                     src="../svg/interactiveWhitboard.svg"
-                                                    alt="Interactive Whiteboard"
+                                                    alt="Tableau blanc collaboratif"
                                                 />
                                             </div>
                                         </div>
                                         <div class="features-tiles-item-content">
-                                            <h4 class="mt-0 mb-8">Interactive Whiteboard</h4>
+                                            <h4 class="mt-0 mb-8">Tableau blanc</h4>
                                             <p class="m-0 text-sm">
-                                                Advanced collaborative whiteboard to draw and explain your concepts to
-                                                the other participants in the meeting.
+                                                Dessinez, annotez et expliquez vos concepts grâce à un tableau blanc
+                                                collaboratif pendant la réunion.
                                             </p>
                                         </div>
                                     </div>
@@ -335,15 +384,15 @@
                                                 <img
                                                     class="wh-200-150"
                                                     src="../svg/fileSharing.svg"
-                                                    alt="File Sharing"
+                                                    alt="Partage de fichiers"
                                                 />
                                             </div>
                                         </div>
                                         <div class="features-tiles-item-content">
-                                            <h4 class="mt-0 mb-8">File Sharing</h4>
+                                            <h4 class="mt-0 mb-8">Partage de fichiers</h4>
                                             <p class="m-0 text-sm">
-                                                Share any types of files to all participants in the meeting, in total
-                                                security, thanks to Datagram Transport Layer Security (DTLS).
+                                                Partagez des fichiers avec les participants de manière sécurisée grâce
+                                                au chiffrement de la connexion.
                                             </p>
                                         </div>
                                     </div>
@@ -353,14 +402,14 @@
                                     <div class="tiles-item-inner">
                                         <div class="features-tiles-item-header">
                                             <div class="features-tiles-item-image mb-16">
-                                                <img class="wh-200-150" src="../svg/chatgpt.svg" alt="ChatGPT" />
+                                                <img class="wh-200-150" src="../svg/chatgpt.svg" alt="Intégrations CERCLE MEET" />
                                             </div>
                                         </div>
                                         <div class="features-tiles-item-content">
-                                            <h4 class="mt-0 mb-8">ChatGPT</h4>
+                                            <h4 class="mt-0 mb-8">Intégrations</h4>
                                             <p class="m-0 text-sm">
-                                                ChatGPT for answering questions, providing information, and connecting
-                                                users to relevant resources.
+                                                Préparez l'évolution de CERCLE MEET avec des intégrations adaptées à
+                                                vos outils et à vos usages.
                                             </p>
                                         </div>
                                     </div>
@@ -370,14 +419,14 @@
                                     <div class="tiles-item-inner">
                                         <div class="features-tiles-item-header">
                                             <div class="features-tiles-item-image mb-16">
-                                                <img class="wh-200-150" src="../svg/api.svg" alt="Rest API" />
+                                                <img class="wh-200-150" src="../svg/api.svg" alt="API et intégrations" />
                                             </div>
                                         </div>
                                         <div class="features-tiles-item-content">
-                                            <h4 class="mt-0 mb-8">Rest API</h4>
+                                            <h4 class="mt-0 mb-8">API et intégrations</h4>
                                             <p class="m-0 text-sm">
-                                                Seamlessly integrate and power your applications with ease. Quick setup
-                                                and top-tier support.
+                                                Connectez CERCLE MEET à vos outils lorsque vos besoins évoluent. Une base
+                                                prête pour vos intégrations futures.
                                             </p>
                                         </div>
                                     </div>
@@ -390,15 +439,15 @@
                                                 <img
                                                     class="wh-200-150"
                                                     src="../svg/totalPrivacy.svg"
-                                                    alt="Total Privacy"
+                                                    alt="Confidentialité"
                                                 />
                                             </div>
                                         </div>
                                         <div class="features-tiles-item-content">
-                                            <h4 class="mt-0 mb-8">Total Privacy</h4>
+                                            <h4 class="mt-0 mb-8">Confidentialité</h4>
                                             <p class="m-0 text-sm">
-                                                Data stays between you and your participants. CERCLE MEET doesn't collect
-                                                or share personal information. It's built for privacy first.
+                                                Vos échanges restent entre les participants. CERCLE MEET est pensé pour
+                                                limiter la collecte et préserver votre vie privée.
                                             </p>
                                         </div>
                                     </div>
@@ -411,15 +460,15 @@
                                                 <img
                                                     class="wh-200-150"
                                                     src="../svg/maximumSecurity.svg"
-                                                    alt="Maximum Security"
+                                                    alt="Sécurité"
                                                 />
                                             </div>
                                         </div>
                                         <div class="features-tiles-item-content">
-                                            <h4 class="mt-0 mb-8">Maximum Security</h4>
+                                            <h4 class="mt-0 mb-8">Sécurité</h4>
                                             <p class="m-0 text-sm">
-                                                End-to-end state-of-the-art encryption means your participants are
-                                                exactly that. Your calls.
+                                                Les connexions WebRTC chiffrées protègent vos échanges. Vos participants
+                                                sont ceux que vous avez invités.
                                             </p>
                                         </div>
                                     </div>
@@ -434,7 +483,8 @@
                         <div class="team-inner section-inner has-top-divider">
                             <div class="section-header center-content reveal-from-bottom">
                                 <div class="container-xs">
-                                    <h2 class="mt-0 mb-16">Meet the team</h2>
+                                    <h2 class="mt-0 mb-16">L'équipe CERCLE MEET</h2>
+                                    <p class="m-0">Une identité et un service construits pour des réunions simples, privées et accessibles.</p>
                                 </div>
                             </div>
 
@@ -445,8 +495,8 @@
                                         <div class="team-item-header">
                                             <div class="team-item-image mb-24">
                                                 <img
-                                                    src="../images/miroslav-pejic.png"
-                                                    alt="Team member author"
+                                                    src="../images/logo-cercle.svg"
+                                                    alt="CERCLE MEET"
                                                     width="180"
                                                     height="180"
                                                     class="rounded-image"
@@ -456,12 +506,12 @@
                                         <div class="team-item-content">
                                             <a
                                                 target="_blank"
-                                                href="https://www.linkedin.com/in/miroslav-pejic-976a07101/"
+                                                href="https://github.com/web-app-ia/MEET-CERCLE"
                                             >
-                                                <h5 class="team-item-name mt-0 mb-4">Miroslav Pejic</h5>
+                                                <h5 class="team-item-name mt-0 mb-4">CERCLE MEET</h5>
                                             </a>
                                             <div class="team-item-role text-xxs fw-500 text-color-primary mb-8">
-                                                Full Stack Developer
+                                                Conception et expérience de visioconférence
                                             </div>
                                         </div>
                                     </div>
@@ -471,16 +521,16 @@
                     </div>
                 </section>
 
-                <section id="tryEasier" class="section">
+                <section id="tryEasier" class="section" style="display: none">
                     <div class="container">
                         <div class="section-inner has-top-divider">
                             <div class="container-xs">
                                 <div class="section-header center-content">
-                                    <h2 class="m-0">Try an easier, more secure way of calling.</h2>
+                                    <h2 class="m-0">Une visioconférence simple, privée et accessible.</h2>
                                 </div>
                                 <div class="center-content">
                                     <a class="button button-custom button-wide-mobile br-6 pulse" href="/newcall"
-                                        >Try now</a
+                                        >Lancer une réunion</a
                                     >
                                 </div>
                             </div>
@@ -488,7 +538,7 @@
                     </div>
                 </section>
 
-                <section id="poweredBy" class="clients section">
+                <section id="poweredBy" class="clients section" style="display: none">
                     <div class="container">
                         <h4 class="mt-24 powered-by">Powered by</h4>
                         <div class="clients-inner section-inner has-animations has-top-divider has-bottom-divider">
@@ -537,7 +587,7 @@
                     </div>
                 </section>
 
-                <section id="sponsors" class="clients section">
+                <section id="sponsors" class="clients section" style="display: none">
                     <div class="container">
                         <h2 class="mt-24 tac">Current Sponsors</h2>
                         <div class="clients-inner section-inner has-animations has-top-divider has-bottom-divider">
@@ -652,7 +702,7 @@
                     </div>
                 </section>
 
-                <section id="pastSponsors" class="clients section">
+                <section id="pastSponsors" class="clients section" style="display: none">
                     <div class="container">
                         <div class="past-sponsors-header tac mt-24 mb-24">
                             <button
@@ -720,7 +770,7 @@
                     </div>
                 </section>
 
-                <section id="advertisers" class="clients section">
+                <section id="advertisers" class="clients section" style="display: none">
                     <div class="container">
                         <h2 class="mt-24 tac">Our Advertisers</h2>
                         <div class="clients-inner section-inner has-animations has-top-divider has-bottom-divider">
@@ -769,7 +819,7 @@
                     </div>
                 </section>
 
-                <section id="supportUs" class="cta section mt-24 mb-24">
+                <section id="supportUs" class="cta section mt-24 mb-24" style="display: none">
                     <div class="container">
                         <div class="cta-inner section-inner br-12 has-animations">
                             <div class="support-us-content">
@@ -897,109 +947,24 @@
                     <div class="site-footer-inner">
                         <div class="footer-top space-between text-xxs">
                             <div class="brand">
-                                <a href="/"><img src="../images/logo-cercle.svg" alt="Neon" width="32" height="32" /></a>
+                                <a href="/"><img src="../images/logo-cercle.svg" alt="CERCLE MEET" width="32" height="32" /></a>
                             </div>
                             <div class="footer-social">
                                 <ul class="list-reset">
                                     <li class="footer-social-icon">
-                                        <a target="_blank" href="https://discord.gg/rgGYfeYW3N">
-                                            <svg
-                                                width="16"
-                                                height="16"
-                                                viewBox="0 0 16 16"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <title>Forum</title>
-                                                <path
-                                                    d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"
-                                                />
-                                            </svg>
+                                        <a target="_blank" href="https://github.com/web-app-ia/MEET-CERCLE">
+                                            <span aria-label="GitHub CERCLE MEET">GitHub</span>
                                         </a>
                                     </li>
                                     <li class="footer-social-icon">
-                                        <a target="_blank" href="https://www.facebook.com/mirotalk">
-                                            <svg
-                                                width="16"
-                                                height="16"
-                                                viewBox="0 0 16 16"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <title>Facebook</title>
-                                                <path
-                                                    d="M6.023 16L6 9H3V6h3V4c0-2.7 1.672-4 4.08-4 1.153 0 2.144.086 2.433.124v2.821h-1.67c-1.31 0-1.563.623-1.563 1.536V6H13l-1 3H9.28v7H6.023z"
-                                                />
-                                            </svg>
+                                        <a target="_blank" href="https://www.linkedin.com/company/cercle-meet/">
+                                            <span aria-label="LinkedIn CERCLE MEET">LinkedIn</span>
                                         </a>
                                     </li>
                                     <li class="footer-social-icon">
-                                        <a target="_blank" href="https://www.linkedin.com/company/mirotalk">
-                                            <svg
-                                                width="16"
-                                                height="16"
-                                                viewBox="0 0 16 16"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <title>LinkedIn</title>
-                                                <path
-                                                    d="M1.146 0C.513 0 0 .526 0 1.175v13.65C0 15.487.513 16 1.146 16h13.708c.633 0 1.146-.513 1.146-1.175V1.175C16 .526 15.487 0 14.854 0H1.146ZM4.75 13.5H2.5V6.25h2.25V13.5ZM3.625 5.25a1.313 1.313 0 1 1 0-2.625 1.313 1.313 0 0 1 0 2.625Zm9.875 8.25h-2.25V9.969c0-.922-.016-2.11-1.286-2.11-1.288 0-1.485 1.005-1.485 2.044V13.5h-2.25V6.25h2.16v.991h.03c.3-.57 1.036-1.171 2.133-1.171 2.281 0 2.703 1.502 2.703 3.455V13.5Z"
-                                                />
-                                            </svg>
+                                        <a target="_blank" href="https://www.youtube.com/@CERCLEMEET">
+                                            <span aria-label="YouTube CERCLE MEET">YouTube</span>
                                         </a>
-                                    </li>
-                                    <li class="footer-social-icon">
-                                        <a target="_blank" href="https://www.youtube.com/watch?v=_IVn2aINYww">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="18"
-                                                height="18"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <title>YouTube</title>
-                                                <path
-                                                    d="M21.582,6.186c-0.23-0.86-0.908-1.538-1.768-1.768C18.254,4,12,4,12,4S5.746,4,4.186,4.418 c-0.86,0.23-1.538,0.908-1.768,1.768C2,7.746,2,12,2,12s0,4.254,0.418,5.814c0.23,0.86,0.908,1.538,1.768,1.768 C5.746,20,12,20,12,20s6.254,0,7.814-0.418c0.861-0.23,1.538-0.908,1.768-1.768C22,16.254,22,12,22,12S22,7.746,21.582,6.186z M10,15.464V8.536L16,12L10,15.464z"
-                                                    fill="#0270D7"
-                                                />
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li class="footer-social-icon">
-                                        <a target="_blank" href="mailto:miroslav.pejic.85@gmail.com">
-                                            <svg
-                                                width="16"
-                                                height="16"
-                                                viewBox="0 0 16 16"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <title>Email</title>
-                                                <path
-                                                    d="M7.9 7v2.4H12c-.2 1-1.2 3-4 3-2.4 0-4.3-2-4.3-4.4 0-2.4 2-4.4 4.3-4.4 1.4 0 2.3.6 2.8 1.1l1.9-1.8C11.5 1.7 9.9 1 8 1 4.1 1 1 4.1 1 8s3.1 7 7 7c4 0 6.7-2.8 6.7-6.8 0-.5 0-.8-.1-1.2H7.9z"
-                                                    fill="#0270D7"
-                                                />
-                                            </svg>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <!-- https://buttons.github.io/ -->
-                                        <a
-                                            class="github-button"
-                                            href="https://github.com/sponsors/miroslavpejic85"
-                                            data-color-scheme="no-preference: light; light: light; dark: dark;"
-                                            data-icon="octicon-heart"
-                                            data-size="large"
-                                            aria-label="Sponsor @miroslavpejic85 on GitHub"
-                                            >Sponsor</a
-                                        >
-                                    </li>
-                                    <li>
-                                        <a
-                                            class="github-button"
-                                            href="https://github.com/miroslavpejic85/mirotalk"
-                                            data-color-scheme="no-preference: light; light: light; dark: dark;"
-                                            data-size="large"
-                                            data-show-count="true"
-                                            aria-label="Star miroslavpejic85/mirotalk on GitHub"
-                                            >Star</a
-                                        >
                                     </li>
                                 </ul>
                             </div>
@@ -1008,23 +973,22 @@
                             <nav class="footer-nav">
                                 <ul class="list-reset">
                                     <li>
-                                        <a href="https://docs.mirotalk.com/sites/p2p.html">About</a>
+                                        <a href="/abonnement.html">Abonnement</a>
                                     </li>
                                     <li>
-                                        <a href="/privacy">Privacy Policy</a>
+                                        <a href="/privacy">Confidentialité</a>
                                     </li>
                                     <li>
-                                        <a href="https://p2p.mirotalk.com/api/v1/docs/">Rest API</a>
+                                        <a href="/api/v1/docs/">API</a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="https://www.linkedin.com/in/miroslav-pejic-976a07101/"
-                                            >Contact: Miroslav Pejic</a
-                                        >
+                                        <a target="_blank" href="mailto:support@cercle.meet">Contact CERCLE MEET</a>
                                     </li>
                                 </ul>
                             </nav>
-                            <div class="footer-copyright">&copy; 2026 CERCLE MEET, all rights reserved</div>
+                            <div class="footer-copyright">&copy; 2026 CERCLE MEET · Réunions simples, privées et accessibles.</div>
                         </div>
+                        <p class="text-xxs mt-16">CERCLE MEET intègre le moteur open source MiroTalk P2P sous licence AGPLv3. Voir <a href="/LICENSE">la licence et les sources</a>.</p>
                     </div>
                 </div>
             </footer>

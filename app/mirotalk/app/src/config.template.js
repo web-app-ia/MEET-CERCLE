@@ -338,7 +338,7 @@ module.exports = {
             title: '<h1>CERCLE MEET</h1>Visioconférence éphémère en temps réel.<br />Simple, sécurisé, rapide.',
             description:
                 "Lancez votre réunion en un clic. Sans téléchargement, sans extension, sans compte. Petit cercle en pair-à-pair ; au-delà, l'infrastructure est provisionnée à la demande puis détruite.",
-            joinDescription: 'Choisissez un nom de salon.<br />Et si celui-ci ?',
+            joinDescription: 'Choisissez le nom de votre salon.<br />Partagez ensuite le lien avec vos participants.',
             joinButtonLabel: 'REJOINDRE LE SALON',
             customizeRoomButtonLabel: 'PERSONNALISER LE SALON',
             joinLastLabel: 'Votre salon récent :',
@@ -349,7 +349,7 @@ module.exports = {
             title: 'CERCLE MEET — Visioconférence WebRTC sécurisée',
             description:
                 "CERCLE MEET est une plateforme de visioconférence WebRTC auto-hébergée (basée sur le projet open-source MiroTalk P2P) : appels pair-à-pair, partage d'écran, chat, tableau blanc directement dans le navigateur.",
-            image: 'https://p2p.mirotalk.com/images/preview.png',
+            image: '',
             url: '',
         },
         site: {
@@ -387,7 +387,7 @@ module.exports = {
             topSponsors: false,
             features: true,
             teams: true, // please keep me always true ;)
-            tryEasier: false,
+            tryEasier: true,
             poweredBy: false,
             sponsors: false,
             pastSponsors: false,
@@ -401,40 +401,26 @@ module.exports = {
             html: `
                 <div class="about-content">
                     <p class="about-description">
-                        Secure peer-to-peer video meetings directly in your browser.
+                        CERCLE MEET est votre espace de visioconférence pour les cercles, équipes et communautés.
                     </p>
                     <a
                         class="about-primary-action"
                         data-umami-event="About button"
-                        href="https://docs.mirotalk.com/sites/p2p.html"
+                        href="/abonnement.html"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <i class="fas fa-info-circle" aria-hidden="true"></i>
-                        <span>About</span>
+                        <i class="fas fa-credit-card" aria-hidden="true"></i>
+                        <span>Voir les offres</span>
                     </a>
                     <dl class="about-details">
                         <div>
-                            <dt>Author</dt>
-                            <dd>
-                                <a
-                                    id="linkedin-button"
-                                    data-umami-event="Linkedin button"
-                                    href="https://www.linkedin.com/in/miroslav-pejic-976a07101/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >Miroslav Pejic</a>
-                            </dd>
+                            <dt>Fonctionnalités</dt>
+                            <dd>Vidéo, chat, partage d'écran, tableau blanc et fichiers</dd>
                         </div>
                         <div>
-                            <dt>Email</dt>
-                            <dd>
-                                <a
-                                    id="email-button"
-                                    data-umami-event="Email button"
-                                    href="mailto:miroslav.pejic.85@gmail.com?subject=MiroTalk P2P info"
-                                >miroslav.pejic.85@gmail.com</a>
-                            </dd>
+                            <dt>Support</dt>
+                            <dd><a id="email-button" data-umami-event="Email button" href="mailto:support@cercle.meet">support@cercle.meet</a></dd>
                         </div>
                     </dl>
                     <footer class="about-footer">
