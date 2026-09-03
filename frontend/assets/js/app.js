@@ -45,10 +45,12 @@ const navLogout = $("#nav-logout");
 function updateAccountNav() {
   const s = getSession();
   if (s && s.token) {
-    navAccount.textContent = "Mon compte";
-    navLogout.classList.remove("hidden");
+    navAccount.textContent = "Déconnecter";
+    navAccount.setAttribute("href", "#");
+    navLogout.classList.add("hidden");
   } else {
     navAccount.textContent = "Connexion";
+    navAccount.setAttribute("href", "/account.html");
     navLogout.classList.add("hidden");
   }
 }
@@ -57,6 +59,17 @@ if (navLogout) {
   navLogout.addEventListener("click", () => {
     clearSession();
     updateAccountNav();
+  });
+}
+
+if (navAccount) {
+  navAccount.addEventListener("click", (e) => {
+    if (navAccount.getAttribute("href") === "#") {
+      e.preventDefault();
+      clearSession();
+      updateAccountNav();
+      window.location.href = "/";
+    }
   });
 }
 updateAccountNav();

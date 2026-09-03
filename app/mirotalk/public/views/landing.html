@@ -80,7 +80,13 @@
                 display: flex;
                 gap: 18px;
                 align-items: center;
-                font-family: inherit;
+                font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+                background: rgba(15, 23, 42, 0.72);
+                -webkit-backdrop-filter: blur(6px);
+                backdrop-filter: blur(6px);
+                padding: 10px 16px;
+                border-radius: 12px;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
             }
             .cm-nav a {
                 color: #e8eef6;
@@ -88,10 +94,26 @@
                 font-weight: 600;
                 font-size: 14px;
                 opacity: 0.92;
+                padding: 4px 2px;
             }
             .cm-nav a:hover {
                 color: #38bdf8;
                 opacity: 1;
+            }
+            .cm-nav a.active {
+                color: #38bdf8;
+                opacity: 1;
+                position: relative;
+            }
+            .cm-nav a.active::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: -6px;
+                height: 2px;
+                border-radius: 2px;
+                background: #38bdf8;
             }
             .cm-link {
                 background: transparent;
@@ -171,8 +193,6 @@
                 <a href="/abonnement.html">Abonnement</a>
                 <a href="#" id="nav-compare" role="button">Comparer</a>
                 <a href="/account.html" id="nav-account">Connexion</a>
-                <a href="/account.html" id="nav-account2" class="cm-hidden">Mon compte</a>
-                <button type="button" id="nav-logout" class="cm-link cm-hidden">Déconnexion</button>
             </nav>
 
             <main class="site-content">
@@ -1160,42 +1180,51 @@
 
         <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-        <!-- CERCLE MEET : bascule Connexion / Mon compte selon la session -->
+        <!-- CERCLE MEET : état Connexion / Déconnexion + navigation active -->
         <script>
             (function () {
                 try {
                     var raw = localStorage.getItem('meet-cercle-session');
                     var s = raw ? JSON.parse(raw) : null;
                     var acc = document.getElementById('nav-account');
-                    var acc2 = document.getElementById('nav-account2');
-                    var out = document.getElementById('nav-logout');
-                    if (s && s.token) {
-                        if (acc) acc.classList.add('cm-hidden');
-                        if (acc2) acc2.classList.remove('cm-hidden');
-                        if (out) out.classList.remove('cm-hidden');
-                    }
-                    if (out) {
-                        out.addEventListener('click', function () {
-                            localStorage.removeItem('meet-cercle-session');
-                            window.location.href = '/';
-                        });
+                    if (acc) {
+                        if (s && s.token) {
+                            acc.textContent = 'Déconnecter';
+                            acc.setAttribute('href', '#');
+                            acc.addEventListener('click', function (e) {
+                                e.preventDefault();
+                                localStorage.removeItem('meet-cercle-session');
+                                window.location.href = '/';
+                            });
+                        }
                     }
                     var cmpBtn = document.getElementById('nav-compare');
                     var cmpSec = document.getElementById('compare');
                     if (cmpBtn && cmpSec) {
                         cmpBtn.addEventListener('click', function (e) {
                             e.preventDefault();
-                            var show = cmpSec.hasAttribute('hidden');
-                            if (show) {
+                            if (cmpSec.hasAttribute('hidden')) {
                                 cmpSec.removeAttribute('hidden');
-                                cmpBtn.textContent = 'Masquer';
                                 cmpSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             } else {
                                 cmpSec.setAttribute('hidden', '');
-                                cmpBtn.textContent = 'Comparer';
                             }
                         });
+                        if (location.hash === '#compare') {
+                            cmpSec.removeAttribute('hidden');
+                            setTimeout(function () {
+                                cmpSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }, 120);
+                        }
                     }
+                    var path = location.pathname;
+                    document.querySelectorAll('.cm-nav a').forEach(function (a) {
+                        var href = a.getAttribute('href');
+                        if (!href || href === '#') return;
+                        if (href === path || (href !== '/' && path.indexOf(href) === 0)) {
+                            a.classList.add('active');
+                        }
+                    });
                 } catch (e) {}
             })();
         </script>

@@ -89,6 +89,7 @@ a {
   display: flex;
   align-items: center;
   gap: 12px;
+  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
 }
 
 .topnav a {
@@ -101,6 +102,12 @@ a {
 
 .topnav a:hover {
   border-color: var(--accent);
+}
+
+.topnav a.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(79, 124, 255, 0.12);
 }
 
 /* --- Lobby ----------------------------------------------------------------- */
