@@ -46,6 +46,7 @@
     <a class="brand" href="/"><span class="brand-dot"></span> CERCLE MEET</a>
     <nav class="topnav">
       <a href="/abonnement.html" id="nav-subscription">Abonnement</a>
+      <a href="#" id="nav-compare" role="button">Comparer</a>
       <a href="/account.html" id="nav-account">Connexion</a>
       <button id="nav-logout" class="link-btn hidden">Déconnexion</button>
       <span id="subscription-badge" class="mode-badge active hidden"></span>
@@ -93,7 +94,7 @@
     </section>
 
     <!-- CERCLE MEET : comparaison avec les concurrents -->
-    <section class="cm-compare" id="compare">
+    <section class="cm-compare" id="compare" hidden>
       <h2>CERCLE MEET face aux géants de la visio</h2>
       <p class="cm-compare-lead">
         Visioconférence <strong>éphémère</strong>, <strong>pair-à-pair d'abord</strong>, hébergée sur une
@@ -182,6 +183,26 @@
     <span>Architecture éphémère — devis V4</span>
   </footer>
 
-  <script type="module" src="/assets/js/app.js"></script>
+    <script type="module" src="/assets/js/app.js"></script>
+    <script>
+      (function () {
+        var cmpBtn = document.getElementById('nav-compare');
+        var cmpSec = document.getElementById('compare');
+        if (cmpBtn && cmpSec) {
+          cmpBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var show = cmpSec.hasAttribute('hidden');
+            if (show) {
+              cmpSec.removeAttribute('hidden');
+              cmpBtn.textContent = 'Masquer';
+              cmpSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+              cmpSec.setAttribute('hidden', '');
+              cmpBtn.textContent = 'Comparer';
+            }
+          });
+        }
+      })();
+    </script>
 </body>
 </html>

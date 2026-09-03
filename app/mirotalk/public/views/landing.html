@@ -169,6 +169,7 @@
             <nav class="cm-nav">
                 <a href="/">Accueil</a>
                 <a href="/abonnement.html">Abonnement</a>
+                <a href="#" id="nav-compare" role="button">Comparer</a>
                 <a href="/account.html" id="nav-account">Connexion</a>
                 <a href="/account.html" id="nav-account2" class="cm-hidden">Mon compte</a>
                 <button type="button" id="nav-logout" class="cm-link cm-hidden">Déconnexion</button>
@@ -1079,7 +1080,7 @@
         <script defer src="../js/brand.js"></script>
         <script defer src="../js/landing.js"></script>
         <!-- CERCLE MEET : comparaison avec les concurrents -->
-        <section class="cm-compare" id="compare">
+        <section class="cm-compare" id="compare" hidden>
             <h2>CERCLE MEET face aux géants de la visio</h2>
             <p class="cm-compare-lead">
                 Visioconférence <strong>éphémère</strong>, <strong>pair-à-pair d'abord</strong>, hébergée sur une
@@ -1179,6 +1180,22 @@
                         out.addEventListener('click', function () {
                             localStorage.removeItem('meet-cercle-session');
                             window.location.href = '/';
+                        });
+                    }
+                    var cmpBtn = document.getElementById('nav-compare');
+                    var cmpSec = document.getElementById('compare');
+                    if (cmpBtn && cmpSec) {
+                        cmpBtn.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            var show = cmpSec.hasAttribute('hidden');
+                            if (show) {
+                                cmpSec.removeAttribute('hidden');
+                                cmpBtn.textContent = 'Masquer';
+                                cmpSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            } else {
+                                cmpSec.setAttribute('hidden', '');
+                                cmpBtn.textContent = 'Comparer';
+                            }
                         });
                     }
                 } catch (e) {}
