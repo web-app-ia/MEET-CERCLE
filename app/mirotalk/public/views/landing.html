@@ -69,6 +69,77 @@
         <!-- CERCLE MEET Widget -->
 
         <script defer src="../js/widget.js"></script>
+
+        <!-- CERCLE MEET : barre de navigation compte (Connexion / Mon compte) -->
+        <style>
+            .cm-nav {
+                position: fixed;
+                top: 16px;
+                right: 24px;
+                z-index: 60;
+                display: flex;
+                gap: 18px;
+                align-items: center;
+                font-family: inherit;
+            }
+            .cm-nav a {
+                color: #e8eef6;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 14px;
+                opacity: 0.92;
+            }
+            .cm-nav a:hover {
+                color: #38bdf8;
+                opacity: 1;
+            }
+            .cm-link {
+                background: transparent;
+                border: 1px solid rgba(255, 255, 255, 0.4);
+                color: #e8eef6;
+                border-radius: 8px;
+                padding: 6px 12px;
+                font-weight: 600;
+                font-size: 14px;
+                cursor: pointer;
+                font-family: inherit;
+            }
+            .cm-link:hover {
+                color: #38bdf8;
+                border-color: #38bdf8;
+            }
+            .cm-hidden {
+                display: none !important;
+            }
+        </style>
+
+        <!-- CERCLE MEET : comparaison concurrents -->
+        <style>
+            .cm-compare {
+                background: #f8fafc;
+                border-radius: 18px;
+                max-width: 1040px;
+                margin: 48px auto;
+                padding: 32px 24px;
+                font-family: inherit;
+                color: #0f172a;
+                box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+            }
+            .cm-compare h2 { font-size: 26px; text-align: center; margin: 0 0 8px; color: #0f172a; }
+            .cm-compare-lead { text-align: center; color: #475569; max-width: 740px; margin: 0 auto 26px; font-size: 15px; line-height: 1.5; }
+            .cm-compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+            .cm-compare-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px 18px; }
+            .cm-compare-card h3 { margin: 0 0 10px; color: #0ea5e9; font-size: 17px; }
+            .cm-compare-card ul { margin: 0; padding-left: 18px; color: #334155; line-height: 1.5; font-size: 13.5px; }
+            .cm-compare-card li { margin-bottom: 6px; }
+            .cm-compare-sub { text-align: center; margin: 34px 0 12px; font-size: 19px; color: #0f172a; }
+            .cm-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .cm-compare-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 680px; }
+            .cm-compare-table th, .cm-compare-table td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: center; }
+            .cm-compare-table thead th { background: #0f172a; color: #fff; font-weight: 600; }
+            .cm-compare-table tbody th { background: #eef2f7; text-align: left; color: #0f172a; font-weight: 600; white-space: nowrap; }
+            .cm-compare-table tbody tr:nth-child(even) td { background: #fbfdff; }
+        </style>
     </head>
     <body class="has-animations">
         <div id="snow-container"></div>
@@ -93,6 +164,16 @@
                     </div>
                 </div>
             </header>
+
+            <!-- CERCLE MEET : navigation comptes -->
+            <nav class="cm-nav">
+                <a href="/">Accueil</a>
+                <a href="/abonnement.html">Abonnement</a>
+                <a href="/account.html" id="nav-account">Connexion</a>
+                <a href="/account.html" id="nav-account2" class="cm-hidden">Mon compte</a>
+                <button type="button" id="nav-logout" class="cm-link cm-hidden">Déconnexion</button>
+            </nav>
+
             <main class="site-content">
                 <section class="hero section illustration-section-01">
                     <div class="container">
@@ -997,6 +1078,111 @@
         <script defer src="../js/common.js"></script>
         <script defer src="../js/brand.js"></script>
         <script defer src="../js/landing.js"></script>
+        <!-- CERCLE MEET : comparaison avec les concurrents -->
+        <section class="cm-compare" id="compare">
+            <h2>CERCLE MEET face aux géants de la visio</h2>
+            <p class="cm-compare-lead">
+                Visioconférence <strong>éphémère</strong>, <strong>pair-à-pair d'abord</strong>, hébergée sur une
+                stack serverless gratuite (Cloudflare). Conçue pour les petits cercles qui veulent de la visio
+                sans compte imposé, sans licence, et sans confier leurs réunions à un géant du web.
+            </p>
+
+            <div class="cm-compare-grid">
+                <article class="cm-compare-card">
+                    <h3>vs Google Meet</h3>
+                    <ul>
+                        <li>Aucun compte Google requis pour créer <em>ou</em> rejoindre&nbsp;: un simple nom suffit.</li>
+                        <li>Infrastructure <strong>auto-hébergée</strong> (Cloudflare) — zéro dépendance à Google.</li>
+                        <li><strong>P2P d'abord</strong>&nbsp;: les flux restent entre navigateurs, pas centralisés sur un serveur Google.</li>
+                        <li>Aucun profilage publicitaire de vos réunions.</li>
+                    </ul>
+                </article>
+
+                <article class="cm-compare-card">
+                    <h3>vs ZOOM</h3>
+                    <ul>
+                        <li>100% navigateur, <strong>sans application à installer</strong> ni mise à jour forcée.</li>
+                        <li>Confidentialité renforcée (P2P, pas de télémétrie commerciale) et salons éphémères à nom jetable — pas de «&nbsp;zoombombing&nbsp;» par lien devinable.</li>
+                        <li><strong>Coût 0&nbsp;FCFA</strong> (pas de licence annuelle ZOOM).</li>
+                        <li><strong>Verrou anti-partage</strong>&nbsp;: 1 seule réunion simultanée par compte abonné.</li>
+                    </ul>
+                </article>
+
+                <article class="cm-compare-card">
+                    <h3>vs Jitsi Meet</h3>
+                    <ul>
+                        <li><strong>SFU éphémère</strong> provisionnée à la demande puis détruite — contrairement au Videobridge Jitsi permanent (serveur à payer et maintenir).</li>
+                        <li><strong>IPv6-first + TURN</strong> pour traverser les réseaux restrictifs sans serveur dédié permanent.</li>
+                        <li><strong>Comptes abonnés + forfaits</strong> intégrés (au-delà de l'instance brute Jitsi).</li>
+                        <li>Branding et UX CERCLE MEET clés en main.</li>
+                    </ul>
+                </article>
+
+                <article class="cm-compare-card">
+                    <h3>vs Microsoft Teams</h3>
+                    <ul>
+                        <li>Pas d'<strong>enfermement (lock-in) Microsoft 365</strong>&nbsp;: aucun abonnement suite bureautique requis.</li>
+                        <li>Accessible <strong>sans téléchargement</strong>, depuis n'importe quel navigateur.</li>
+                        <li>Léger et éphémère&nbsp;: pensé pour les «&nbsp;petits cercles&nbsp;», pas un ERP de collaboration.</li>
+                    </ul>
+                </article>
+
+                <article class="cm-compare-card">
+                    <h3>vs MiroTalk (la base)</h3>
+                    <ul>
+                        <li>CERCLE MEET = MiroTalk P2P <strong>rebrandé + couche métier</strong>&nbsp;: comptes abonnés, forfaits, verrou anti-partage.</li>
+                        <li>UX/branding francophone dédié et menu de navigation comptes.</li>
+                        <li>Architecture éphémère <strong>IPv6-first + SFU à la demande</strong> documentée pour passer à l'échelle au-delà du P2P.</li>
+                        <li>Page d'accueil avec gestion des forfaits / abonnement.</li>
+                    </ul>
+                </article>
+            </div>
+
+            <h3 class="cm-compare-sub">En un coup d'œil</h3>
+            <div class="cm-table-wrap">
+                <table class="cm-compare-table">
+                    <thead>
+                        <tr>
+                            <th>Critère</th><th>CERCLE MEET</th><th>Google Meet</th><th>ZOOM</th><th>Jitsi Meet</th><th>MS Teams</th><th>MiroTalk</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><th>Rejoindre sans compte</th><td>Oui</td><td>Invité</td><td>Oui</td><td>Oui</td><td>M365</td><td>Oui</td></tr>
+                        <tr><th>Créer une réunion</th><td>Sans compte / abonné</td><td>Compte Google</td><td>Compte Zoom</td><td>Sans compte</td><td>Compte M365</td><td>Sans compte</td></tr>
+                        <tr><th>Architecture</th><td>P2P + SFU éphémère</td><td>Serveur</td><td>Serveur</td><td>SFU permanent</td><td>Serveur</td><td>P2P</td></tr>
+                        <tr><th>Coût d'infra</th><td>0&nbsp;FCFA</td><td>—</td><td>Licence</td><td>Serveur à payer</td><td>Licence</td><td>0 (auto)</td></tr>
+                        <tr><th>Comptes + anti-partage</th><td>Oui (1/réunion/compte)</td><td>Non</td><td>Sièges payants</td><td>Non</td><td>Oui (M365)</td><td>Non</td></tr>
+                        <tr><th>Open source</th><td>Oui (base MiroTalk)</td><td>Non</td><td>Non</td><td>Oui</td><td>Non</td><td>Oui</td></tr>
+                        <tr><th>IPv6-first + TURN</th><td>Oui</td><td>N/A</td><td>N/A</td><td>À configurer</td><td>N/A</td><td>À configurer</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+        <!-- CERCLE MEET : bascule Connexion / Mon compte selon la session -->
+        <script>
+            (function () {
+                try {
+                    var raw = localStorage.getItem('meet-cercle-session');
+                    var s = raw ? JSON.parse(raw) : null;
+                    var acc = document.getElementById('nav-account');
+                    var acc2 = document.getElementById('nav-account2');
+                    var out = document.getElementById('nav-logout');
+                    if (s && s.token) {
+                        if (acc) acc.classList.add('cm-hidden');
+                        if (acc2) acc2.classList.remove('cm-hidden');
+                        if (out) out.classList.remove('cm-hidden');
+                    }
+                    if (out) {
+                        out.addEventListener('click', function () {
+                            localStorage.removeItem('meet-cercle-session');
+                            window.location.href = '/';
+                        });
+                    }
+                } catch (e) {}
+            })();
+        </script>
     </body>
 </html>

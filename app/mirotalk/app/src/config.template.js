@@ -127,6 +127,19 @@ module.exports = {
     },
 
     // ==========================================
+    // CERCLE MEET — Comptes abonnés (verrou anti-partage)
+    // ==========================================
+    // Désactivé par défaut (ACCOUNT_API vide). Quand renseigné, le serveur MiroTalk
+    // libère le verrou de réunion du compte quand un salon se vide (défense en
+    // profondeur : l'acquisition du verrou est faite par le portail avant ouverture).
+    // ACCOUNT_API = URL de base du Worker (ex. https://meet-cercle-worker.<compte>.workers.dev)
+    // ACCOUNT_SECRET = doit être IDENTIQUE à SESSION_SECRET du Worker (secret interne).
+    account: {
+        apiUrl: process.env.ACCOUNT_API || '',
+        secret: process.env.ACCOUNT_SECRET || '',
+    },
+
+    // ==========================================
     // Ngrok
     // ==========================================
     ngrok: {

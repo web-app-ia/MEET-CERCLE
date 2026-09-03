@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CERCLE MEET — Abonnement</title>
+  <meta name="description" content="Offres et abonnements CERCLE MEET — démonstration locale, sans paiement réel." />
+  <link rel="icon" type="image/svg+xml" href="/assets/img/logo-cercle.svg" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="/assets/css/abonnement.css" />
+</head>
+<body class="abonnement">
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-dot"></span> CERCLE MEET</a>
+    <div class="tagline">Abonnement · démonstration sans paiement réel</div>
+  </header>
+
+  <main class="lobby-main">
+    <section class="hero">
+      <h1>Votre <em>abonnement</em></h1>
+      <p class="hero-sub">
+        Consultez la validité restante, achetez une offre ou consultez votre historique.
+        <strong>Démonstration locale : aucun paiement réel n'est effectué.</strong>
+      </p>
+    </section>
+
+    <!-- Statut de l'abonnement -->
+    <section id="status-card" class="card status-card">
+      <div class="status-head">
+        <div>
+          <div class="muted label-small">Abonnement actuel</div>
+          <div id="status-plan" class="status-plan">Aucun abonnement actif</div>
+          <div id="status-expiry" class="muted"></div>
+        </div>
+        <div class="status-right">
+          <div id="status-badge" class="mode-badge">—</div>
+          <button id="btn-reset" class="btn small hidden">Réinitialiser (démo)</button>
+        </div>
+      </div>
+      <div id="status-bar" class="progress hidden">
+        <div id="status-fill" class="progress-fill"></div>
+      </div>
+      <p id="status-note" class="muted status-note">
+        Sans abonnement, les réunions pair-à-pair jusqu'à 4 participants restent gratuites.
+      </p>
+    </section>
+
+    <!-- Offres -->
+    <h2 class="section-title">Nos offres</h2>
+    <section id="offers" class="offers-grid"></section>
+
+    <!-- Historique -->
+    <h2 class="section-title">Historique des achats</h2>
+    <section class="card">
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Offre</th>
+            <th>Montant</th>
+            <th>Valable jusqu'au</th>
+            <th>Transaction</th>
+          </tr>
+        </thead>
+        <tbody id="history-body">
+          <tr><td colspan="5" class="muted">Aucun achat pour le moment.</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Modale de paiement simulé -->
+  <div id="checkout-overlay" class="checkout-overlay hidden">
+    <div class="card checkout-card" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+      <div class="checkout-head">
+        <h3 id="checkout-title">Paiement (simulation)</h3>
+        <button id="checkout-close" class="btn small" aria-label="Fermer">✕</button>
+      </div>
+      <p class="checkout-banner">
+        Démonstration : aucune carte n'est débitée, aucune donnée n'est transmise.
+        <br />Utilisez par ex. <code>4242 4242 4242 4242</code>.
+      </p>
+      <div class="field">
+        <label for="buy-name">Nom complet</label>
+        <input id="buy-name" type="text" placeholder="ex. Alice Martin" autocomplete="name" />
+      </div>
+      <div class="field">
+        <label for="buy-email">E-mail</label>
+        <input id="buy-email" type="text" placeholder="ex. alice@exemple.fr" autocomplete="email" />
+      </div>
+      <div class="field">
+        <label for="buy-card">Numéro de carte (fictif)</label>
+        <input id="buy-card" type="text" placeholder="4242 4242 4242 4242" autocomplete="off" />
+      </div>
+      <div class="checkout-summary">
+        <span id="checkout-offer">—</span>
+        <strong id="checkout-price">—</strong>
+      </div>
+      <button id="checkout-pay" class="btn primary wide">Payer (simulation)</button>
+      <p id="checkout-error" class="error hidden"></p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <a href="/">← Retour au portail</a>
+    <span>·</span>
+    <span>CERCLE MEET — branchement Stripe prévu (voir docs/)</span>
+  </footer>
+
+  <script type="module" src="/assets/js/abonnement.js"></script>
+</body>
+</html>

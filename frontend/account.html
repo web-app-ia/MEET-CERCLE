@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CERCLE MEET — Mon compte</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/img/logo-cercle.svg" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="/assets/css/account.css" />
+</head>
+<body class="account">
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-dot"></span> CERCLE MEET</a>
+    <nav class="topnav">
+      <a href="/">Accueil</a>
+      <a href="/abonnement.html">Abonnement</a>
+    </nav>
+  </header>
+
+  <main class="lobby-main">
+    <!-- Non connecté : inscription / connexion -->
+    <section id="auth-view" class="card auth-card">
+      <div class="tabs">
+        <button id="tab-login" class="tab active">Connexion</button>
+        <button id="tab-register" class="tab">Créer un compte</button>
+      </div>
+
+      <form id="auth-form" class="auth-form" autocomplete="on">
+        <div class="field" id="name-field" hidden>
+          <label for="name">Nom affiché</label>
+          <input id="name" type="text" maxlength="80" placeholder="ex. Alice" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" maxlength="128" placeholder="ex. alice@exemple.fr" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="password">Mot de passe</label>
+          <input id="password" type="password" maxlength="128" placeholder="6 caractères minimum" autocomplete="current-password" required />
+        </div>
+        <button id="auth-submit" type="submit" class="btn primary wide">Se connecter</button>
+        <p id="auth-error" class="error hidden"></p>
+      </form>
+    </section>
+
+    <!-- Connecté : profil -->
+    <section id="profile-view" class="card profile-card hidden">
+      <div class="status-head">
+        <div>
+          <div class="muted label-small">Connecté comme</div>
+          <div id="profile-name" class="status-plan">—</div>
+          <div id="profile-email" class="muted"></div>
+        </div>
+        <button id="logout-btn" class="btn small">Se déconnecter</button>
+      </div>
+
+      <div class="profile-grid">
+        <div class="profile-item">
+          <div class="muted label-small">Forfait</div>
+          <div id="profile-plan" class="profile-value">—</div>
+        </div>
+        <div class="profile-item">
+          <div class="muted label-small">Réunion en cours</div>
+          <div id="profile-active" class="profile-value">Aucune</div>
+        </div>
+      </div>
+      <p class="muted status-note">
+        Une seule réunion à la fois par compte. Le verrou est posé à la création
+        d'un salon et libéré à sa fermeture.
+      </p>
+      <a href="/" class="btn primary wide">Retour au portail</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a href="/">← Retour au portail</a>
+    <span>·</span>
+    <span>CERCLE MEET — comptes abonnés (Cloudflare Workers + Durable Objects)</span>
+  </footer>
+
+  <script type="module" src="/assets/js/account.js"></script>
+</body>
+</html>

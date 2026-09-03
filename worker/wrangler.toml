@@ -15,9 +15,20 @@ compatibility_date = "2025-08-01"
 name = "ROOMS"
 class_name = "RoomDO"
 
+# ---------------------------------------------------------------------------
+# Durable Object : comptes abonnés (identité + verrou anti-partage 1 réunion/compte)
+# ---------------------------------------------------------------------------
+[[durable_objects.bindings]]
+name = "ACCOUNTS"
+class_name = "AccountDO"
+
 [[migrations]]
 tag = "v1"
 new_sqlite_classes = ["RoomDO"]
+
+[[migrations]]
+tag = "v2"
+new_sqlite_classes = ["AccountDO"]
 
 # ---------------------------------------------------------------------------
 # KV : index global des salons + journal d'événements (traçabilité)
@@ -37,6 +48,9 @@ crons = ["*/5 * * * *"]
 # ---------------------------------------------------------------------------
 [vars]
 ENVIRONMENT = "production"
+# Secret de session des comptes : EN PRODUCTION, utiliser `wrangler secret put SESSION_SECRET`
+# (ne pas laisser cette valeur de dev en production).
+SESSION_SECRET = "dev-session-secret-change-me"
 # Nombre max de participants en P2P (mesh). Au-delà -> bascule SFU.
 P2P_MAX_PARTICIPANTS = "4"
 # Politique réseau du SFU : "ipv6_only" (A) | "ipv6_plus_turn" (B) | "dual_stack" (C)

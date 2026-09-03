@@ -19,11 +19,20 @@
 import type { Env } from "./config";
 import { isValidRoomName, newRoomName, gracePeriodMs, iceServers } from "./config";
 import { RoomDO } from "./room-do";
+import { AccountDO } from "./account-do";
 import { logEvent } from "./orchestrator";
+import { signJwtHS256, verifyJwtHS256 } from "./jwt";
 
 export { RoomDO };
+export { AccountDO };
 
 const JSON_HEADERS = { "Content-Type": "application/json; charset=utf-8" };
+
+// Secret de session des comptes : à définir via `wrangler secret put SESSION_SECRET`
+// en production. Valeur de secours pour le dev local uniquement.
+function sessionSecret(env: Env): string {
+  return env.SESSION_SECRET || "dev-session-secret-change-me";
+}
 const CORS_HEADERS: Record<string, string> = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
@@ -42,6 +51,23 @@ function roomStub(env: Env, room: string): DurableObjectStub {
   return env.ROOMS.get(env.ROOMS.idFromName(room));
 }
 
+function accountStub(env: Env, accountId: string): DurableObjectStub {
+  return env.ACCOUNTS.get(env.ACCOUNTS.idFromName(accountId));
+}
+
+/** Retourne l'accountId (sub du JWT) ou null si le token est absent/invalide. */
+async function requireAccount(req: Request, env: Env): Promise<string | null> {
+  const header = req.headers.get("Authorization") || "";
+  if (!header.startsWith("Bearer ")) return null;
+  const claims = await verifyJwtHS256(sessionSecret(env), header.slice(7));
+  return claims && typeof claims.sub === "string" ? claims.sub : null;
+}
+
+function sessionFor(env: Env, accountId: string): Promise<string> {
+  const exp = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30; // 30 jours
+  return signJwtHS256(sessionSecret(env), { sub: accountId, exp });
+}
+
 export default {
   async fetch(req: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(req.url);
@@ -57,6 +83,51 @@ export default {
 
     if (path === "/api/config" && req.method === "GET") {
       return json({ iceServers: iceServers(env) });
+    }
+
+    // --- Comptes abonnés (auth + verrou anti-partage) ------------------------
+    if (path === "/auth/register" && req.method === "POST") {
+      return withCors(await handleAuthRegister(req, env));
+    }
+    if (path === "/auth/login" && req.method === "POST") {
+      return withCors(await handleAuthLogin(req, env));
+    }
+    if (path === "/me" && req.method === "GET") {
+      const accountId = await requireAccount(req, env);
+      if (!accountId) return errorJson("Non authentifié", 401);
+      return withCors(await accountStub(env, accountId).fetch("https://do/me"));
+    }
+    if (path === "/room/lock" && req.method === "POST") {
+      const accountId = await requireAccount(req, env);
+      if (!accountId) return errorJson("Non authentifié", 401);
+      return withCors(
+        await accountStub(env, accountId).fetch("https://do/lock", { method: "POST", body: await req.text() }),
+      );
+    }
+    if (path === "/room/unlock" && req.method === "POST") {
+      const accountId = await requireAccount(req, env);
+      if (!accountId) return errorJson("Non authentifié", 401);
+      return withCors(
+        await accountStub(env, accountId).fetch("https://do/unlock", { method: "POST", body: await req.text() }),
+      );
+    }
+    // Libération du verrou par roomId (appelé par MiroTalk quand le salon se vide)
+    if (path === "/internal/room/unlock-by-room" && req.method === "POST") {
+      const secret = req.headers.get("X-Internal-Secret") || "";
+      if (!env.SESSION_SECRET || secret !== env.SESSION_SECRET) {
+        return errorJson("Forbidden", 403);
+      }
+      const body = (await req.json().catch(() => ({}))) as { roomId?: string };
+      const roomId = (body.roomId || "").trim();
+      if (!roomId) return errorJson("roomId requis", 400);
+      const owner = await env.STATE.get(`roomOwner:${roomId}`);
+      if (!owner) return json({ ok: true, note: "no-owner" });
+      await accountStub(env, owner).fetch("https://do/unlock", {
+        method: "POST",
+        body: JSON.stringify({ roomId }),
+      });
+      await env.STATE.delete(`roomOwner:${roomId}`).catch(() => undefined);
+      return json({ ok: true });
     }
 
     if (path === "/api/rooms" && req.method === "POST") {
@@ -115,6 +186,32 @@ function withCors(res: Response): Response {
   const headers = new Headers(res.headers);
   for (const [k, v] of Object.entries(CORS_HEADERS)) headers.set(k, v);
   return new Response(res.body, { status: res.status, headers });
+}
+
+// --- Auth comptes abonnés -----------------------------------------------------
+
+async function handleAuthRegister(req: Request, env: Env): Promise<Response> {
+  const body = (await req.json().catch(() => ({}))) as { email?: string; password?: string; name?: string };
+  const email = (body.email || "").trim().toLowerCase();
+  if (!email) return errorJson("E-mail requis", 400);
+  const stub = accountStub(env, email);
+  const res = await stub.fetch("https://do/register", { method: "POST", body: await req.text() });
+  if (!res.ok) return res;
+  const data = (await res.json()) as { account: { accountId: string } };
+  const token = await sessionFor(env, email);
+  return json({ token, account: data.account });
+}
+
+async function handleAuthLogin(req: Request, env: Env): Promise<Response> {
+  const body = (await req.json().catch(() => ({}))) as { email?: string; password?: string };
+  const email = (body.email || "").trim().toLowerCase();
+  if (!email) return errorJson("E-mail requis", 400);
+  const stub = accountStub(env, email);
+  const res = await stub.fetch("https://do/login", { method: "POST", body: await req.text() });
+  if (!res.ok) return res;
+  const data = (await res.json()) as { account: { accountId: string } };
+  const token = await sessionFor(env, email);
+  return json({ token, account: data.account });
 }
 
 // --- Création de salon -------------------------------------------------------

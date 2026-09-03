@@ -399,11 +399,39 @@ const peers = {}; // collect peers info grp by channels
 const presenters = {}; // collect presenters grp by channels
 const wbLocks = {}; // server-authoritative whiteboard lock state grp by channels
 
+// CERCLE MEET — Admission lobby (host-opt-in, OFF by default)
+// admission[channel] = true when the host enabled the lobby for that room.
+// pendingAdmissions[channel][peerId] = { socket, config, isPresenter } for guests
+// awaiting host approval (they are connected but NOT yet added to the signaling channel).
+const admission = {};
+const pendingAdmissions = {};
+
 const roomMetaKeys = new Set(['lock', 'password', 'joinLock']);
 
 function getPeerCount(roomId) {
     if (!peers[roomId]) return 0;
     return Object.keys(peers[roomId]).filter((k) => !roomMetaKeys.has(k)).length;
+}
+
+// CERCLE MEET — Libère le verrou de réunion du compte abonné quand un salon se
+// vide. Appelle le Worker (route interne) en utilisant le mapping roomOwner.
+// Désactivé si config.account.apiUrl est vide. Best-effort : jamais bloquant.
+function releaseAccountLock(roomId) {
+    const base = config && config.account && config.account.apiUrl;
+    if (!base) return; // hook désactivé (par défaut)
+    const secret = (config.account && config.account.secret) || '';
+    const url = `${base.replace(/\/+$/, '')}/internal/room/unlock-by-room`;
+    axios
+        .post(
+            url,
+            { roomId },
+            {
+                timeout: 5000,
+                headers: { 'Content-Type': 'application/json', 'X-Internal-Secret': secret },
+            },
+        )
+        .then((r) => log.debug('[account] lock released for', roomId, r.status))
+        .catch((e) => log.debug('[account] release lock failed (non bloquant)', roomId, e.message));
 }
 
 app.set('trust proxy', trustProxy); // Enables trust for proxy headers (e.g., X-Forwarded-For) based on the trustProxy setting
@@ -1305,6 +1333,24 @@ io.sockets.on('connect', async (socket) => {
         for (let channel in socket.channels) {
             await removePeerFrom(channel, socket, reason);
         }
+        // CERCLE MEET — clean up admission state for this socket
+        for (const channel in pendingAdmissions) {
+            if (pendingAdmissions[channel] && pendingAdmissions[channel][socket.id]) {
+                delete pendingAdmissions[channel][socket.id];
+                await notifyAdmissionCleared(channel, socket.id);
+            }
+        }
+        // If the leaving socket was the last presenter, deny remaining pending guests
+        for (const channel in pendingAdmissions) {
+            const remaining = getPresentersSocketIds(channel).filter((id) => id !== socket.id);
+            if (
+                remaining.length === 0 &&
+                pendingAdmissions[channel] &&
+                Object.keys(pendingAdmissions[channel]).length > 0
+            ) {
+                denyAllPending(channel);
+            }
+        }
         log.debug('[' + socket.id + '] disconnected', { reason: reason });
         delete sockets[socket.id];
     });
@@ -1582,6 +1628,23 @@ io.sockets.on('connect', async (socket) => {
             log.debug('[' + socket.id + '] [Warning] Room Is Locked for new participants', channel);
             delete presenters[channel][socket.id];
             return socket.emit('roomIsJoinLocked');
+        }
+
+        // CERCLE MEET — Admission lobby: if the host enabled it and this peer is NOT a
+        // presenter (host), hold them in a pending queue and let the host decide. The peer
+        // stays connected but is NOT added to the signaling channel, so no WebRTC flow
+        // starts until the host accepts. Presenters (hosts) always join directly.
+        // Default (admission OFF) => zero behaviour change, normal P2P join proceeds.
+        if (admission[channel] === true && !isPresenter) {
+            delete presenters[channel][socket.id]; // guest must never be marked presenter
+            if (!(channel in pendingAdmissions)) pendingAdmissions[channel] = {};
+            pendingAdmissions[channel][socket.id] = { socket, config, isPresenter: false };
+            await notifyAdmissionRequest(channel, socket.id, config);
+            log.debug('[' + socket.id + '] Admission lobby — guest held, awaiting host approval', {
+                channel,
+                peer_name: peer_name,
+            });
+            return socket.emit('admissionPending', { room_id: channel, peer_name: peer_name });
         }
 
         // Some peer info data
@@ -2154,6 +2217,79 @@ io.sockets.on('connect', async (socket) => {
     });
 
     /**
+     * CERCLE MEET — Admission lobby controls (host only)
+     */
+    socket.on('admissionToggle', async (cfg) => {
+        const config = checkXSS(cfg) || {};
+        const { room_id, enabled } = config;
+        if (!room_id) return;
+        const isPresenter = !!(
+            presenters[room_id] &&
+            presenters[room_id][socket.id] &&
+            presenters[room_id][socket.id].is_presenter
+        );
+        if (!isPresenter) return;
+
+        admission[room_id] = enabled === true;
+
+        // Sync every presenter's UI
+        for (const id of getPresentersSocketIds(room_id)) {
+            await sendToPeer(id, sockets, admission[room_id] ? 'admissionOn' : 'admissionOff', { room_id });
+        }
+
+        // Turning the lobby OFF auto-admits everyone currently waiting
+        if (!admission[room_id] && pendingAdmissions[room_id]) {
+            for (const pid of Object.keys(pendingAdmissions[room_id])) {
+                const p = pendingAdmissions[room_id][pid];
+                delete pendingAdmissions[room_id][pid];
+                await finalizeJoin(room_id, p.socket, p.config, p.isPresenter);
+                await notifyAdmissionCleared(room_id, pid);
+            }
+        }
+        log.debug('[' + socket.id + '] Admission lobby ' + (admission[room_id] ? 'ON' : 'OFF'), { room_id });
+    });
+
+    socket.on('admissionAccept', async (cfg) => {
+        const config = checkXSS(cfg) || {};
+        const { room_id, peer_id } = config;
+        if (!room_id || !peer_id) return;
+        const isPresenter = !!(
+            presenters[room_id] &&
+            presenters[room_id][socket.id] &&
+            presenters[room_id][socket.id].is_presenter
+        );
+        if (!isPresenter) return;
+        const p = pendingAdmissions[room_id] && pendingAdmissions[room_id][peer_id];
+        if (!p) return;
+        delete pendingAdmissions[room_id][peer_id];
+        await finalizeJoin(room_id, p.socket, p.config, p.isPresenter);
+        await notifyAdmissionCleared(room_id, peer_id);
+        log.debug('[' + socket.id + '] Admission ACCEPT', { room_id, peer_id });
+    });
+
+    socket.on('admissionReject', async (cfg) => {
+        const config = checkXSS(cfg) || {};
+        const { room_id, peer_id } = config;
+        if (!room_id || !peer_id) return;
+        const isPresenter = !!(
+            presenters[room_id] &&
+            presenters[room_id][socket.id] &&
+            presenters[room_id][socket.id].is_presenter
+        );
+        if (!isPresenter) return;
+        const p = pendingAdmissions[room_id] && pendingAdmissions[room_id][peer_id];
+        if (!p) return;
+        delete pendingAdmissions[room_id][peer_id];
+        try {
+            p.socket.emit('admissionDenied', { room_id, peer_name: p.config.peer_name });
+        } catch (e) {
+            /* socket may already be gone */
+        }
+        await notifyAdmissionCleared(room_id, peer_id);
+        log.debug('[' + socket.id + '] Admission REJECT', { room_id, peer_id });
+    });
+
+    /**
      * Relay File info
      */
     socket.on('fileInfo', async (cfg) => {
@@ -2389,6 +2525,110 @@ io.sockets.on('connect', async (socket) => {
      * Add peers to channel
      * @param {string} channel room id
      */
+    // CERCLE MEET — Admission lobby helpers --------------------------------------
+
+    function getPresentersSocketIds(channel) {
+        const ids = [];
+        if (presenters[channel]) {
+            for (const id of Object.keys(presenters[channel])) ids.push(id);
+        }
+        return ids;
+    }
+
+    // Notify all presenters (hosts) that a guest is awaiting approval.
+    async function notifyAdmissionRequest(channel, peerId, config) {
+        const info = {
+            peer_id: peerId,
+            peer_name: config.peer_name,
+            peer_avatar: config.peer_avatar,
+            room_id: channel,
+        };
+        for (const id of getPresentersSocketIds(channel)) {
+            await sendToPeer(id, sockets, 'admissionRequest', info);
+        }
+    }
+
+    // Notify all presenters that a pending request was resolved (accepted/rejected/left).
+    async function notifyAdmissionCleared(channel, peerId) {
+        for (const id of getPresentersSocketIds(channel)) {
+            await sendToPeer(id, sockets, 'admissionCleared', { peer_id: peerId, room_id: channel });
+        }
+    }
+
+    // Deny every pending guest in a room (e.g. when the last host leaves / room closes).
+    function denyAllPending(channel) {
+        if (!pendingAdmissions[channel]) return;
+        for (const pid of Object.keys(pendingAdmissions[channel])) {
+            const p = pendingAdmissions[channel][pid];
+            try {
+                p.socket.emit('admissionDenied', { room_id: channel, peer_name: p.config.peer_name });
+            } catch (e) {
+                /* socket may already be gone */
+            }
+        }
+        delete pendingAdmissions[channel];
+    }
+
+    // Complete a held guest's join: add them to the signaling channel and run the
+    // exact same completion path as a normal join (serverInfo, alerts, webhook).
+    async function finalizeJoin(channel, socket, config, isPresenter) {
+        const { osName, osVersion, browserName, browserVersion, extras } = config.peer_info || {};
+        if (!(channel in peers)) peers[channel] = {};
+        peers[channel][socket.id] = {
+            peer_name: config.peer_name,
+            peer_avatar: config.peer_avatar,
+            peer_presenter: isPresenter,
+            peer_video: config.peer_video,
+            peer_audio: config.peer_audio,
+            peer_video_status: config.peer_video_status,
+            peer_audio_status: config.peer_audio_status,
+            peer_screen_status: config.peer_screen_status,
+            peer_hand_status: config.peer_hand_status,
+            peer_rec_status: config.peer_rec_status,
+            peer_privacy_status: config.peer_privacy_status,
+            os: osName ? `${osName} ${osVersion}` : '',
+            browser: browserName ? `${browserName} ${browserVersion}` : '',
+            extras: extras,
+        };
+
+        await addPeerTo(channel);
+
+        channels[channel][socket.id] = socket;
+        socket.channels[channel] = channel;
+
+        const peerCounts = getPeerCount(channel);
+
+        await sendToPeer(socket.id, sockets, 'serverInfo', {
+            peers_count: peerCounts,
+            host_protected: hostCfg.protected,
+            user_auth: hostCfg.user_auth,
+            is_presenter: isPresenter,
+            join_locked: peers[channel]['joinLock'] === true,
+            survey: { active: surveyEnabled, url: surveyURL },
+            redirect: { active: redirectEnabled, url: redirectURL },
+            maxRoomParticipants: hostCfg.maxRoomParticipants,
+            whisper: { enabled: configWhisper.enabled, segmentSeconds: configWhisper.segmentSeconds },
+        });
+
+        if (peerCounts === 1) {
+            nodemailer.sendEmailAlert('join', {
+                room_id: channel,
+                peer_name: config.peer_name,
+                domain: socket.handshake.headers.host.split(':')[0],
+                os: osName ? `${osName} ${osVersion}` : '',
+                browser: browserName ? `${browserName} ${browserVersion}` : '',
+            });
+        }
+
+        if (webhook.enabled) {
+            config.timestamp = log.getDateTime(false);
+            axios
+                .post(webhook.url, { event: 'join', data: config }, { timeout: 5000 })
+                .then((response) => log.debug('Join event tracked:', response.data))
+                .catch((error) => log.error('Error tracking join event:', error.message));
+        }
+    }
+
     async function addPeerTo(channel) {
         for (let id in channels[channel]) {
             // offer false
@@ -2442,6 +2682,10 @@ io.sockets.on('connect', async (socket) => {
                 delete presenters[channel];
                 delete channels[channel]; // Clean up channels to prevent memory leak
                 delete wbLocks[channel]; // Clean up whiteboard lock state
+                // CERCLE MEET — libère le verrou de réunion du compte abonné quand le
+                // salon se vide (défense en profondeur ; l'acquisition est faite par le
+                // portail). Désactivé si config.account.apiUrl est vide.
+                releaseAccountLock(channel);
             }
         } catch (err) {
             log.error('Remove Peer', toJson(err));

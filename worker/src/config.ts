@@ -5,7 +5,11 @@
 export interface Env {
   // Bindings
   ROOMS: DurableObjectNamespace;
+  ACCOUNTS: DurableObjectNamespace;
   STATE: KVNamespace;
+
+  // Secret de session des comptes abonnés (signe/vérifie les JWT de session)
+  SESSION_SECRET?: string;
 
   // Vars
   ENVIRONMENT: string;
