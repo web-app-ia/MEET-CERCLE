@@ -43,6 +43,7 @@
       <p id="status-note" class="muted status-note">
         Sans abonnement, les réunions pair-à-pair jusqu'à 4 participants restent gratuites.
       </p>
+      <a href="/account.html" class="btn primary wide" id="status-login">Se connecter</a>
     </section>
 
     <!-- Offres -->
@@ -108,5 +109,15 @@
   </footer>
 
   <script type="module" src="/assets/js/abonnement.js"></script>
+  <script>
+    (function () {
+      try {
+        var raw = localStorage.getItem('meet-cercle-session');
+        var s = raw ? JSON.parse(raw) : null;
+        var loginBtn = document.getElementById('status-login');
+        if (loginBtn && s && s.token) loginBtn.classList.add('hidden');
+      } catch (e) {}
+    })();
+  </script>
 </body>
 </html>
