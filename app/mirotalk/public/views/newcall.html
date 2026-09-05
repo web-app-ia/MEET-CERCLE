@@ -42,6 +42,28 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
+        <!-- CERCLE MEET : style du bloc « Créer un salon » -->
+        <style>
+            .created-room-box {
+                padding: 14px;
+                border: 1px dashed #3a475e;
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.04);
+                text-align: left;
+            }
+            .created-room-box .form-label {
+                display: block;
+                margin-bottom: 6px;
+                font-size: 0.85rem;
+                color: #cbd5e1;
+                font-weight: 600;
+            }
+            .created-room-box .room-input-wrap .form-input {
+                color: #e8eef6;
+                background: rgba(15, 23, 42, 0.6);
+            }
+        </style>
+
         <!-- JavaScripts -->
 
         <script async src="../js/stats.js"></script>
@@ -151,6 +173,36 @@
                                         >
                                             Customize Room
                                         </button>
+                                    </div>
+                                    <div class="mt-16">
+                                        <button
+                                            id="createRoomButton"
+                                            class="button button-primary br-6 button-block"
+                                        >
+                                            Créer un salon
+                                        </button>
+                                    </div>
+                                    <div id="createdRoomBox" class="created-room-box mt-16" hidden>
+                                        <label class="form-label" for="createdRoomLink">Lien à partager :</label>
+                                        <div class="room-input-wrap">
+                                            <input
+                                                id="createdRoomLink"
+                                                class="form-input"
+                                                type="text"
+                                                readonly
+                                            />
+                                            <button
+                                                id="copyRoomLink"
+                                                class="room-gen-btn fas fa-copy"
+                                                title="Copier le lien"
+                                                aria-label="Copier le lien"
+                                            ></button>
+                                        </div>
+                                        <a
+                                            id="createdRoomJoin"
+                                            class="button button-custom-room button-block br-6 mt-16"
+                                            href="/"
+                                        >Rejoindre le salon</a>
                                     </div>
                                 </div>
                                 <div id="lastRoomContainer" class="last-room">
@@ -305,5 +357,40 @@
         <script defer src="../js/landing.js"></script>
         <script defer src="../js/common.js"></script>
         <script async defer src="https://buttons.github.io/buttons.js"></script>
+        <script>
+            (function () {
+                function getUUID4() {
+                    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, function (c) {
+                        return (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16);
+                    });
+                }
+                var createBtn = document.getElementById('createRoomButton');
+                var box = document.getElementById('createdRoomBox');
+                var link = document.getElementById('createdRoomLink');
+                var copyBtn = document.getElementById('copyRoomLink');
+                var join = document.getElementById('createdRoomJoin');
+                if (createBtn) {
+                    createBtn.addEventListener('click', function () {
+                        var id = getUUID4();
+                        var url = location.origin + '/join/' + id;
+                        try { window.localStorage.lastRoom = id; } catch (e) {}
+                        if (link) link.value = url;
+                        if (join) join.setAttribute('href', '/join/' + id);
+                        if (box) box.hidden = false;
+                    });
+                }
+                if (copyBtn) {
+                    copyBtn.addEventListener('click', function () {
+                        if (!link || !link.value) return;
+                        if (navigator.clipboard && navigator.clipboard.writeText) {
+                            navigator.clipboard.writeText(link.value).catch(function () {});
+                        } else {
+                            link.select();
+                            try { document.execCommand('copy'); } catch (e) {}
+                        }
+                    });
+                }
+            })();
+        </script>
     </body>
 </html>
