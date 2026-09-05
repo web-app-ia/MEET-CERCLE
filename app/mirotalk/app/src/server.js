@@ -1351,6 +1351,18 @@ io.sockets.on('connect', async (socket) => {
                 denyAllPending(channel);
             }
         }
+        // CERCLE MEET — when a room becomes empty, reset the admission lobby to its
+        // default OFF state. The lobby is ONLY ever turned on by an explicit host action
+        // ("Activer la salle d'admission"); it must never linger as a "default" barrier.
+        for (const channel in socket.channels) {
+            if (peers[channel] && Object.keys(peers[channel]).length === 0) {
+                if (admission[channel]) {
+                    admission[channel] = false;
+                    log.debug('[' + socket.id + '] Admission lobby reset to OFF (room empty)', { channel });
+                }
+                if (pendingAdmissions[channel]) delete pendingAdmissions[channel];
+            }
+        }
         log.debug('[' + socket.id + '] disconnected', { reason: reason });
         delete sockets[socket.id];
     });
