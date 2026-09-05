@@ -51,6 +51,7 @@
 .admission-request .green{background:#1f9d55}
 .admission-request .red{background:#e8492b}
 .admission-overlay{position:fixed;inset:0;background:rgba(20,22,28,.82);display:flex;align-items:center;justify-content:center;z-index:10000}
+.admission-overlay.hidden{display:none !important}
 .admission-overlay-card{background:#fff;border-radius:14px;padding:28px 32px;text-align:center;max-width:360px;color:#222}
 .admission-overlay-card i{color:#e8492b;margin-bottom:10px}
 .admission-overlay-card h3{margin:6px 0}
@@ -178,6 +179,12 @@
 
     function init() {
         injectStyles();
+
+        // Attendre que signalingSocket soit prêt (client.js le crée après defer)
+        if (typeof signalingSocket === 'undefined' || !signalingSocket || typeof signalingSocket.on !== 'function') {
+            setTimeout(init, 300);
+            return;
+        }
 
         if (admissionBtn)
             admissionBtn.addEventListener('click', function () {
