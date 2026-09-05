@@ -800,13 +800,14 @@ app.get('/join/:roomId', function (req, res) {
 
     const allowRoomAccess = isAllowedRoomAccess('/join/:roomId', req, hostCfg, peers, roomId);
 
+    // CERCLE MEET — fusion: plus de barrière par défaut. Même si hostCfg.protected/OIDC,
+    // on laisse entrer direct (client.html). Le mot de passe et la salle d'admission
+    // restent activables MANUELLEMENT par l'hôte depuis le salon (lock/admissionToggle).
     if (allowRoomAccess) {
         htmlInjector.injectHtml(views.client, res);
-    } else if (OIDC.enabled || hostCfg.protected) {
-        // Guest arrived before host opened the room — show waiting page
-        htmlInjector.injectHtml(views.waitingRoom, res);
     } else {
-        res.redirect('/');
+        // Ancien comportement waitingRoom désactivé — ouvert par défaut
+        htmlInjector.injectHtml(views.client, res);
     }
 });
 
@@ -1541,11 +1542,10 @@ io.sockets.on('connect', async (socket) => {
         // guests bypass host protection over the HTTP /join layer).
         const isRoomNew = !(channel in presenters) || Object.keys(presenters[channel]).length === 0;
 
-        // Auth is required when global user auth is enabled, when a token is supplied
-        // (always validate it), or when host protection is on and this join would open
-        // a new room. The last case stops unauthenticated Socket.IO clients from creating
-        // protected rooms and becoming presenter, bypassing the HTTP login/waiting-room.
-        const authRequired = hostCfg.user_auth || peer_token || (hostCfg.protected && isRoomNew);
+        // CERCLE MEET — ouvert par défaut: host protection ne bloque plus la création de salon.
+        // Auth requis seulement si user_auth explicite ou token fourni. Le verrouillage
+        // par mot de passe / salle d'admission reste manuel via l'UI hôte.
+        const authRequired = hostCfg.user_auth || peer_token;
 
         // User Auth required, we check if peer valid
         if (authRequired) {
@@ -3008,13 +3008,16 @@ function isAllowedRoomAccess(logMessage, req, hostCfg, peers, roomId) {
     const roomExist = roomId in peers;
     const roomCount = Object.keys(peers).length;
 
+    // CERCLE MEET — ouvert par défaut: même si host protection/OIDC, la création de salon
+    // est autorisée sans auth. Les restrictions (mot de passe, admission) sont manuelles.
     const allowRoomAccess =
         (!hostCfg.protected && !OIDC.enabled) || // No host protection and OIDC mode enabled (default)
         (OIDCUserAuthenticated && roomExist) || // User authenticated via OIDC and room Exist
         (hostUserAuthenticated && roomExist) || // User authenticated via Login and room Exist
         ((OIDCUserAuthenticated || hostUserAuthenticated) && roomCount === 0) || // User authenticated joins the first room
         (OIDCUserAuthenticated && OIDCAllowRoomCreationForAuthUsers) || // Allow room creation if authenticated via OIDC
-        roomExist; // User Or Guest join an existing Room
+        roomExist || // User Or Guest join an existing Room
+        !roomExist; // CERCLE MEET: création ouverte par défaut (pas de waitingRoom auto)
 
     log.debug(logMessage, {
         OIDCUserAuthenticated: OIDCUserAuthenticated,
