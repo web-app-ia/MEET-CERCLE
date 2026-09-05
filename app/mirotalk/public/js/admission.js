@@ -103,10 +103,18 @@
     }
 
     function showPending() {
+        // The host/presenter is NEVER held in the lobby. Even if a stray
+        // "admissionPending" event ever arrives, the meeting creator must never be
+        // blocked behind the "waiting for approval" screen.
+        if (isPresenter === true) {
+            showEl(admissionOverlay, false);
+            return;
+        }
         if (admissionOverlayTitle) admissionOverlayTitle.textContent = 'En attente d’approbation…';
         if (admissionOverlayText)
             admissionOverlayText.textContent = 'L’hôte doit valider votre accès à la réunion.';
-        showEl(admissionOverlayBtn, false);
+        // Always offer a way out, so a guest is never trapped with no way back.
+        showEl(admissionOverlayBtn, true);
         showEl(admissionOverlay, true);
         // Hide as soon as the host accepts (server then sends serverInfo / addPeer)
         signalingSocket.once('serverInfo', function () {
@@ -118,6 +126,11 @@
     }
 
     function showDenied() {
+        // Same guard: a presenter can never be denied entry to their own room.
+        if (isPresenter === true) {
+            showEl(admissionOverlay, false);
+            return;
+        }
         if (admissionOverlayTitle) admissionOverlayTitle.textContent = 'Accès refusé';
         if (admissionOverlayText)
             admissionOverlayText.textContent = 'L’hôte a refusé votre demande d’accès à cette réunion.';

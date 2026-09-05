@@ -1330,7 +1330,11 @@ io.sockets.on('connect', async (socket) => {
      */
     socket.on('disconnect', async (reason) => {
         removeIP(socket);
-        for (let channel in socket.channels) {
+        // CERCLE MEET — snapshot the channels BEFORE removePeerFrom() mutates
+        // socket.channels (it deletes the key), otherwise the post-cleanup loops
+        // below would iterate over an already-emptied object and do nothing.
+        const leftChannels = Object.keys(socket.channels || {});
+        for (let channel of leftChannels) {
             await removePeerFrom(channel, socket, reason);
         }
         // CERCLE MEET — clean up admission state for this socket
@@ -1354,8 +1358,12 @@ io.sockets.on('connect', async (socket) => {
         // CERCLE MEET — when a room becomes empty, reset the admission lobby to its
         // default OFF state. The lobby is ONLY ever turned on by an explicit host action
         // ("Activer la salle d'admission"); it must never linger as a "default" barrier.
-        for (const channel in socket.channels) {
-            if (peers[channel] && Object.keys(peers[channel]).length === 0) {
+        // NOTE: removePeerFrom() DELETES peers[channel] when the last peer leaves, so an
+        // emptied room is `undefined`, not `{}`. Test for "no peers left", not for an
+        // empty object — that exact mistake made this cleanup a silent no-op before.
+        for (const channel of leftChannels) {
+            const stillHasPeers = peers[channel] && Object.keys(peers[channel]).length > 0;
+            if (!stillHasPeers) {
                 if (admission[channel]) {
                     admission[channel] = false;
                     log.debug('[' + socket.id + '] Admission lobby reset to OFF (room empty)', { channel });
@@ -1647,7 +1655,17 @@ io.sockets.on('connect', async (socket) => {
         // stays connected but is NOT added to the signaling channel, so no WebRTC flow
         // starts until the host accepts. Presenters (hosts) always join directly.
         // Default (admission OFF) => zero behaviour change, normal P2P join proceeds.
-        if (admission[channel] === true && !isPresenter) {
+        //
+        // Safety net: a guest is ONLY held when there is at least one OTHER presenter in
+        // the room able to approve them. A lobby with no host present is an orphan state —
+        // nobody could ever click "Accepter" — so it must never become a dead-end barrier
+        // (this is what produced "En attente d'approbation…" with no host menu reachable).
+        const otherPresenters = presenters[channel]
+            ? Object.keys(presenters[channel]).filter((id) => id !== socket.id)
+            : [];
+        const canSomeoneApprove = otherPresenters.length > 0;
+
+        if (admission[channel] === true && !isPresenter && canSomeoneApprove) {
             delete presenters[channel][socket.id]; // guest must never be marked presenter
             if (!(channel in pendingAdmissions)) pendingAdmissions[channel] = {};
             pendingAdmissions[channel][socket.id] = { socket, config, isPresenter: false };
@@ -2694,6 +2712,15 @@ io.sockets.on('connect', async (socket) => {
                 delete presenters[channel];
                 delete channels[channel]; // Clean up channels to prevent memory leak
                 delete wbLocks[channel]; // Clean up whiteboard lock state
+                // CERCLE MEET — the room is now empty: reset the admission lobby to its
+                // default OFF state. The lobby is ONLY ever turned on by an explicit host
+                // action; it must never survive a room and become a DEFAULT barrier for
+                // whoever creates/reuses that room afterwards.
+                if (admission[channel]) {
+                    admission[channel] = false;
+                    log.debug('[removePeerFrom] Admission lobby reset to OFF (room empty)', { channel });
+                }
+                if (pendingAdmissions[channel]) delete pendingAdmissions[channel];
                 // CERCLE MEET — libère le verrou de réunion du compte abonné quand le
                 // salon se vide (défense en profondeur ; l'acquisition est faite par le
                 // portail). Désactivé si config.account.apiUrl est vide.
