@@ -1201,6 +1201,10 @@
                     var cmpBtn = document.getElementById('nav-compare');
                     var cmpSec = document.getElementById('compare');
                     if (cmpBtn && cmpSec) {
+                        function syncCmp() {
+                            if (cmpSec.hasAttribute('hidden')) cmpBtn.classList.remove('active');
+                            else cmpBtn.classList.add('active');
+                        }
                         cmpBtn.addEventListener('click', function (e) {
                             e.preventDefault();
                             if (cmpSec.hasAttribute('hidden')) {
@@ -1209,6 +1213,7 @@
                             } else {
                                 cmpSec.setAttribute('hidden', '');
                             }
+                            syncCmp();
                         });
                         if (location.hash === '#compare') {
                             cmpSec.removeAttribute('hidden');
@@ -1216,6 +1221,7 @@
                                 cmpSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
                             }, 120);
                         }
+                        syncCmp();
                     }
                     var path = location.pathname;
                     document.querySelectorAll('.cm-nav a').forEach(function (a) {
