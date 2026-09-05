@@ -17,6 +17,18 @@
 
     let enabled = false;
 
+    // client.js declares `let isPresenter = false` and only assigns the real value when
+    // the serverInfo payload arrives. A peer held in the lobby never receives serverInfo,
+    // so isPresenter stays false forever for exactly the peers we care about. Trusting it
+    // blindly would make any "am I the host?" guard a no-op. Only read it once the server
+    // has actually spoken.
+    let sawServerInfo = false;
+    let pendingTimer = null;
+
+    // Give up waiting after this long and release the overlay instead of trapping the
+    // user behind a screen they can never dismiss.
+    const ADMISSION_TIMEOUT_MS = 25000;
+
     function showEl(el, v) {
         if (!el) return;
         if (v) el.classList.remove('hidden');
@@ -102,12 +114,23 @@
         refreshCount();
     }
 
+    function clearPendingTimer() {
+        if (pendingTimer) {
+            clearTimeout(pendingTimer);
+            pendingTimer = null;
+        }
+    }
+
+    function hideOverlay() {
+        clearPendingTimer();
+        showEl(admissionOverlay, false);
+    }
+
     function showPending() {
-        // The host/presenter is NEVER held in the lobby. Even if a stray
-        // "admissionPending" event ever arrives, the meeting creator must never be
-        // blocked behind the "waiting for approval" screen.
-        if (isPresenter === true) {
-            showEl(admissionOverlay, false);
+        // Only trust isPresenter AFTER the server confirmed it, otherwise this guard is
+        // dead code — see the note on `sawServerInfo` above.
+        if (sawServerInfo && isPresenter === true) {
+            hideOverlay();
             return;
         }
         if (admissionOverlayTitle) admissionOverlayTitle.textContent = 'En attente d’approbation…';
@@ -117,20 +140,35 @@
         showEl(admissionOverlayBtn, true);
         showEl(admissionOverlay, true);
         // Hide as soon as the host accepts (server then sends serverInfo / addPeer)
-        signalingSocket.once('serverInfo', function () {
-            showEl(admissionOverlay, false);
-        });
-        signalingSocket.once('addPeer', function () {
-            showEl(admissionOverlay, false);
-        });
+        signalingSocket.once('serverInfo', hideOverlay);
+        signalingSocket.once('addPeer', hideOverlay);
+        // Deadlock guard: a peer held in the lobby never receives serverInfo, so the
+        // listeners above can never fire. If nothing resolved in time, stop waiting and
+        // hand control back to the user rather than locking the screen forever.
+        clearPendingTimer();
+        pendingTimer = setTimeout(function () {
+            if (admissionOverlayTitle) admissionOverlayTitle.textContent = 'L’hôte n’a pas répondu';
+            if (admissionOverlayText)
+                admissionOverlayText.textContent =
+                    'Aucune réponse de l’hôte. Vous pouvez réessayer de rejoindre la réunion.';
+            if (admissionOverlayBtn) {
+                admissionOverlayBtn.textContent = 'Réessayer';
+                admissionOverlayBtn.onclick = function () {
+                    window.location.reload();
+                };
+            }
+            showEl(admissionOverlayBtn, true);
+            showEl(admissionOverlay, true);
+        }, ADMISSION_TIMEOUT_MS);
     }
 
     function showDenied() {
-        // Same guard: a presenter can never be denied entry to their own room.
-        if (isPresenter === true) {
-            showEl(admissionOverlay, false);
+        // Only trust isPresenter after the server confirmed it (same reason as above).
+        if (sawServerInfo && isPresenter === true) {
+            hideOverlay();
             return;
         }
+        clearPendingTimer();
         if (admissionOverlayTitle) admissionOverlayTitle.textContent = 'Accès refusé';
         if (admissionOverlayText)
             admissionOverlayText.textContent = 'L’hôte a refusé votre demande d’accès à cette réunion.';
@@ -172,6 +210,8 @@
                 enabled = false;
                 if (admissionRequests) admissionRequests.innerHTML = '';
                 updateButtons();
+                // Lobby switched off while we were waiting -> we are free to proceed.
+                hideOverlay();
             }
         });
         signalingSocket.on('admissionPending', function () {
@@ -180,8 +220,11 @@
         signalingSocket.on('admissionDenied', function () {
             showDenied();
         });
-        // Keep host controls in sync once the server confirms we are presenter
+        // Keep host controls in sync once the server confirms we are presenter.
+        // From this point on, isPresenter holds a real value and can be trusted.
         signalingSocket.on('serverInfo', function () {
+            sawServerInfo = true;
+            clearPendingTimer();
             updateButtons();
         });
 
