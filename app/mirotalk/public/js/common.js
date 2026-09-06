@@ -256,7 +256,11 @@ function getUUID4() {
 }
 
 function joinRoom() {
-    const roomName = filterXSS(document.getElementById('roomName').value).trim().replace(/\s+/g, '-');
+    let raw = filterXSS(document.getElementById('roomName').value).trim();
+    // Support collage d'un lien complet http://.../join/abc -> extrait abc
+    if (raw.includes('/join/')) raw = raw.split('/join/').pop().split('?')[0].split('#')[0];
+    else if (raw.includes('/')) raw = raw.split('/').pop().split('?')[0].split('#')[0];
+    const roomName = raw.replace(/\s+/g, '-');
     const roomValid = isValidRoomName(roomName);
 
     if (!roomName) {

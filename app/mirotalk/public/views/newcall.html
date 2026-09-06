@@ -147,33 +147,23 @@
                             </div>
                             <div class="cta-action">
                                 <div class="mb-0">
-                                    <label class="form-label screen-reader" for="roomName">CERCLE MEET-P2P</label>
+                                    <!-- Rejoindre : champ de collage, plus de génération aléatoire -->
+                                    <label class="form-label screen-reader" for="roomName">Nom de la réunion</label>
                                     <div class="form-group-desktop">
                                         <div class="room-input-wrap">
                                             <input
                                                 id="roomName"
                                                 class="form-input"
                                                 type="text"
-                                                value="mirotalk"
+                                                placeholder="Collez le nom ou le lien de la réunion (ex. design-sync)"
                                                 maxlength="64"
                                             />
-                                            <button
-                                                id="genRoomButton"
-                                                class="room-gen-btn fas fa-arrows-rotate"
-                                            ></button>
                                         </div>
                                         <button id="joinRoomButton" class="button button-primary br-6">
-                                            Join Room
+                                            Rejoindre le salon
                                         </button>
                                     </div>
-                                    <div class="mt-16">
-                                        <button
-                                            id="customizeRoomButton"
-                                            class="button button-custom-room button-block br-6"
-                                        >
-                                            Customize Room
-                                        </button>
-                                    </div>
+                                    <!-- Créer : Room setup en sous-menu -->
                                     <div class="mt-16">
                                         <button
                                             id="createRoomButton"
@@ -182,6 +172,18 @@
                                             Créer un salon
                                         </button>
                                     </div>
+                                    <details class="mt-16" style="text-align:left;background:rgba(255,255,255,0.04);border-radius:8px;padding:8px 10px;">
+                                        <summary style="cursor:pointer;font-size:0.85rem;color:#cbd5e1;">Options avancées (Room setup)</summary>
+                                        <div class="mt-16">
+                                            <button
+                                                id="customizeRoomButton"
+                                                class="button button-custom-room button-block br-6"
+                                            >
+                                                Personnaliser le salon (Room setup)
+                                            </button>
+                                            <p style="font-size:0.75rem;color:#94a3b8;margin-top:6px;">Nom, affichage, durée, avatar et token — s'ouvre dans Room setup.</p>
+                                        </div>
+                                    </details>
                                     <div id="createdRoomBox" class="created-room-box mt-16" hidden>
                                         <label class="form-label" for="createdRoomLink">Lien à partager :</label>
                                         <div class="room-input-wrap">
