@@ -25,13 +25,23 @@
         <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
     </head>
     <body>
-        <header class="cr-header">
-            <a class="cr-brand" href="/" aria-label="CERCLE MEET home">
-                <img src="../images/logo-cercle.svg" alt="" width="36" height="36" />
-                <span>CERCLE MEET</span>
-            </a>
-            <a class="cr-back" href="/">Back to home</a>
+        <header class="site-header reveal-from-top">
+            <div class="container">
+                <div class="site-header-inner">
+                    <div class="brand">
+                        <div class="m-0">
+                            <a href="/"><img src="../images/logo-cercle.svg" alt="CERCLE MEET" width="32" height="32" /></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </header>
+        <nav class="cm-nav">
+            <a href="/">Accueil</a>
+            <a href="/abonnement.html">Tarifs</a>
+            <a href="#" id="nav-compare" role="button">Comparer</a>
+            <a href="/account.html" id="nav-account">Connexion</a>
+        </nav>
         <main class="cr-page">
             <div class="cr-intro">
                 <p class="cr-eyebrow">Room setup</p>
