@@ -90,6 +90,34 @@
     border-radius: var(--ds-radius-sm);
 }
 
+/* CERCLE MEET — header + nav sticky flottant sur toutes les pages */
+.site-header,
+.cr-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(8, 12, 20, 0.82);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.cm-nav {
+    position: fixed !important;
+    top: 12px !important;
+    right: 16px !important;
+    z-index: 60 !important;
+}
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+@media (max-width: 640px) {
+    .cm-nav { top: 8px !important; right: 10px !important; padding: 8px 12px !important; }
+}
+
 /* Honor the user's "reduce motion" system preference. */
 @media (prefers-reduced-motion: reduce) {
     *,
