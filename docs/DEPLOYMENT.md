@@ -56,7 +56,9 @@ cd app/mirotalk
 npm install
 # Le premier démarrage copie config.template.js -> config.js (section brand
 # déjà rebrandée CERCLE MEET) ; personnalisez ensuite config.js si besoin :
-#   PORT, HTTPS, HOST_PROTECTED (login hôte), STUN/TURN, CORS_ORIGIN, etc.
+#   PORT, HTTPS, STUN/TURN, CORS_ORIGIN, etc.
+#   Salons ouverts par défaut (HOST_PROTECTED=false) ; le mot de passe et la
+#   salle d'admission s'activent manuellement dans le salon par l'hôte.
 npm start
 # Vérification : http://<host>:3000/brand -> { "message": { "app": { "name": "CERCLE MEET" ... } } }
 ```

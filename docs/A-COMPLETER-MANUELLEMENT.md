@@ -30,8 +30,11 @@ finalisé dans le dépôt. Chaque point indique où intervenir. Cochez au fur et
       sur le serveur hôte (Node ≥ 18). Si erreur `Cannot find module
       '@mattermost/types/client4'` : `npm install @mattermost/types --no-save`.
 - [ ] Personnaliser `app/mirotalk/app/src/config.js` (copié du template au premier
-      démarrage) : `PORT`, `CORS_ORIGIN`, `HOST_PROTECTED`/`HOST_USERS` (login hôte
-      — recommandé pour éviter les salons ouverts à tous), STUN/TURN.
+      démarrage) : `PORT`, `CORS_ORIGIN`, STUN/TURN. `HOST_PROTECTED`/`HOST_USERS`
+      laissés à `false` par défaut — salons **ouverts** ; le verrouillage par mot de
+      passe et la salle d'admission sont activables **manuellement** par l'hôte
+      depuis le salon (cadenas / `Activer la salle d'admission`). Ne pas activer
+      `HOST_PROTECTED` global sauf besoin de salons privés par défaut.
 - [ ] Héberger le portail `frontend/` en HTTPS (Pages, Puter.com à **valider** — quotas et
       conditions non confirmés, hypothèse proforma du devis) et configurer
       `window.MEET_CERCLE_API_BASE` + `window.MEET_CERCLE_MIROTALK_BASE` dans
