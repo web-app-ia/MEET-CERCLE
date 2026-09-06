@@ -62,6 +62,44 @@
                 color: #e8eef6;
                 background: rgba(15, 23, 42, 0.6);
             }
+            /* CERCLE MEET — Options avancées responsive */
+            .cm-advanced {
+                margin-top: 16px;
+                border: 1px solid rgba(148,163,184,0.12);
+                border-radius: 12px;
+                background: rgba(15,23,42,0.45);
+                backdrop-filter: blur(8px);
+                overflow: hidden;
+                text-align: left;
+            }
+            .cm-advanced summary {
+                list-style: none;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 12px 14px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #e2e8f0;
+                user-select: none;
+                -webkit-tap-highlight-color: transparent;
+            }
+            .cm-advanced summary::-webkit-details-marker { display: none; }
+            .cm-advanced .cm-adv-icon {
+                width: 28px; height: 28px; display: grid; place-items: center;
+                background: rgba(14,165,233,0.15); border-radius: 8px; color: #38bdf8; flex-shrink: 0; font-size: 0.85rem;
+            }
+            .cm-advanced .cm-adv-chevron { margin-left: auto; transition: transform 0.2s ease; color: #94a3b8; font-size: 0.75rem; }
+            .cm-advanced[open] .cm-adv-chevron { transform: rotate(180deg); }
+            .cm-advanced-content { padding: 0 14px 14px; animation: cmFadeIn 0.22s ease; }
+            @keyframes cmFadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+            .cm-advanced-content .button { width: 100%; justify-content: center; }
+            .cm-advanced-hint { font-size: 0.78rem; color: #94a3b8; margin: 8px 0 0; line-height: 1.4; text-align: center; }
+            @media (max-width: 640px) {
+                .cm-advanced summary { padding: 10px 12px; font-size: 0.85rem; }
+                .cm-advanced .cm-adv-icon { width: 26px; height: 26px; }
+            }
         </style>
 
         <!-- JavaScripts -->
@@ -155,7 +193,7 @@
                                                 id="roomName"
                                                 class="form-input"
                                                 type="text"
-                                                placeholder="Collez le nom ou le lien de la réunion (ex. design-sync)"
+                                                placeholder="Collez le nom de la réunion"
                                                 maxlength="64"
                                             />
                                         </div>
@@ -172,16 +210,20 @@
                                             Créer un salon
                                         </button>
                                     </div>
-                                    <details class="mt-16" style="text-align:left;background:rgba(255,255,255,0.04);border-radius:8px;padding:8px 10px;">
-                                        <summary style="cursor:pointer;font-size:0.85rem;color:#cbd5e1;">Options avancées (Room setup)</summary>
-                                        <div class="mt-16">
+                                    <details class="cm-advanced">
+                                        <summary>
+                                            <span class="cm-adv-icon"><i class="fas fa-sliders"></i></span>
+                                            <span>Options avancées</span>
+                                            <span class="cm-adv-chevron"><i class="fas fa-chevron-down"></i></span>
+                                        </summary>
+                                        <div class="cm-advanced-content">
                                             <button
                                                 id="customizeRoomButton"
                                                 class="button button-custom-room button-block br-6"
                                             >
-                                                Personnaliser le salon (Room setup)
+                                                <i class="fas fa-cog" style="margin-right:6px"></i>Personnaliser le salon
                                             </button>
-                                            <p style="font-size:0.75rem;color:#94a3b8;margin-top:6px;">Nom, affichage, durée, avatar et token — s'ouvre dans Room setup.</p>
+                                            <p class="cm-advanced-hint">Nom, affichage, durée, avatar et token — s'ouvre dans Room setup.</p>
                                         </div>
                                     </details>
                                     <div id="createdRoomBox" class="created-room-box mt-16" hidden>

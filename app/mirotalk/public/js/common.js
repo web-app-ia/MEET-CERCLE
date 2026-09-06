@@ -185,8 +185,14 @@ function shuffleText(input, finalValue, duration = 600) {
 
 const roomName = document.getElementById('roomName');
 if (roomName) {
-    roomName.value = '';
-    shuffleText(roomName, txt);
+    // CERCLE MEET : champ de collage -> on laisse le placeholder, pas de génération aléatoire
+    const isPasteField = roomName.placeholder && roomName.placeholder.includes('Collez');
+    if (!isPasteField) {
+        roomName.value = '';
+        shuffleText(roomName, txt);
+    } else {
+        roomName.value = '';
+    }
 
     roomName.onkeyup = (e) => {
         if (e.keyCode === 13) {
