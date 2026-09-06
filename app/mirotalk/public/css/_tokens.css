@@ -93,29 +93,43 @@
 /* CERCLE MEET — header + nav sticky flottant sur toutes les pages */
 .site-header,
 .cr-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 50 !important;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    background: rgba(8, 12, 20, 0.82);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(8, 12, 20, 0.88);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+body.has-animations,
+body {
+    padding-top: 64px;
 }
 .cm-nav {
     position: fixed !important;
     top: 12px !important;
     right: 16px !important;
-    z-index: 60 !important;
+    z-index: 61 !important;
 }
 .topbar {
-    position: sticky;
-    top: 0;
-    z-index: 50;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 50 !important;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
+.lobby-main,
+.site-content,
+.cr-page {
+    padding-top: 12px;
+}
 @media (max-width: 640px) {
     .cm-nav { top: 8px !important; right: 10px !important; padding: 8px 12px !important; }
+    body.has-animations, body { padding-top: 56px; }
 }
 
 /* Honor the user's "reduce motion" system preference. */

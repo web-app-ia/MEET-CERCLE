@@ -208,7 +208,7 @@
             <!-- CERCLE MEET : navigation comptes -->
             <nav class="cm-nav">
                 <a href="/">Accueil</a>
-                <a href="/abonnement.html">Abonnement</a>
+                <a href="/abonnement.html">Tarifs</a>
                 <a href="#" id="nav-compare" role="button">Comparer</a>
                 <a href="/account.html" id="nav-account">Connexion</a>
             </nav>
@@ -1064,6 +1064,51 @@
                         </div>
                     </div>
                 </section>
+
+                <!-- CERCLE MEET — Rappel bas de page -->
+                <section class="cta section center-content-mobile reveal-from-bottom mb-32">
+                    <div class="container">
+                        <div class="cta-inner section-inner cta-split br-12">
+                            <div class="cta-slogan">
+                                <h3 class="m-0">
+                                    Choisissez le nom de votre salon.<br />
+                                    Partagez ensuite le lien avec vos participants.
+                                </h3>
+                            </div>
+                            <div class="cta-action">
+                                <div class="mb-0">
+                                    <label class="form-label screen-reader" for="roomNameBottom">Nom de la réunion</label>
+                                    <div class="form-group-desktop">
+                                        <div class="room-input-wrap">
+                                            <input id="roomNameBottom" class="form-input" type="text" placeholder="Collez le nom de la réunion" maxlength="64" />
+                                        </div>
+                                        <button id="joinRoomButtonBottom" class="button button-primary br-6">Rejoindre le salon</button>
+                                    </div>
+                                    <div class="mt-16">
+                                        <button id="createRoomButtonBottom" class="button button-primary br-6 button-block">Créer un salon</button>
+                                    </div>
+                                    <div id="createdRoomBoxBottom" class="created-room-box mt-16" hidden>
+                                        <label class="form-label" for="createdRoomLinkBottom">Lien à partager :</label>
+                                        <div class="room-input-wrap">
+                                            <input id="createdRoomLinkBottom" class="form-input" type="text" readonly />
+                                            <button id="copyRoomLinkBottom" class="room-gen-btn fas fa-copy" title="Copier le lien" aria-label="Copier le lien"></button>
+                                        </div>
+                                        <a id="createdRoomJoinBottom" class="button button-primary br-6 mt-16" href="/">Rejoindre le salon</a>
+                                    </div>
+                                    <div class="mt-16" style="text-align:center;background:rgba(255,255,255,0.04);border-radius:8px;padding:12px;">
+                                        <p style="margin:0 0 8px;font-size:0.9rem;color:#cbd5e1;">Connectez vous pour profiter de votre forfait :</p>
+                                        <a href="/account.html" class="button button-primary br-6" style="margin:4px;">Connexion</a>
+                                        <a href="/abonnement.html" class="button button-custom-room br-6" style="margin:4px;background:#2f7bff;color:#fff;border:none;">Tarifs</a>
+                                    </div>
+                                </div>
+                                <div id="lastRoomContainerBottom" class="last-room">
+                                    <span>Votre salon récent :</span>
+                                    <a id="lastRoomBottom"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </main>
 
             <footer id="footer" class="site-footer center-content-mobile">
@@ -1265,31 +1310,49 @@
                         return (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16);
                     });
                 }
-                var createBtn = document.getElementById('createRoomButton');
-                var box = document.getElementById('createdRoomBox');
-                var link = document.getElementById('createdRoomLink');
-                var copyBtn = document.getElementById('copyRoomLink');
-                var join = document.getElementById('createdRoomJoin');
-                if (createBtn) {
-                    createBtn.addEventListener('click', function () {
-                        var id = getUUID4();
-                        var url = location.origin + '/join/' + id;
-                        try { window.localStorage.lastRoom = id; } catch (e) {}
-                        if (link) link.value = url;
-                        if (join) join.setAttribute('href', '/join/' + id);
-                        if (box) box.hidden = false;
-                    });
+                function setupCreate(btnId, boxId, linkId, joinId) {
+                    var btn = document.getElementById(btnId);
+                    var box = document.getElementById(boxId);
+                    var link = document.getElementById(linkId);
+                    var join = document.getElementById(joinId);
+                    var copyBtn = document.getElementById(btnId === 'createRoomButton' ? 'copyRoomLink' : 'copyRoomLinkBottom');
+                    if (btn) {
+                        btn.addEventListener('click', function () {
+                            var id = getUUID4();
+                            var url = location.origin + '/join/' + id;
+                            try { window.localStorage.lastRoom = id; } catch (e) {}
+                            if (link) link.value = url;
+                            if (join) join.setAttribute('href', '/join/' + id);
+                            if (box) box.hidden = false;
+                        });
+                    }
+                    if (copyBtn && link) {
+                        copyBtn.addEventListener('click', function () {
+                            if (!link.value) return;
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                navigator.clipboard.writeText(link.value).catch(function () {});
+                            } else {
+                                link.select();
+                                try { document.execCommand('copy'); } catch (e) {}
+                            }
+                        });
+                    }
                 }
-                if (copyBtn) {
-                    copyBtn.addEventListener('click', function () {
-                        if (!link || !link.value) return;
-                        if (navigator.clipboard && navigator.clipboard.writeText) {
-                            navigator.clipboard.writeText(link.value).catch(function () {});
-                        } else {
-                            link.select();
-                            try { document.execCommand('copy'); } catch (e) {}
-                        }
+                setupCreate('createRoomButton', 'createdRoomBox', 'createdRoomLink', 'createdRoomJoin');
+                setupCreate('createRoomButtonBottom', 'createdRoomBoxBottom', 'createdRoomLinkBottom', 'createdRoomJoinBottom');
+                // Bottom join
+                var joinBottom = document.getElementById('joinRoomButtonBottom');
+                var inputBottom = document.getElementById('roomNameBottom');
+                if (joinBottom && inputBottom) {
+                    joinBottom.addEventListener('click', function () {
+                        var raw = inputBottom.value.trim();
+                        if (raw.includes('/join/')) raw = raw.split('/join/').pop().split('?')[0].split('#')[0];
+                        else if (raw.includes('/')) raw = raw.split('/').pop().split('?')[0].split('#')[0];
+                        raw = raw.replace(/\s+/g, '-');
+                        if (!raw) return;
+                        window.location.href = '/join/' + raw;
                     });
+                    inputBottom.addEventListener('keyup', function (e) { if (e.keyCode === 13) joinBottom.click(); });
                 }
             })();
         </script>
