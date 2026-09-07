@@ -142,16 +142,18 @@ function renderHistory() {
     return;
   }
   body.innerHTML = history
-    .map(
-      (h) => `
+    .map((h) => {
+      const offer = getOffer(h.planId);
+      const label = offer ? offer.priceLabel : `${(h.payment.amountCents / 100).toFixed(2)} $`;
+      return `
       <tr>
         <td>${formatDate(h.purchasedMs)}</td>
         <td>${h.planName}</td>
-        <td>${(h.payment.amountCents / 100).toFixed(2).replace(".", ",")} €</td>
+        <td>${label}</td>
         <td>${formatDate(h.expiryMs)}</td>
         <td><code>${h.payment.transactionId}</code></td>
-      </tr>`
-    )
+      </tr>`;
+    })
     .join("");
 }
 

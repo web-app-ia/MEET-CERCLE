@@ -12,12 +12,12 @@
 const STORAGE_KEY = "meet-cercle-subscription";
 const HISTORY_KEY = "meet-cercle-subscription-history";
 
-/** Offres d'abonnement (alignées sur le devis V4 : pass réunion 5 € §11). */
+/** Offres d'abonnement — prix en $ et Fcfa uniquement. */
 export const OFFERS = [
   {
     id: "pass",
     name: "Pass Réunion",
-    priceLabel: "5,00 €",
+    priceLabel: "$5 / 3 000 Fcfa",
     priceCents: 500,
     durationMs: 24 * 60 * 60 * 1000, // 24 h
     durationLabel: "valable 24 h",
@@ -30,8 +30,8 @@ export const OFFERS = [
   {
     id: "mensuel",
     name: "Mensuel",
-    priceLabel: "9,99 € / mois",
-    priceCents: 999,
+    priceLabel: "$11 / 6 500 Fcfa / mois",
+    priceCents: 1100,
     durationMs: 30 * 24 * 60 * 60 * 1000,
     durationLabel: "renouvelable chaque mois",
     perks: [
@@ -45,8 +45,8 @@ export const OFFERS = [
   {
     id: "annuel",
     name: "Annuel",
-    priceLabel: "89,00 € / an",
-    priceCents: 8900,
+    priceLabel: "$96 / 58 000 Fcfa / an",
+    priceCents: 9600,
     durationMs: 365 * 24 * 60 * 60 * 1000,
     durationLabel: "soit 2 mois offerts",
     perks: [
