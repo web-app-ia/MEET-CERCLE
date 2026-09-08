@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="/assets/css/style.css" />
   <link rel="stylesheet" href="/assets/css/abonnement.css" />
   <style>
+    .site-header{position:fixed !important;top:0 !important;left:0 !important;right:0 !important;z-index:50 !important;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background:rgba(8,12,20,0.88) !important;border-bottom:1px solid rgba(255,255,255,0.07) !important;}
+    body{padding-top:64px !important;}
     .cm-nav { position: fixed; top: 16px; right: 24px; z-index: 60; display: flex; gap: 18px; align-items: center; font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; background: rgba(15, 23, 42, 0.72); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); padding: 10px 16px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18); }
     .cm-nav a { color: #e8eef6; text-decoration: none; font-weight: 600; font-size: 14px; opacity: 0.92; padding: 4px 2px; }
     .cm-nav a:hover { color: #38bdf8; opacity: 1; }
@@ -20,16 +22,21 @@
   </style>
 </head>
 <body class="abonnement">
-  <header class="topbar">
-    <a class="brand" href="/"><span class="brand-dot"></span> CERCLE MEET</a>
-    <div class="tagline">Tarifs · démonstration sans paiement réel</div>
+  <header class="site-header reveal-from-top">
+    <div class="container">
+      <div class="site-header-inner">
+        <div class="brand">
+          <div class="m-0">
+            <a href="/"><img src="../images/logo-cercle.svg" alt="CERCLE MEET" width="32" height="32" /></a>
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
-
-  <!-- CERCLE MEET : navigation comptes (toujours visible) -->
   <nav class="cm-nav">
     <a href="/">Accueil</a>
     <a href="/abonnement.html">Tarifs</a>
-    <a href="/#compare" id="nav-compare" role="button">Comparer</a>
+    <a href="#" id="nav-compare" role="button">Comparer</a>
     <a href="/account.html" id="nav-account">Connexion</a>
   </nav>
 
