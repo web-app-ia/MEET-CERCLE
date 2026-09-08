@@ -1,0 +1,61 @@
+/* ---------------------------------------------------------------------------
+   CERCLE MEET — Thème clair unifié pour les pages marketing
+   (Accueil / Tarifs / Comparer / Connexion).
+
+   On surcharge UNIQUEMENT les variables :root. Tous les composants
+   (.hero, .features, .card, .btn, input, .footer, ainsi que les règles
+   var-dépendantes de abonnement.css) basculent au clair automatiquement.
+   La page de salon (room.html) ne charge PAS cette feuille : elle reste
+   dans le thème sombre applicatif.
+--------------------------------------------------------------------------- */
+
+:root {
+  --bg: #f7f9fc;
+  --bg-elev: #ffffff;
+  --bg-card: #ffffff;
+  --border: #e8ecf1;
+  --text: #0f1117;
+  --muted: #6a6f82;
+  --accent: #376df9;
+  --accent-2: #376df9;
+  --brand: #376df9;
+  --danger: #e23c3c;
+  --ok: #15a34a;
+  --radius: 14px;
+}
+
+html,
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+a {
+  color: var(--accent);
+}
+
+/* Champs et boutons explicites (sécurité de cascade). */
+input[type="text"],
+input[type="email"] {
+  background: var(--bg-elev);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn {
+  background: var(--bg-elev);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn.primary {
+  background: linear-gradient(90deg, var(--accent), #2a5ad6);
+  color: #ffffff;
+  border: none;
+}
+
+/* Pastille « actif » des forfaits (abonnement.css utilise --ok). */
+.status-badge.ok,
+.badge.ok {
+  color: var(--ok);
+}

@@ -1,5 +1,5 @@
-/*
- * MiroTalk P2P — Shared design tokens.
+﻿/*
+ * MiroTalk P2P â€” Shared design tokens.
  *
  * Common values (colors, spacing, radius, shadows, motion, z-index)
  * used across all pages. Tokens are prefixed with `--ds-` so they
@@ -90,7 +90,7 @@
     border-radius: var(--ds-radius-sm);
 }
 
-/* CERCLE MEET — header + nav sticky flottant sur toutes les pages */
+/* CERCLE MEET â€” header + nav sticky flottant sur toutes les pages */
 .site-header,
 .cr-header {
     position: fixed !important;
@@ -173,3 +173,8 @@ body {
         scroll-behavior: auto !important;
     }
 }
+
+/* L'en-tête de site unifié est désormais fourni par /js/header.js
+   (single source of truth : style + balisage injectés ensemble).
+   L'ancien bloc .cm-header-unified / .cm-nav-unified a été supprimé. */
+

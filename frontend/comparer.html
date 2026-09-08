@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CERCLE MEET — Comparer</title>
+  <meta name="description" content="CERCLE MEET face à Google Meet, ZOOM, Jitsi Meet, Microsoft Teams et MiroTalk : architecture, coût, confidentialité." />
+  <link rel="icon" type="image/svg+xml" href="/assets/img/logo-cercle.svg" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <link rel="stylesheet" href="/assets/css/site-light.css" />
+  <style>
+    .cm-compare { max-width: 1040px; margin: 0 auto; padding: 32px 20px 64px; color: #0f1117; }
+    .cm-compare h1 { font-size: 30px; margin: 8px 0 10px; text-align: center; color: #0f1117; }
+    .cm-compare-lead { text-align: center; color: #6a6f82; max-width: 760px; margin: 0 auto 36px; font-size: 15px; line-height: 1.6; }
+    .cm-compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    .cm-compare-card { background: #fff; border: 1px solid #e8ecf1; border-radius: 14px; padding: 18px 20px; }
+    .cm-compare-card h2 { margin: 0 0 10px; color: #376df9; font-size: 17px; }
+    .cm-compare-card ul { margin: 0; padding-left: 18px; color: #292b32; line-height: 1.6; font-size: 14px; }
+    .cm-compare-card li { margin-bottom: 7px; }
+    .cm-compare-sub { text-align: center; margin: 40px 0 14px; font-size: 20px; color: #0f1117; }
+    .cm-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .cm-compare-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 680px; }
+    .cm-compare-table th, .cm-compare-table td { border: 1px solid #e8ecf1; padding: 9px 11px; text-align: center; }
+    .cm-compare-table thead th { background: #0f1117; color: #fff; font-weight: 600; }
+    .cm-compare-table tbody th { background: #f9faff; text-align: left; color: #0f1117; font-weight: 600; white-space: nowrap; }
+    .cm-compare-table tbody tr:nth-child(even) td { background: #fbfdff; }
+    @media (max-width: 640px) { .cm-compare { padding: 20px 14px 48px; } .cm-compare h1 { font-size: 24px; } }
+  </style>
+</head>
+<body class="comparer">
+<script src="/assets/js/header.js"></script>
+
+  <main class="cm-compare">
+    <h1>CERCLE MEET face aux géants de la visio</h1>
+    <p class="cm-compare-lead">
+      Visioconférence <strong>éphémère</strong>, <strong>pair-à-pair d'abord</strong>, hébergée sur une
+      stack serverless gratuite (Cloudflare). Conçue pour les petits cercles qui veulent de la visio
+      sans compte imposé, sans licence, et sans confier leurs réunions à un géant du web.
+    </p>
+
+    <div class="cm-compare-grid">
+      <article class="cm-compare-card">
+        <h2>vs Google Meet</h2>
+        <ul>
+          <li>Aucun compte Google requis pour créer <em>ou</em> rejoindre : un simple nom suffit.</li>
+          <li>Infrastructure <strong>auto-hébergée</strong> (Cloudflare) — zéro dépendance à Google.</li>
+          <li><strong>P2P d'abord</strong> : les flux restent entre navigateurs, pas centralisés sur un serveur Google.</li>
+          <li>Aucun profilage publicitaire de vos réunions.</li>
+        </ul>
+      </article>
+
+      <article class="cm-compare-card">
+        <h2>vs ZOOM</h2>
+        <ul>
+          <li>100 % navigateur, <strong>sans application à installer</strong> ni mise à jour forcée.</li>
+          <li>Confidentialité renforcée (P2P, pas de télémétrie commerciale) et salons éphémères à nom jetable — pas de « zoombombing » par lien devinable.</li>
+          <li><strong>Coût 0&nbsp;FCFA</strong> (pas de licence annuelle ZOOM).</li>
+          <li><strong>Verrou anti-partage</strong> : 1 seule réunion simultanée par compte abonné.</li>
+        </ul>
+      </article>
+
+      <article class="cm-compare-card">
+        <h2>vs Jitsi Meet</h2>
+        <ul>
+          <li><strong>SFU éphémère</strong> provisionnée à la demande puis détruite — contrairement au Videobridge Jitsi permanent (serveur à payer et maintenir).</li>
+          <li><strong>IPv6-first + TURN</strong> pour traverser les réseaux restrictifs sans serveur dédié permanent.</li>
+          <li><strong>Comptes abonnés + forfaits</strong> intégrés (au-delà de l'instance brute Jitsi).</li>
+          <li>Branding et UX CERCLE MEET clés en main.</li>
+        </ul>
+      </article>
+
+      <article class="cm-compare-card">
+        <h2>vs Microsoft Teams</h2>
+        <ul>
+          <li>Pas d'<strong>enfermement (lock-in) Microsoft 365</strong> : aucun abonnement suite bureautique requis.</li>
+          <li>Accessible <strong>sans téléchargement</strong>, depuis n'importe quel navigateur.</li>
+          <li>Léger et éphémère : pensé pour les « petits cercles », pas un ERP de collaboration.</li>
+        </ul>
+      </article>
+
+      <article class="cm-compare-card">
+        <h2>vs MiroTalk (la base)</h2>
+        <ul>
+          <li>CERCLE MEET = MiroTalk P2P <strong>rebrandé + couche métier</strong> : comptes abonnés, forfaits, verrou anti-partage.</li>
+          <li>UX/branding francophone dédié et menu de navigation comptes.</li>
+          <li>Architecture éphémère <strong>IPv6-first + SFU à la demande</strong> documentée pour passer à l'échelle au-delà du P2P.</li>
+          <li>Page d'accueil avec gestion des forfaits / abonnement.</li>
+        </ul>
+      </article>
+    </div>
+
+    <h2 class="cm-compare-sub">En un coup d'œil</h2>
+    <div class="cm-table-wrap">
+      <table class="cm-compare-table">
+        <thead>
+          <tr>
+            <th>Critère</th><th>CERCLE MEET</th><th>Google Meet</th><th>ZOOM</th><th>Jitsi Meet</th><th>MS Teams</th><th>MiroTalk</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th>Rejoindre sans compte</th><td>Oui</td><td>Invité</td><td>Oui</td><td>Oui</td><td>M365</td><td>Oui</td></tr>
+          <tr><th>Créer une réunion</th><td>Sans compte / abonné</td><td>Compte Google</td><td>Compte Zoom</td><td>Sans compte</td><td>Compte M365</td><td>Sans compte</td></tr>
+          <tr><th>Architecture</th><td>P2P + SFU éphémère</td><td>Serveur</td><td>Serveur</td><td>SFU permanent</td><td>Serveur</td><td>P2P</td></tr>
+          <tr><th>Coût d'infra</th><td>0&nbsp;FCFA</td><td>—</td><td>Licence</td><td>Serveur à payer</td><td>Licence</td><td>0 (auto)</td></tr>
+          <tr><th>Comptes + anti-partage</th><td>Oui (1/réunion/compte)</td><td>Non</td><td>Sièges payants</td><td>Non</td><td>Oui (M365)</td><td>Non</td></tr>
+          <tr><th>Open source</th><td>Oui (base MiroTalk)</td><td>Non</td><td>Non</td><td>Oui</td><td>Non</td><td>Oui</td></tr>
+          <tr><th>IPv6-first + TURN</th><td>Oui</td><td>N/A</td><td>N/A</td><td>À configurer</td><td>N/A</td><td>À configurer</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</body>
+</html>

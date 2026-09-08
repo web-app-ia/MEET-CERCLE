@@ -7,33 +7,11 @@
   <link rel="icon" type="image/svg+xml" href="/assets/img/logo-cercle.svg" />
   <link rel="stylesheet" href="/assets/css/style.css" />
   <link rel="stylesheet" href="/assets/css/account.css" />
-  <style>
-    .cm-nav { position: fixed; top: 16px; right: 24px; z-index: 60; display: flex; gap: 18px; align-items: center; font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif; background: rgba(15, 23, 42, 0.72); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); padding: 10px 16px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18); }
-    .cm-nav a { color: #e8eef6; text-decoration: none; font-weight: 600; font-size: 14px; opacity: 0.92; padding: 4px 2px; }
-    .cm-nav a:hover { color: #38bdf8; opacity: 1; }
-    .cm-nav a.active { color: #38bdf8; opacity: 1; position: relative; }
-    .cm-nav a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; border-radius: 2px; background: #38bdf8; }
-    .cm-link { background: transparent; border: 1px solid rgba(255, 255, 255, 0.4); color: #e8eef6; border-radius: 8px; padding: 6px 12px; font-weight: 600; font-size: 14px; cursor: pointer; font-family: inherit; }
-    .cm-link:hover { color: #38bdf8; border-color: #38bdf8; }
-    .cm-hidden { display: none !important; }
-  </style>
 </head>
 <body class="account">
-  <header class="topbar">
-    <a class="brand" href="/"><span class="brand-dot"></span> CERCLE MEET</a>
-    <nav class="topnav">
-      <a href="/">Accueil</a>
-      <a href="/abonnement.html">Abonnement</a>
-    </nav>
-  </header>
+<script src="/js/header.js"></script>
 
   <!-- CERCLE MEET : navigation comptes (toujours visible) -->
-  <nav class="cm-nav">
-    <a href="/">Accueil</a>
-    <a href="/abonnement.html">Abonnement</a>
-    <a href="/#compare" id="nav-compare" role="button">Comparer</a>
-    <a href="/account.html" id="nav-account">Connexion</a>
-  </nav>
 
   <main class="lobby-main">
     <!-- Non connecté : inscription / connexion -->
