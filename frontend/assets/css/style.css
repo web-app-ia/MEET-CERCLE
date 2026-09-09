@@ -279,6 +279,17 @@ input[type="text"]:focus {
   line-height: 1.5;
 }
 
+.feature-icon {
+  display: block;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.feature-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
 .footer {
   text-align: center;
   color: var(--muted);
