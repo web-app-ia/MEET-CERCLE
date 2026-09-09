@@ -1,158 +1,1108 @@
 ﻿<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CERCLE MEET — Visioconférence éphémère</title>
-  <meta name="description" content="Réunions P2P prioritaires, serveur média LiveKit provisionné à la demande, détruit après usage. IPv6-first + TURN." />
-  <link rel="icon" type="image/svg+xml" href="/assets/img/logo-cercle.svg" />
-  <link rel="stylesheet" href="/assets/css/style.css" />
-</head>
-<body class="lobby">
-<script src="/assets/js/header.js"></script>
+<html lang="fr" class="no-js">
+    <head>
+        <!-- Title and Icon -->
 
-  <main class="lobby-main">
-    <section class="hero">
-      <h1>Réunions instantanées,<br /><em>infrastructure éphémère</em></h1>
-      <p class="hero-sub">
-        Petits cercles en pair-à-pair direct. Au-delà, un serveur média LiveKit est
-        provisionné à la demande puis détruit automatiquement — vous ne payez que
-        les minutes réellement utilisées.
-      </p>
+        <title id="landingTitle">CERCLE MEET — Visioconférence WebRTC sécurisée</title>
+        <link id="shortcutIcon" rel="shortcut icon" href="../images/logo-cercle.svg" />
+        <link id="appleTouchIcon" rel="apple-touch-icon" href="../images/logo-cercle.svg" />
 
-      <div class="card actions-card">
-        <div class="field">
-          <label for="identity">Votre nom</label>
-          <input id="identity" type="text" maxlength="64" placeholder="ex. Alice" autocomplete="name" />
+        <!-- Meta Information -->
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="darkreader-lock" />
+
+        <meta
+            name="description"
+            content="CERCLE MEET est la solution de visioconférence WebRTC simple, sécurisée et rapide. Réunions P2P, partage d’écran, webcam, chat, enregistrement, tableau blanc et partage de fichiers directement dans le navigateur."
+        />
+
+        <!-- https://ogp.me -->
+
+        <meta property="og:type" content="{{OG_TYPE}}" />
+        <meta property="og:site_name" content="{{OG_SITE_NAME}}" />
+        <meta property="og:title" content="{{OG_TITLE}}" />
+        <meta property="og:description" content="{{OG_DESCRIPTION}}" />
+        <meta property="og:image" content="{{OG_IMAGE}}" />
+        <meta property="og:url" content="{{OG_URL}}" />
+
+        <!-- https://developer.x.com/en/docs/x-for-websites/cards/overview/markup -->
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="{{OG_TITLE}}" />
+        <meta name="twitter:description" content="{{OG_DESCRIPTION}}" />
+        <meta name="twitter:image" content="{{OG_IMAGE}}" />
+
+        <!-- xss -->
+
+        <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
+
+        <!-- https://cdnjs.com/libraries/font-awesome -->
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+        <!-- StyleSheet -->
+
+        <link rel="stylesheet" href="../css/_tokens.css" />
+        <link rel="stylesheet" href="../css/landing.css" />
+        <link rel="stylesheet" href="../css/newcall.css" />
+
+        <!-- https://animate.style 4 using for swal fadeIn-Out -->
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+        <!-- CERCLE MEET — CTA styles -->
+        <style>
+            .created-room-box{padding:14px;border:1px dashed #3a475e;border-radius:12px;background:rgba(255,255,255,0.04);text-align:left}
+            .created-room-box .form-label{display:block;margin-bottom:6px;font-size:0.85rem;color:#cbd5e1;font-weight:600}
+            .created-room-box .room-input-wrap .form-input{color:#e8eef6;background:rgba(15,23,42,0.6)}
+            .cm-advanced{margin-top:16px;border:1px solid rgba(148,163,184,0.12);border-radius:12px;background:rgba(15,23,42,0.45);backdrop-filter:blur(8px);overflow:hidden;text-align:left}
+            .cm-advanced summary{list-style:none;display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;font-size:0.9rem;font-weight:600;color:#e2e8f0;user-select:none;-webkit-tap-highlight-color:transparent}
+            .cm-advanced summary::-webkit-details-marker{display:none}
+            .cm-advanced .cm-adv-icon{width:28px;height:28px;display:grid;place-items:center;background:rgba(14,165,233,0.15);border-radius:8px;color:#38bdf8;flex-shrink:0;font-size:0.85rem}
+            .cm-advanced .cm-adv-chevron{margin-left:auto;transition:transform 0.2s ease;color:#94a3b8;font-size:0.75rem}
+            .cm-advanced[open] .cm-adv-chevron{transform:rotate(180deg)}
+            .cm-advanced-content{padding:0 14px 14px;animation:cmFadeIn 0.22s ease}
+            @keyframes cmFadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+            .cm-advanced-content .button{width:100%;justify-content:center}
+            .cm-advanced-hint{font-size:0.78rem;color:#94a3b8;margin:8px 0 0;line-height:1.4;text-align:center}
+            @media(max-width:640px){.cm-advanced summary{padding:10px 12px;font-size:0.85rem}.cm-advanced .cm-adv-icon{width:26px;height:26px}}
+        </style>
+
+        <!-- Snow effects -->
+
+        <link rel="stylesheet" href="../css/snow.css" />
+        <script defer src="../js/snow.js"></script>
+
+        <!-- JavaScripts -->
+
+        <script async src="../js/stats.js"></script>
+
+        <!-- sweetalert -->
+
+        <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8"></script>
+
+        <!-- CERCLE MEET Widget -->
+
+        <script defer src="../js/widget.js"></script>
+
+        <!-- CERCLE MEET : barre de navigation compte (Connexion / Mon compte) -->
+
+    </head>
+    <body class="has-animations">
+<script src="/js/header.js"></script>
+        <div id="snow-container"></div>
+        <div class="body-wrap">
+            
+
+            <!-- CERCLE MEET : navigation comptes -->
+            
+
+            <main class="site-content">
+                <section class="hero section illustration-section-01">
+                    <div class="container">
+                        <div class="hero-inner section-inner">
+                            <div class="split-wrap invert-mobile">
+                                <div class="split-item">
+                                    <div class="hero-content split-item-content center-content-mobile">
+                                        <h1
+                                            id="appTitle"
+                                            class="mt-32 mb-16 reveal-from-bottom"
+                                            data-reveal-delay="150"
+                                        >
+                                            CERCLE MEET<br />La visioconférence libre, simple et sécurisée.<br />
+                                            Pour vos cercles, vos équipes et vos communautés.
+                                        </h1>
+                                        <p
+                                            id="appDescription"
+                                            class="mt-0 mb-32 reveal-from-bottom"
+                                            data-reveal-delay="300"
+                                        >
+                                            Lancez une réunion instantanément. Sans téléchargement, sans plugin et sans
+                                            connexion obligatoire. Parlez, échangez des messages et partagez votre écran
+                                            directement depuis votre navigateur.
+                                        </p>
+                                    </div>
+                                    <style>
+                                        @media (min-width: 641px) {
+                                            .hero .split-wrap .split-item {
+                                                min-height: 492px;
+                                            }
+                                        }
+                                    </style>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="cta section center-content-mobile reveal-from-bottom mb-32">
+                    <div class="container">
+                        <div class="cta-inner section-inner cta-split br-12">
+                            <div class="cta-slogan">
+                                <h3 id="appJoinDescription" class="m-0">
+                                    Choisissez le nom de votre salon.<br />
+                                    Partagez ensuite le lien avec vos participants.
+                                </h3>
+                            </div>
+                            <div class="cta-action" style="display:flex;flex-direction:column;gap:16px;">
+                                <!-- Carte 1 : Rejoindre — fonctionnalité distincte -->
+                                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(148,163,184,0.12);border-radius:12px;padding:14px;">
+                                    <label class="form-label" for="roomName" style="display:block;margin-bottom:8px;font-size:0.85rem;color:#cbd5e1;font-weight:600;">Rejoindre un salon existant</label>
+                                    <label class="form-label screen-reader" for="roomName">Nom de la réunion</label>
+                                    <div class="form-group-desktop">
+                                        <div class="room-input-wrap">
+                                            <input id="roomName" class="form-input" type="text" placeholder="Collez le nom de la réunion" maxlength="64" />
+                                        </div>
+                                        <button id="joinRoomButton" class="button button-primary br-6" style="white-space:normal;word-break:break-word;padding:12px 14px;font-size:clamp(0.82rem,2.8vw,0.9rem);line-height:1.2;min-width:0;flex-shrink:1;max-width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;">Rejoindre le salon</button>
+                                    </div>
+                                </div>
+                                <!-- Carte 2 : Créer — fonctionnalité distincte -->
+                                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(148,163,184,0.12);border-radius:12px;padding:14px;">
+                                    <button id="createRoomButton" class="button button-primary br-6 button-block">Créer un salon</button>
+                                    <details class="cm-advanced" style="margin-top:12px;">
+                                        <summary>
+                                            <span class="cm-adv-icon"><i class="fas fa-sliders"></i></span>
+                                            <span>Options avancées</span>
+                                            <span class="cm-adv-chevron"><i class="fas fa-chevron-down"></i></span>
+                                        </summary>
+                                        <div class="cm-advanced-content">
+                                            <button id="customizeRoomButton" class="button button-primary br-6" style="width:100%;display:flex;align-items:center;justify-content:center;gap:6px;white-space:normal;word-break:break-word;padding:12px 10px;font-size:clamp(0.82rem,2.8vw,0.9rem);line-height:1.2;background:#2f7bff;color:#fff;border:none;box-sizing:border-box;max-width:100%;">
+                                                <i class="fas fa-cog" style="flex-shrink:0"></i><span>Personnaliser le salon</span>
+                                            </button>
+                                            <p class="cm-advanced-hint">Nom, affichage, durée, avatar et token — s'ouvre dans Room setup.</p>
+                                        </div>
+                                    </details>
+                                    <div id="createdRoomBox" class="created-room-box mt-16" hidden>
+                                        <label class="form-label" for="createdRoomLink">Lien à partager :</label>
+                                        <div class="room-input-wrap">
+                                            <input id="createdRoomLink" class="form-input" type="text" readonly />
+                                            <button id="copyRoomLink" class="room-gen-btn fas fa-copy" title="Copier le lien" aria-label="Copier le lien"></button>
+                                        </div>
+                                        <a id="createdRoomJoin" class="button button-primary br-6 mt-16" href="/">Rejoindre le salon</a>
+                                    </div>
+                                    <div style="margin-top:12px;text-align:center;background:rgba(255,255,255,0.04);border-radius:8px;padding:12px;">
+                                        <p style="margin:0 0 8px;font-size:0.9rem;color:#cbd5e1;">Connectez vous pour profiter de votre forfait :</p>
+                                        <a href="/account.html" class="button button-primary br-6" style="margin:4px;">Connexion</a>
+                                        <a href="/abonnement.html" class="button button-primary br-6" style="margin:4px;background:#1e293b;border:1px solid rgba(255,255,255,0.12);">Tarifs</a>
+                                    </div>
+                                </div>
+                                <div id="lastRoomContainer" class="last-room">
+                                    <span id="appJoinLastRoom">Votre salon récent :</span>
+                                    <a id="lastRoom"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="topSponsors" class="clients section">
+                    <div class="container">
+                        <div class="clients-inner section-inner has-animations has-top-divider">
+                            <h3 class="tac">CERCLE MEET pour vos réunions</h3>
+                            <ul class="list-reset">
+                                <li class="reveal-from-left" data-reveal-delay="150">
+                                    <a
+                                        class="sponsor-link"
+                                        href="/abonnement.html"
+                                        target="_self"
+                                        data-umami-event="CercleSubscription"
+                                    >
+                                        <div class="clients-logo">
+                                            <img
+                                                class="clients-size-logo"
+                                                src="../images/logo-cercle.svg"
+                                                alt="CERCLE MEET"
+                                            />
+                                        </div>
+                                            <div class="mt-16 tac">
+                                            <span class="blue">CERCLE MEET</span>
+                                            – des réunions en ligne pensées pour vos cercles, équipes et communautés.
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="cercleSubscription" class="cercle-section">
+                    <div class="container">
+                        <div class="cercle-section-inner">
+                            <div class="cercle-section-heading">
+                                <span class="cercle-kicker">CERCLE MEET</span>
+                                <h2>Choisissez l'expérience qui vous correspond</h2>
+                                <p>Commencez gratuitement en P2P, puis activez une offre lorsque vous avez besoin de plus de capacité et de fonctionnalités.</p>
+                            </div>
+                            <div class="cercle-plans">
+                                <article class="cercle-plan">
+                                    <span class="cercle-plan-label">Pour commencer</span>
+                                    <h3>Gratuit</h3>
+                                    <div class="cercle-plan-price">0 $ <small>/ 0 Fcfa</small></div>
+                                    <p>Pour les échanges simples entre proches, équipes et communautés.</p>
+                                    <ul>
+                                        <li>Réunions P2P jusqu'à 4 participants</li>
+                                        <li>Salon créé en quelques secondes</li>
+                                        <li>Chat et partage d'écran</li>
+                                    </ul>
+                                    <a class="button button-custom button-block br-6" href="#roomName">Commencer maintenant</a>
+                                </article>
+                                <article class="cercle-plan cercle-plan-featured">
+                                    <span class="cercle-plan-label">Le plus choisi</span>
+                                    <h3>Pass Réunion</h3>
+                                    <div class="cercle-plan-price">$5 <small>/ 24 h</small><br><small style="font-size:0.85rem;color:#94a3b8;">3 000 Fcfa</small></div>
+                                    <p>Pour organiser une réunion ponctuelle avec davantage de participants.</p>
+                                    <ul>
+                                        <li>1 réunion à la date de votre choix</li>
+                                        <li>Jusqu'à 8 participants</li>
+                                        <li>Infrastructure SFU à la demande</li>
+                                    </ul>
+                                    <a class="button button-primary button-block br-6" href="/abonnement.html">Voir les offres</a>
+                                </article>
+                                <article class="cercle-plan">
+                                    <span class="cercle-plan-label">Pour les équipes</span>
+                                    <h3>Mensuel</h3>
+                                    <div class="cercle-plan-price">$11 <small>/ mois</small><br><small style="font-size:0.85rem;color:#94a3b8;">6 500 Fcfa</small></div>
+                                    <p>Pour des réunions régulières et une utilisation professionnelle.</p>
+                                    <ul>
+                                        <li>Réunions illimitées</li>
+                                        <li>Participants et salons privés</li>
+                                        <li>Support par e-mail</li>
+                                    </ul>
+                                    <a class="button button-custom button-block br-6" href="/abonnement.html">Voir les offres</a>
+                                </article>
+                            </div>
+                            <p class="cercle-demo-note">Démonstration locale : aucun paiement réel n'est effectué. <a href="/abonnement.html">Consulter la validité et l'historique</a>.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="features" class="features-tiles section center-content mt-32">
+                    <div class="container">
+                        <div class="features-tiles-inner section-inner has-top-divider">
+                            <div class="section-header">
+                                <div class="container-xs reveal-from-bottom" data-reveal-delay="650">
+                                    <h2 class="mt-0 mb-16">
+                                        Réunions sans limite de durée avec CERCLE MEET
+                                    </h2>
+                                    <p class="m-0">
+                                        CERCLE MEET privilégie les échanges pair-à-pair pour réduire la latence et préserver
+                                        la confidentialité. Lorsque la taille d'une réunion l'exige, une infrastructure SFU
+                                        éphémère peut prendre le relais.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="tiles-wrap">
+                                <div class="tiles-item reveal-from-right">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <img
+                                                    class="wh-200-150"
+                                                    src="../svg/screenSharing.svg"
+                                        alt="Partage d'écran"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Partage d'écran</h4>
+                                            <p class="m-0 text-sm">
+                                                Partagez votre écran, une fenêtre ou vos documents pour présenter vos idées
+                                                avec votre cercle, jusqu'à 60 images par seconde.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item reveal-from-left">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <img
+                                                    class="wh-200-150"
+                                                    src="../svg/webcamStreaming.svg" alt="Webcam"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Webcam</h4>
+                                            <p class="m-0 text-sm">
+                                                Activez votre caméra pour créer une présence plus humaine et rapprocher
+                                                les participants de votre cercle.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item reveal-from-right">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <img class="wh-200-150" src="../svg/webcamChat.svg" alt="Salon de discussion" />
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Salon de discussion</h4>
+                                            <p class="m-0 text-sm">
+                                                Échangez en public ou en privé, retrouvez les messages importants et utilisez
+                                                les réactions pour faire vivre la conversation.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item reveal-from-left">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <img
+                                                    class="wh-200-150"
+                                                    src="../svg/recordingMeeting.svg"
+                                                    alt="Enregistrement de réunion"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Enregistrement</h4>
+                                            <p class="m-0 text-sm">
+                                                Enregistrez votre écran, votre webcam et votre audio localement pour
+                                                conserver ou partager le contenu de votre réunion.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item reveal-from-right">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <img
+                                                    class="wh-200-150"
+                                                    src="../svg/interactiveWhitboard.svg"
+                                                    alt="Tableau blanc collaboratif"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Tableau blanc</h4>
+                                            <p class="m-0 text-sm">
+                                                Dessinez, annotez et expliquez vos concepts grâce à un tableau blanc
+                                                collaboratif pendant la réunion.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item reveal-from-left">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <img
+                                                    class="wh-200-150"
+                                                    src="../svg/fileSharing.svg"
+                                                    alt="Partage de fichiers"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Partage de fichiers</h4>
+                                            <p class="m-0 text-sm">
+                                                Partagez des fichiers avec les participants de manière sécurisée grâce
+                                                au chiffrement de la connexion.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item reveal-from-left">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <img class="wh-200-150" src="../svg/chatgpt.svg" alt="Intégrations CERCLE MEET" />
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Intégrations</h4>
+                                            <p class="m-0 text-sm">
+                                                Préparez l'évolution de CERCLE MEET avec des intégrations adaptées à
+                                                vos outils et à vos usages.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item reveal-from-left">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <img class="wh-200-150" src="../svg/api.svg" alt="API et intégrations" />
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">API et intégrations</h4>
+                                            <p class="m-0 text-sm">
+                                                Connectez CERCLE MEET à vos outils lorsque vos besoins évoluent. Une base
+                                                prête pour vos intégrations futures.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item reveal-from-right">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <img
+                                                    class="wh-200-150"
+                                                    src="../svg/totalPrivacy.svg"
+                                                    alt="Confidentialité"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Confidentialité</h4>
+                                            <p class="m-0 text-sm">
+                                                Vos échanges restent entre les participants. CERCLE MEET est pensé pour
+                                                limiter la collecte et préserver votre vie privée.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="tiles-item reveal-from-left">
+                                    <div class="tiles-item-inner">
+                                        <div class="features-tiles-item-header">
+                                            <div class="features-tiles-item-image mb-16">
+                                                <img
+                                                    class="wh-200-150"
+                                                    src="../svg/maximumSecurity.svg"
+                                                    alt="Sécurité"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="features-tiles-item-content">
+                                            <h4 class="mt-0 mb-8">Sécurité</h4>
+                                            <p class="m-0 text-sm">
+                                                Les connexions WebRTC chiffrées protègent vos échanges. Vos participants
+                                                sont ceux que vous avez invités.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="teams" class="team section center-content">
+                    <div class="container">
+                        <div class="team-inner section-inner has-top-divider">
+                            <div class="section-header center-content reveal-from-bottom">
+                                <div class="container-xs">
+                                    <h2 class="mt-0 mb-16">L'équipe CERCLE MEET</h2>
+                                    <p class="m-0">Une identité et un service construits pour des réunions simples, privées et accessibles.</p>
+                                </div>
+                            </div>
+
+                            <div class="tiles-wrap">
+                                <!-- Author -->
+                                <div class="tiles-item reveal-from-bottom">
+                                    <div class="tiles-item-inner">
+                                        <div class="team-item-header">
+                                            <div class="team-item-image mb-24">
+                                                <img
+                                                    src="../images/logo-cercle.svg"
+                                                    alt="CERCLE MEET"
+                                                    width="180"
+                                                    height="180"
+                                                    class="rounded-image"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="team-item-content">
+                                            <a
+                                                target="_blank"
+                                                href="https://github.com/web-app-ia/MEET-CERCLE"
+                                            >
+                                                <h5 class="team-item-name mt-0 mb-4">CERCLE MEET</h5>
+                                            </a>
+                                            <div class="team-item-role text-xxs fw-500 text-color-primary mb-8">
+                                                Conception et expérience de visioconférence
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="poweredBy" class="clients section" style="display: none">
+                    <div class="container">
+                        <h4 class="mt-24 powered-by">Powered by</h4>
+                        <div class="clients-inner section-inner has-animations has-top-divider has-bottom-divider">
+                            <ul class="list-reset">
+                                <li class="reveal-from-top" data-reveal-delay="150">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://hetzner.cloud/?ref=XdRifCzCK3bn"
+                                            target="_blank"
+                                            data-umami-event="PoweredByHetzner"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../sponsors/Hetzner.png"
+                                                alt="Powered by Hetzner"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="200">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://www.netcup.com/en/?ref=309627"
+                                            target="_blank"
+                                            data-umami-event="PoweredByNetcup"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../sponsors/Netcup.png"
+                                                alt="Powered by Netcup"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="250">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://www.dpbolvw.net/click-101027391-14462707"
+                                            target="_blank"
+                                            data-umami-event="PoweredByContabo"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../advertisers/ContaboLogo.png"
+                                                alt="Powered by Contabo"
+                                        /></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="sponsors" class="clients section" style="display: none">
+                    <div class="container">
+                        <h2 class="mt-24 tac">Current Sponsors</h2>
+                        <div class="clients-inner section-inner has-animations has-top-divider has-bottom-divider">
+                            <ul class="list-reset">
+                                <li class="reveal-from-top" data-reveal-delay="150">
+                                    <div class="clients-logo">
+                                        <a href="https://evoplat.com" target="_blank" data-umami-event="EvoPlatSponsor"
+                                            ><img class="clients-size-logo" src="../sponsors/EvoPlat.png" alt="EvoPlat"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="200">
+                                    <div class="clients-logo">
+                                        <a href="https://cloudron.io" target="_blank" data-umami-event="CloudronSponsor"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../sponsors/Cloudron.png"
+                                                alt="Cloudron"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="250">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://effectssdk.ai"
+                                            target="_blank"
+                                            data-umami-event="EffectsSDKSponsor"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../sponsors/EffectsSDK-logo.png"
+                                                alt="EffectsSDK"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="300">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://www.liveavatar.com/?utm_medium=sponsership&utm_campaign=mirotalk"
+                                            target="_blank"
+                                            data-umami-event="LiveAvatarByHeyGenSponsor"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../sponsors/LiveAvatarByHeyGen.png"
+                                                alt="LiveAvatar by HeyGen"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="350">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://www.questionpro.com"
+                                            target="_blank"
+                                            data-umami-event="QuestionProSponsor"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../sponsors/QuestionPro.png"
+                                                alt="QuestionPro"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="350">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=mirotalk"
+                                            target="_blank"
+                                            data-umami-event="TestMuAISponsor"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../sponsors/TestMuAIWhite.svg"
+                                                alt="TestMuAI"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="450">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://www.browserstack.com"
+                                            target="_blank"
+                                            data-umami-event="BrowserStackSponsor"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../sponsors/BrowserStack.png"
+                                                alt="BrowserStack"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="500">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://crystalsound.ai"
+                                            target="_blank"
+                                            data-umami-event="CrystalSoundSponsor"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../sponsors/CrystalSound.png"
+                                                alt="CrystalSound"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="550">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://www.netcup.com/en/?ref=309627"
+                                            target="_blank"
+                                            data-umami-event="NetcupSponsor"
+                                            ><img class="clients-size-logo" src="../sponsors/Netcup.png" alt="Netcup"
+                                        /></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="pastSponsors" class="clients section" style="display: none">
+                    <div class="container">
+                        <div class="past-sponsors-header tac mt-24 mb-24">
+                            <button
+                                id="pastSponsorsToggle"
+                                class="past-sponsors-toggle"
+                                type="button"
+                                aria-controls="pastSponsorsContent"
+                                aria-expanded="false"
+                            >
+                                <span class="past-sponsors-toggle-label">Previous Sponsors</span>
+                                <span class="past-sponsors-toggle-hint">Click or tap to view</span>
+                                <i class="fa-solid fa-chevron-down past-sponsors-toggle-icon" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div
+                            id="pastSponsorsContent"
+                            class="clients-inner section-inner has-animations has-top-divider has-bottom-divider"
+                        >
+                            <ul class="list-reset">
+                                <li class="reveal-from-top" data-reveal-delay="150">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://hetzner.cloud/?ref=XdRifCzCK3bn"
+                                            target="_blank"
+                                            data-umami-event="PastSponsorHetzner"
+                                            ><img class="clients-size-logo" src="../sponsors/Hetzner.png" alt="Hetzner"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="200">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://kiquix.com"
+                                            target="_blank"
+                                            data-umami-event="PastSponsorKiquix"
+                                            ><img class="clients-size-logo" src="../sponsors/Kiquix.png" alt="Kiquix"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="250">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://broadcastx.de/"
+                                            target="_blank"
+                                            data-umami-event="PastSponsorBroadcastX"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../sponsors/BroadcastX.png"
+                                                alt="BroadcastX"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="300">
+                                    <div class="clients-logo">
+                                        <a id="adultCnt" class="cp" data-umami-event="PastSponsorLuvLounge"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../sponsors/LuvLounge.png"
+                                                alt="LuvLounge"
+                                        /></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="advertisers" class="clients section" style="display: none">
+                    <div class="container">
+                        <h2 class="mt-24 tac">Our Advertisers</h2>
+                        <div class="clients-inner section-inner has-animations has-top-divider has-bottom-divider">
+                            <ul class="list-reset">
+                                <li class="reveal-from-top" data-reveal-delay="150">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://www.dpbolvw.net/click-101027391-14462707"
+                                            target="_blank"
+                                            data-umami-event="AdvertiserContabo"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../advertisers/Contabo.png"
+                                                alt="Contabo"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="200">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://hostinger.com/?REFERRALCODE=MIROTALK"
+                                            target="_blank"
+                                            data-umami-event="AdvertiserHostinger"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../advertisers/Hostinger.png"
+                                                alt="Hostinger"
+                                        /></a>
+                                    </div>
+                                </li>
+                                <li class="reveal-from-top" data-reveal-delay="250">
+                                    <div class="clients-logo">
+                                        <a
+                                            href="https://rambox.app?via=mirotalk"
+                                            target="_blank"
+                                            data-umami-event="AdvertiserRambox"
+                                            ><img
+                                                class="clients-size-logo"
+                                                src="../advertisers/Rambox.png"
+                                                alt="Rambox"
+                                        /></a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="supportUs" class="cta section mt-24 mb-24" style="display: none">
+                    <div class="container">
+                        <div class="cta-inner section-inner br-12 has-animations">
+                            <div class="support-us-content">
+                                <div class="support-icon">
+                                    <i class="fas fa-heart heartbeat"></i>
+                                </div>
+                                <h2 class="section-title mt-0">Support CERCLE MEET</h2>
+                                <p class="section-paragraph mt-16">
+                                    CERCLE MEET is a free, open-source project under AGPLv3 license. Your support helps
+                                    us maintain servers, add new features, and keep the service free for everyone. Every
+                                    contribution matters!
+                                </p>
+
+                                <!-- Support Options -->
+                                <div class="support-options mt-24">
+                                    <!-- CodeCanyon -->
+                                    <a
+                                        href="https://codecanyon.net/user/miroslavpejic85"
+                                        target="_blank"
+                                        class="support-card reveal-from-bottom"
+                                        data-reveal-delay="150"
+                                        data-umami-event="CodeCanyonSupport"
+                                    >
+                                        <div class="support-card-icon">
+                                            <svg height="28" width="28" viewBox="0 0 24 24" fill="#82B541">
+                                                <path
+                                                    d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.5 16.5h-11v-9h11v9z"
+                                                />
+                                            </svg>
+                                        </div>
+                                        <h5 class="support-card-title-small">CodeCanyon</h5>
+                                        <p class="support-card-description-small">Buy commercial license</p>
+                                    </a>
+
+                                    <!-- PayPal -->
+                                    <a
+                                        href="https://www.paypal.com/donate/?hosted_button_id=TW833WU7EUPHJ"
+                                        target="_blank"
+                                        class="support-card reveal-from-bottom"
+                                        data-reveal-delay="200"
+                                        data-umami-event="PayPalSupport"
+                                    >
+                                        <div class="support-card-icon">
+                                            <svg height="28" width="28" viewBox="0 0 24 24" fill="#0070BA">
+                                                <path
+                                                    d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 0 0-.607-.541c-.013.076-.026.175-.041.254-.93 4.778-4.005 7.201-9.138 7.201h-2.19a.563.563 0 0 0-.556.479l-1.187 7.527h-.506l-.24 1.516a.56.56 0 0 0 .554.647h3.882c.46 0 .85-.334.922-.788.06-.26.76-4.852.76-4.852a.932.932 0 0 1 .923-.788h.58c3.76 0 6.705-1.528 7.565-5.946.36-1.847.174-3.388-.746-4.46z"
+                                                />
+                                            </svg>
+                                        </div>
+                                        <h5 class="support-card-title-small">PayPal</h5>
+                                        <p class="support-card-description-small">One-time donation</p>
+                                    </a>
+
+                                    <!-- Stripe -->
+                                    <a
+                                        href="https://buy.stripe.com/9B614m93Lg4L4Ag3Eabsc02"
+                                        target="_blank"
+                                        class="support-card reveal-from-bottom"
+                                        data-reveal-delay="250"
+                                        data-umami-event="StripeSupport"
+                                    >
+                                        <div class="support-card-icon">
+                                            <svg height="28" width="28" viewBox="0 0 24 24" fill="#635BFF">
+                                                <path
+                                                    d="M13.976 9.15c-2.172-.806-3.356-1.426-3.356-2.409 0-.831.683-1.305 1.901-1.305 2.227 0 4.515.858 6.09 1.631l.89-5.494C18.252.975 15.697 0 12.165 0 9.667 0 7.589.654 6.104 1.872 4.56 3.147 3.757 4.992 3.757 7.218c0 4.039 2.467 5.76 6.476 7.219 2.585.92 3.445 1.574 3.445 2.583 0 .98-.84 1.545-2.354 1.545-1.875 0-4.965-.921-6.99-2.109l-.9 5.555C5.175 22.99 8.385 24 11.714 24c2.641 0 4.843-.624 6.328-1.813 1.664-1.305 2.525-3.236 2.525-5.732 0-4.128-2.524-5.851-6.594-7.305h.003z"
+                                                />
+                                            </svg>
+                                        </div>
+                                        <h5 class="support-card-title-small">Stripe</h5>
+                                        <p class="support-card-description-small">Donate via credit card</p>
+                                    </a>
+
+                                    <!-- GitHub Sponsors -->
+                                    <a
+                                        href="https://github.com/sponsors/miroslavpejic85"
+                                        target="_blank"
+                                        class="support-card reveal-from-bottom"
+                                        data-reveal-delay="300"
+                                        data-umami-event="GitHubSponsorsSupport"
+                                    >
+                                        <div class="support-card-icon">
+                                            <svg height="28" width="28" viewBox="0 0 16 16" fill="#ffffff">
+                                                <path
+                                                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+                                                />
+                                            </svg>
+                                        </div>
+                                        <h5 class="support-card-title-small">GitHub Sponsors</h5>
+                                        <p class="support-card-description-small">Monthly recurring donation</p>
+                                    </a>
+                                </div>
+
+                                <div class="support-footer">
+                                    <p class="text-sm mb-0">
+                                        <strong>Other ways to help:</strong>
+                                        <span class="mlroomAction-8" title="Star on GitHub">
+                                            <i class="fab fa-github"></i> Star us
+                                        </span>
+                                        <span class="mx-8">|</span>
+                                        <span title="Spread the word"> <i class="fas fa-bullhorn"></i> Share </span>
+                                        <span class="mx-8">|</span>
+                                        <span title="Contribute code"> <i class="fas fa-code"></i> Contribute </span>
+                                    </p>
+                                    <p class="text-sm mt-8 mb-0">
+                                        <strong>Join our community:</strong>
+                                        <a
+                                            href="https://discord.gg/rgGYfeYW3N"
+                                            target="_blank"
+                                            class="blue ml-4"
+                                            data-umami-event="DiscordCommunity"
+                                            title="Join Discord Forum"
+                                        >
+                                            <i class="fab fa-discord"></i> Discord Forum
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CERCLE MEET — Rappel bas de page -->
+                <section class="cta section center-content-mobile reveal-from-bottom mb-32">
+                    <div class="container">
+                        <div class="cta-inner section-inner cta-split br-12">
+                            <div class="cta-slogan">
+                                <h3 class="m-0">
+                                    Choisissez le nom de votre salon.<br />
+                                    Partagez ensuite le lien avec vos participants.
+                                </h3>
+                            </div>
+                            <div class="cta-action" style="display:flex;flex-direction:column;gap:16px;">
+                                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(148,163,184,0.12);border-radius:12px;padding:14px;">
+                                    <label class="form-label" for="roomNameBottom" style="display:block;margin-bottom:8px;font-size:0.85rem;color:#cbd5e1;font-weight:600;">Rejoindre un salon existant</label>
+                                    <label class="form-label screen-reader" for="roomNameBottom">Nom de la réunion</label>
+                                    <div class="form-group-desktop">
+                                        <div class="room-input-wrap">
+                                            <input id="roomNameBottom" class="form-input" type="text" placeholder="Collez le nom de la réunion" maxlength="64" />
+                                        </div>
+                                        <button id="joinRoomButtonBottom" class="button button-primary br-6" style="white-space:normal;word-break:break-word;padding:12px 14px;font-size:clamp(0.82rem,2.8vw,0.9rem);line-height:1.2;min-width:0;flex-shrink:1;max-width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;">Rejoindre le salon</button>
+                                    </div>
+                                </div>
+                                <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(148,163,184,0.12);border-radius:12px;padding:14px;">
+                                    <button id="createRoomButtonBottom" class="button button-primary br-6 button-block">Créer un salon</button>
+                                    <div id="createdRoomBoxBottom" class="created-room-box mt-16" hidden>
+                                        <label class="form-label" for="createdRoomLinkBottom">Lien à partager :</label>
+                                        <div class="room-input-wrap">
+                                            <input id="createdRoomLinkBottom" class="form-input" type="text" readonly />
+                                            <button id="copyRoomLinkBottom" class="room-gen-btn fas fa-copy" title="Copier le lien" aria-label="Copier le lien"></button>
+                                        </div>
+                                        <a id="createdRoomJoinBottom" class="button button-primary br-6 mt-16" href="/">Rejoindre le salon</a>
+                                    </div>
+                                    <div style="margin-top:12px;text-align:center;background:rgba(255,255,255,0.04);border-radius:8px;padding:12px;">
+                                        <p style="margin:0 0 8px;font-size:0.9rem;color:#cbd5e1;">Connectez vous pour profiter de votre forfait :</p>
+                                        <a href="/account.html" class="button button-primary br-6" style="margin:4px;">Connexion</a>
+                                        <a href="/abonnement.html" class="button button-primary br-6" style="margin:4px;background:#1e293b;border:1px solid rgba(255,255,255,0.12);">Tarifs</a>
+                                    </div>
+                                </div>
+                                <div id="lastRoomContainerBottom" class="last-room">
+                                    <span>Votre salon récent :</span>
+                                    <a id="lastRoomBottom"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer id="footer" class="site-footer center-content-mobile">
+                <div class="container">
+                    <div class="site-footer-inner">
+                        <div class="footer-top space-between text-xxs">
+                            <div class="brand">
+                                <a href="/"><img src="../images/logo-cercle.svg" alt="CERCLE MEET" width="32" height="32" /></a>
+                            </div>
+                            <div class="footer-social">
+                                <ul class="list-reset">
+                                    <li class="footer-social-icon">
+                                        <a target="_blank" href="https://github.com/web-app-ia/MEET-CERCLE">
+                                            <span aria-label="GitHub CERCLE MEET">GitHub</span>
+                                        </a>
+                                    </li>
+                                    <li class="footer-social-icon">
+                                        <a target="_blank" href="https://www.linkedin.com/company/cercle-meet/">
+                                            <span aria-label="LinkedIn CERCLE MEET">LinkedIn</span>
+                                        </a>
+                                    </li>
+                                    <li class="footer-social-icon">
+                                        <a target="_blank" href="https://www.youtube.com/@CERCLEMEET">
+                                            <span aria-label="YouTube CERCLE MEET">YouTube</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="footer-bottom space-between text-xxs invert-order-desktop">
+                            <nav class="footer-nav">
+                                <ul class="list-reset">
+                                    <li>
+                                        <a href="/abonnement.html">Tarifs</a>
+                                    </li>
+                                    <li>
+                                        <a href="/privacy">Confidentialité</a>
+                                    </li>
+                                    <li>
+                                        <a href="/api/v1/docs/">API</a>
+                                    </li>
+                                    <li>
+                                        <a target="_blank" href="mailto:support@cercle.meet">Contact CERCLE MEET</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="footer-copyright">&copy; 2026 CERCLE MEET · Réunions simples, privées et accessibles.</div>
+                        </div>
+                        <p class="text-xxs mt-16">CERCLE MEET intègre le moteur open source MiroTalk P2P sous licence AGPLv3. Voir <a href="/LICENSE">la licence et les sources</a>.</p>
+                    </div>
+                </div>
+            </footer>
         </div>
-        <button id="create-room" class="btn primary">Créer un salon</button>
-        <div class="divider"><span>ou rejoindre</span></div>
-        <div class="join-row">
-          <input id="room-name" type="text" maxlength="64" placeholder="code du salon (ex. abc-def-ghi)" />
-          <button id="join-room" class="btn">Rejoindre</button>
-        </div>
-        <p id="lobby-error" class="error hidden"></p>
-      </div>
-    </section>
+        <script defer src="../js/utils.js"></script>
+        <script defer src="../js/common.js"></script>
+        <script defer src="../js/brand.js"></script>
+        <script defer src="../js/landing.js"></script>
+        <!-- CERCLE MEET : comparaison avec les concurrents -->
 
-    <section class="features">
-      <article class="feature">
-        <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M12 7v5M9.5 9.5L12 7l2.5 2.5"/></svg></span>
-        <h3>Partage d'écran</h3>
-        <p>Présentez un document, une application ou tout votre écran en un clic, en direct.</p>
-      </article>
-      <article class="feature">
-        <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></span>
-        <h3>API ouverte</h3>
-        <p>Créez des salons et suivez les réunions directement depuis vos propres outils via l'API REST.</p>
-      </article>
-      <article class="feature">
-        <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
-        <h3>Sécurité &amp; chiffrement</h3>
-        <p>Connexions pair-à-pair avec chiffrement de bout en bout : vos médias ne transitent pas par nos serveurs.</p>
-      </article>
-      <article class="feature">
-        <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
-        <h3>Chat intégré</h3>
-        <p>Messagerie, partage de fichiers et tableau blanc pendant la réunion, sans rien installer.</p>
-      </article>
-      <article class="feature">
-        <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span>
-        <h3>Gratuit &amp; sans compte</h3>
-        <p>Lancez un salon instantané sans inscription ni abonnement : vous ne payez que l'usage réel.</p>
-      </article>
-      <article class="feature">
-        <span class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></span>
-        <h3>Confidentialité éphémère</h3>
-        <p>Infrastructure créée à la demande et détruite après la réunion : rien n'est conservé sur nos serveurs.</p>
-      </article>
-    </section>
-  </main>
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-      <footer class="footer">
-    <span>© 2026 CERCLE MEET · Réunions simples, privées et accessibles.</span>
-  </footer>
-
-
-
-  <script>
-    // Création / rejoindre un salon — 100 % autonome côté moteur (localhost:3000).
-    // Le moteur MiroTalk sert la page /join/?room=..&name=.. (route app.get('/join/')).
-    (function () {
-      function uuid4() {
-        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, function (c) {
-          return (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16);
-        });
-      }
-
-      var identity = document.getElementById('identity');
-      var createBtn = document.getElementById('create-room');
-      var joinBtn = document.getElementById('join-room');
-      var roomInput = document.getElementById('room-name');
-      var errorBox = document.getElementById('lobby-error');
-
-      function showError(msg) {
-        if (errorBox) { errorBox.textContent = msg; errorBox.classList.remove('hidden'); }
-      }
-      function clearError() {
-        if (errorBox) { errorBox.textContent = ''; errorBox.classList.add('hidden'); }
-      }
-      function currentIdentity() {
-        var v = (identity && identity.value || '').trim();
-        if (!v) {
-          showError('Indiquez votre nom pour rejoindre un salon.');
-          if (identity) identity.focus();
-          return null;
-        }
-        try { localStorage.setItem('meet-cercle-identity', v); } catch (e) {}
-        return v;
-      }
-      function openRoom(room, name) {
-        var params = new URLSearchParams({
-          room: room,
-          name: name,
-          audio: '1',
-          video: '1',
-          screen: '1',
-          chat: '1',
-        });
-        window.location.href = '/join/?' + params.toString();
-      }
-
-      if (createBtn) {
-        createBtn.addEventListener('click', function () {
-          var name = currentIdentity();
-          if (!name) return;
-          clearError();
-          var room = uuid4();
-          try { localStorage.setItem('meet-cercle-last-room', room); } catch (e) {}
-          openRoom(room, name);
-        });
-      }
-      if (joinBtn && roomInput) {
-        joinBtn.addEventListener('click', function () {
-          var name = currentIdentity();
-          if (!name) return;
-          var room = roomInput.value.trim().toLowerCase();
-          if (!/^[a-z0-9][a-z0-9-]{2,63}$/.test(room)) {
-            showError('Code de salon invalide (lettres minuscules, chiffres et tirets, 3 à 64 caractères).');
-            return;
-          }
-          clearError();
-          try { localStorage.setItem('meet-cercle-last-room', room); } catch (e) {}
-          openRoom(room, name);
-        });
-        roomInput.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter') joinBtn.click();
-        });
-      }
-      if (identity) {
-        try {
-          var saved = localStorage.getItem('meet-cercle-identity');
-          if (saved) identity.value = saved;
-        } catch (e) {}
-      }
-    })();
-  </script>
-</body>
+        <script>
+            (function () {
+                function getUUID4() {
+                    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, function (c) {
+                        return (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16);
+                    });
+                }
+                function setupCreate(btnId, boxId, linkId, joinId) {
+                    var btn = document.getElementById(btnId);
+                    var box = document.getElementById(boxId);
+                    var link = document.getElementById(linkId);
+                    var join = document.getElementById(joinId);
+                    var copyBtn = document.getElementById(btnId === 'createRoomButton' ? 'copyRoomLink' : 'copyRoomLinkBottom');
+                    if (btn) {
+                        btn.addEventListener('click', function () {
+                            var id = getUUID4();
+                            var url = location.origin + '/join/' + id;
+                            try { window.localStorage.lastRoom = id; } catch (e) {}
+                            if (link) link.value = url;
+                            if (join) join.setAttribute('href', '/join/' + id);
+                            if (box) box.hidden = false;
+                        });
+                    }
+                    if (copyBtn && link) {
+                        copyBtn.addEventListener('click', function () {
+                            if (!link.value) return;
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                navigator.clipboard.writeText(link.value).catch(function () {});
+                            } else {
+                                link.select();
+                                try { document.execCommand('copy'); } catch (e) {}
+                            }
+                        });
+                    }
+                }
+                setupCreate('createRoomButton', 'createdRoomBox', 'createdRoomLink', 'createdRoomJoin');
+                setupCreate('createRoomButtonBottom', 'createdRoomBoxBottom', 'createdRoomLinkBottom', 'createdRoomJoinBottom');
+                // Bottom join
+                var joinBottom = document.getElementById('joinRoomButtonBottom');
+                var inputBottom = document.getElementById('roomNameBottom');
+                if (joinBottom && inputBottom) {
+                    joinBottom.addEventListener('click', function () {
+                        var raw = inputBottom.value.trim();
+                        if (raw.includes('/join/')) raw = raw.split('/join/').pop().split('?')[0].split('#')[0];
+                        else if (raw.includes('/')) raw = raw.split('/').pop().split('?')[0].split('#')[0];
+                        raw = raw.replace(/\s+/g, '-');
+                        if (!raw) return;
+                        window.location.href = '/join/' + raw;
+                    });
+                    inputBottom.addEventListener('keyup', function (e) { if (e.keyCode === 13) joinBottom.click(); });
+                }
+            })();
+        </script>
+    </body>
 </html>
+
+
