@@ -237,6 +237,7 @@ const userEmoji = getId(`userEmoji`);
 // Chat room
 const msgerDraggable = getId('msgerDraggable');
 const msgerHeader = getId('msgerHeader');
+const msgerClose = getId('msgerClose');
 const msgerTogglePin = getId('msgerTogglePin');
 const msgerTheme = getId('msgerTheme');
 const msgerCPBtn = getId('msgerCPBtn');
@@ -872,8 +873,8 @@ function setButtonsToolTip() {
     // Main buttons
     refreshMainButtonsToolTipPlacement();
     // Chat room buttons
-    setTippy(msgerClose, 'Close', 'bottom');
-    setTippy(msgerTogglePin, 'Toggle chat pin', 'bottom');
+    if (msgerClose) setTippy(msgerClose, 'Close', 'bottom');
+    if (msgerTogglePin) setTippy(msgerTogglePin, 'Toggle chat pin', 'bottom');
     setTippy(msgerTheme, 'Ghost theme', 'bottom');
     setTippy(msgerMaxBtn, 'Maximize', 'bottom');
     setTippy(msgerMinBtn, 'Minimize', 'bottom');
@@ -6585,11 +6586,13 @@ function setChatRoomBtn() {
     });
 
     // close chat room - show left button and status menu if hide
-    msgerClose.addEventListener('click', (e) => {
-        chatMinimize();
-        hideChatRoomAndEmojiPicker();
-        showButtonsBarAndMenu();
-    });
+    if (msgerClose) {
+        msgerClose.addEventListener('click', (e) => {
+            chatMinimize();
+            hideChatRoomAndEmojiPicker();
+            showButtonsBarAndMenu();
+        });
+    }
 
     // Maximize chat
     msgerMaxBtn.addEventListener('click', (e) => {
