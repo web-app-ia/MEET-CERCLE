@@ -30,6 +30,7 @@ identityInput.value = localStorage.getItem("meet-cercle-identity") || "";
 // Badge d'abonnement actif dans la barre supérieure.
 function renderSubscriptionBadge() {
   const badge = $("#subscription-badge");
+  if (!badge) return;
   const sub = getSubscription();
   if (!sub) return;
   const days = remainingDays(sub);
@@ -43,15 +44,16 @@ const navAccount = $("#nav-account");
 const navLogout = $("#nav-logout");
 
 function updateAccountNav() {
+  if (!navAccount) return; // header unifié (header.js) gère son propre état
   const s = getSession();
   if (s && s.token) {
     navAccount.textContent = "Déconnecter";
     navAccount.setAttribute("href", "#");
-    navLogout.classList.add("hidden");
+    if (navLogout) navLogout.classList.add("hidden");
   } else {
     navAccount.textContent = "Connexion";
     navAccount.setAttribute("href", "/account.html");
-    navLogout.classList.add("hidden");
+    if (navLogout) navLogout.classList.add("hidden");
   }
 }
 
@@ -90,8 +92,13 @@ function showError(msg) {
   errorBox.classList.remove("hidden");
 }
 
-/** Ouvre le salon dans l'interface CERCLE MEET (MiroTalk /join/). */
+/** Ouvre le salon : client natif room.html sur portail statique (Pages),
+ *  moteur MiroTalk (/join/) quand MIROTALK_BASE est configuré (dev local). */
 function openMiroTalk(room, identity) {
+  if (!MIROTALK_BASE) {
+    location.href = `/room/?room=${encodeURIComponent(room)}`;
+    return;
+  }
   const params = new URLSearchParams({
     room,
     name: identity,
