@@ -7742,6 +7742,7 @@ function setAboutBtn() {
  * Open the CERCLE MEET subscription page.
  */
 function setSubscriptionBtn() {
+    if (!subscriptionBtn) return;
     subscriptionBtn.addEventListener('click', () => {
         const base = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
             ? `${window.location.protocol}//${window.location.hostname}:8080`
