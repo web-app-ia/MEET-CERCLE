@@ -267,6 +267,9 @@ const msgerShowChatOnMsg = getId('msgerShowChatOnMsg');
 const msgerSpeechMsgDiv = getId('msgerSpeechMsgDiv');
 const msgerSpeechMsg = getId('msgerSpeechMsg');
 const msgerSendBtn = getId('msgerSendBtn');
+const msgerMaxBtn = getId('msgerMaxBtn');
+const msgerMinBtn = getId('msgerMinBtn');
+const msgerSidebarCloseBtn = getId('msgerSidebarCloseBtn');
 
 const chatInputEmoji = {
     '<3': '❤️',
@@ -875,9 +878,9 @@ function setButtonsToolTip() {
     // Chat room buttons
     if (msgerClose) setTippy(msgerClose, 'Close', 'bottom');
     if (msgerTogglePin) setTippy(msgerTogglePin, 'Toggle chat pin', 'bottom');
-    setTippy(msgerTheme, 'Ghost theme', 'bottom');
-    setTippy(msgerMaxBtn, 'Maximize', 'bottom');
-    setTippy(msgerMinBtn, 'Minimize', 'bottom');
+    if (msgerTheme) setTippy(msgerTheme, 'Ghost theme', 'bottom');
+    if (msgerMaxBtn) setTippy(msgerMaxBtn, 'Maximize', 'bottom');
+    if (msgerMinBtn) setTippy(msgerMinBtn, 'Minimize', 'bottom');
     setTippy(msgerEmojiBtn, 'Emoji', 'top');
     setTippy(msgerMarkdownBtn, 'Markdown', 'top');
     setTippy(msgerShareFileBtn, 'Share file', 'top');
@@ -6595,13 +6598,17 @@ function setChatRoomBtn() {
     }
 
     // Maximize chat
-    msgerMaxBtn.addEventListener('click', (e) => {
-        chatMaximize();
-    });
+    if (msgerMaxBtn) {
+        msgerMaxBtn.addEventListener('click', (e) => {
+            chatMaximize();
+        });
+    }
     // minimize chat
-    msgerMinBtn.addEventListener('click', (e) => {
-        chatMinimize();
-    });
+    if (msgerMinBtn) {
+        msgerMinBtn.addEventListener('click', (e) => {
+            chatMinimize();
+        });
+    }
 
     // Markdown on-off
     msgerMarkdownBtn.addEventListener('click', (e) => {
@@ -17137,6 +17144,7 @@ function getName(name) {
  * @param {boolean} yes true/false
  */
 function elemDisplay(element, display, mode = 'inline') {
+    if (!element) return;
     element.style.display = display ? mode : 'none';
 }
 
