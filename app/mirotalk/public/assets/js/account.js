@@ -48,8 +48,8 @@ async function renderProfile() {
     profileView.classList.remove("hidden");
     $("#profile-name").textContent = account.name || account.email;
     $("#profile-email").textContent = account.email;
-    const planLabels = { free: "Gratuit", pass: "Pass Réunion", mensuel: "Mensuel", annuel: "Annuel" };
-    $("#profile-plan").textContent = planLabels[account.planId] || account.planId || "Gratuit";
+    const planLabels = { free: "Starter", pass: "Pass", mensuel: "Pro", annuel: "Annuel" };
+    $("#profile-plan").textContent = planLabels[account.planId] || account.planId || "Starter";
     $("#profile-active").textContent = account.activeRoomId
       ? `Salon « ${account.activeRoomId} »`
       : "Aucune";

@@ -32,7 +32,7 @@ function renderStatus() {
   if (!sub) {
     planEl.textContent = "Aucun abonnement actif";
     expiryEl.textContent = "";
-    badgeEl.textContent = "Gratuit";
+    badgeEl.textContent = "Starter";
     badgeEl.classList.remove("active");
     barEl.classList.add("hidden");
     noteEl.textContent =

@@ -16,7 +16,7 @@ const HISTORY_KEY = "meet-cercle-subscription-history";
 export const OFFERS = [
   {
     id: "pass",
-    name: "Pass Réunion",
+    name: "Pass",
     priceLabel: "$5 / 3 000 Fcfa",
     priceCents: 500,
     durationMs: 24 * 60 * 60 * 1000, // 24 h
@@ -29,7 +29,7 @@ export const OFFERS = [
   },
   {
     id: "mensuel",
-    name: "Mensuel",
+    name: "Pro",
     priceLabel: "$11 / 6 500 Fcfa / mois",
     priceCents: 1100,
     durationMs: 30 * 24 * 60 * 60 * 1000,
@@ -50,7 +50,7 @@ export const OFFERS = [
     durationMs: 365 * 24 * 60 * 60 * 1000,
     durationLabel: "soit 2 mois offerts",
     perks: [
-      "Tous les avantages du Mensuel",
+      "Tous les avantages du Pro",
       "Support prioritaire",
       "Statistiques d'utilisation",
     ],
