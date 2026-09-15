@@ -196,3 +196,54 @@
         min-height: 492px;
     }
 }
+
+/* CERCLE MEET — responsive mobile */
+.waiting-card {
+    width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: break-word;
+}
+@media (max-width: 640px) {
+    .waiting-card {
+        max-width: 100%;
+        margin: 0 12px;
+        padding: 28px 20px 24px;
+    }
+    .waiting-icon {
+        width: 52px;
+        height: 52px;
+        margin-bottom: 16px;
+    }
+    .waiting-icon i {
+        font-size: 20px;
+    }
+    .waiting-title {
+        font-size: 20px;
+        line-height: 1.3;
+    }
+    .waiting-description {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 24px;
+    }
+    .waiting-description br {
+        display: none;
+    }
+    .waiting-audio-player {
+        flex-wrap: wrap;
+    }
+    .host-login-link {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+}
+@media (max-width: 360px) {
+    .waiting-card {
+        margin: 0 8px;
+        padding: 24px 16px 20px;
+        border-radius: 12px;
+    }
+    .waiting-title {
+        font-size: 18px;
+    }
+}
