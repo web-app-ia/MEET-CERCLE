@@ -65,8 +65,8 @@ let brand = {
         joinLastLabel: 'Votre salon récent :',
     },
     site: {
-        shortcutIcon: '../images/logo-cercle.svg',
-        appleTouchIcon: '../images/logo-cercle.svg',
+        shortcutIcon: '../images/logo-cercle.png',
+        appleTouchIcon: '../images/logo-cercle.png',
         landingTitle: 'CERCLE MEET — Visioconférence WebRTC sécurisée',
         newCallTitle: 'CERCLE MEET — Appels vidéo, chat et partage d’écran sécurisés.',
         newCallRoomTitle: 'Choisissez un nom. <br />Partagez l’URL. <br />Démarrez la conférence.',
@@ -108,7 +108,7 @@ let brand = {
         footer: true,
     },
     about: {
-        imageUrl: '../images/logo-cercle.svg',
+        imageUrl: '../images/logo-cercle.png',
         title: 'CERCLE MEET — basé sur le moteur open source MiroTalk P2P',
         html: `
             <p><strong>CERCLE MEET</strong> est votre espace de visioconférence pour les cercles, équipes et communautés.</p>

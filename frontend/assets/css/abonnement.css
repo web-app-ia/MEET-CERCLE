@@ -87,8 +87,8 @@
 }
 
 .offer-card.featured {
-  border-color: rgba(79, 124, 255, 0.55);
-  box-shadow: 0 0 24px rgba(79, 124, 255, 0.15);
+  border-color: rgba(1, 111, 237, 0.55);
+  box-shadow: 0 0 24px rgba(1, 111, 237, 0.15);
 }
 
 .offer-flag {
@@ -198,8 +198,8 @@
   margin: 0;
   font-size: 0.82rem;
   color: var(--muted);
-  background: rgba(34, 211, 238, 0.08);
-  border: 1px solid rgba(34, 211, 238, 0.3);
+  background: rgba(3, 57, 185, 0.08);
+  border: 1px solid rgba(3, 57, 185, 0.3);
   border-radius: 8px;
   padding: 8px 12px;
 }

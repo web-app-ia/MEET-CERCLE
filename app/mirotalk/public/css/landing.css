@@ -1,7 +1,7 @@
 /* CERCLE MEET subscription section */
 .cercle-section {
     padding: 80px 0;
-    background: linear-gradient(180deg, rgba(55, 109, 249, 0.05), rgba(0, 0, 0, 0));
+    background: linear-gradient(180deg, rgba(3, 57, 185, 0.05), rgba(0, 0, 0, 0));
 }
 
 .cercle-section-inner {
@@ -17,7 +17,7 @@
 
 .cercle-kicker,
 .cercle-plan-label {
-    color: #53d8ff;
+    color: #016FED;
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.12em;
@@ -51,8 +51,8 @@
 }
 
 .cercle-plan-featured {
-    border-color: #376df9;
-    box-shadow: 0 16px 40px rgba(55, 109, 249, 0.16);
+    border-color: #0339B9;
+    box-shadow: 0 16px 40px rgba(3, 57, 185, 0.16);
 }
 
 .cercle-plan h3 {
@@ -86,7 +86,7 @@
 .cercle-plan li::before {
     content: '✓';
     margin-right: 8px;
-    color: #53d8ff;
+    color: #016FED;
 }
 
 .cercle-demo-note {
@@ -96,7 +96,7 @@
 }
 
 .cercle-demo-note a {
-    color: #53d8ff;
+    color: #016FED;
 }
 
 @media (max-width: 800px) {
@@ -124,20 +124,20 @@ body {
     padding: 40px;
     border: 0.5px solid rgb(255 255 255 / 32%);
     border-radius: 10px;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 60%, rgba(70, 120, 249, 0.25) 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 60%, rgba(1, 111, 237, 0.25) 100%);
 }
 
 #loginForm:hover,
 #loginForm:focus-within {
-    box-shadow: 0 12px 40px 0 rgba(70, 120, 249, 0.25);
-    border-color: #376df9;
+    box-shadow: 0 12px 40px 0 rgba(1, 111, 237, 0.25);
+    border-color: #0339B9;
 }
 
 /* Hidden by default; shown after successful login without a target room */
 #joinRoomForm {
     display: none;
     margin-top: 32px;
-    background: rgba(70, 120, 249, 0.08);
+    background: rgba(1, 111, 237, 0.08);
     border-radius: 10px;
     padding: 32px 24px;
     transition:
@@ -147,7 +147,7 @@ body {
 
 #joinRoomForm:focus-within,
 #joinRoomForm:hover {
-    border-color: #376df9;
+    border-color: #0339B9;
 }
 
 /* Join Room layout: make JOIN fill the remaining width next to Random */
@@ -692,12 +692,12 @@ a.button-link:active {
 }
 
 a.func-link {
-    color: #376df9;
+    color: #0339B9;
 }
 
 a.func-link:hover,
 a.func-link:active {
-    color: #6991fa;
+    color: #016FED;
 }
 
 h1,
@@ -842,12 +842,12 @@ strong {
 
 .invert-color a.button-link:hover,
 .invert-color a.button-link:active {
-    color: #376df9;
+    color: #0339B9;
 }
 
 .invert-color a.func-link:hover,
 .invert-color a.func-link:active {
-    color: #6991fa;
+    color: #016FED;
 }
 
 .invert-color h1,
@@ -1062,9 +1062,9 @@ strong {
 
 .button-primary {
     color: #ffffff;
-    background: linear-gradient(135deg, #376df9 0%, #4678f9 100%);
+    background: linear-gradient(135deg, #0339B9 0%, #016FED 100%);
     border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 4px 14px rgba(55, 109, 249, 0.35);
+    box-shadow: 0 4px 14px rgba(3, 57, 185, 0.35);
     transition:
         background 0.2s ease,
         transform 0.12s ease,
@@ -1072,14 +1072,14 @@ strong {
 }
 
 .button-primary:hover {
-    background: linear-gradient(135deg, #4678f9 0%, #5a8aff 100%);
+    background: linear-gradient(135deg, #016FED 0%, #016FED 100%);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(55, 109, 249, 0.45);
+    box-shadow: 0 6px 20px rgba(3, 57, 185, 0.45);
 }
 
 .button-primary:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(55, 109, 249, 0.3);
+    box-shadow: 0 2px 8px rgba(3, 57, 185, 0.3);
 }
 
 .button-primary.is-loading::after {
@@ -1088,9 +1088,9 @@ strong {
 
 .button-custom-room {
     background:
-        radial-gradient(900px circle at 20% 15%, rgba(70, 120, 249, 0.22) 0%, rgba(70, 120, 249, 0) 55%),
-        radial-gradient(700px circle at 80% 85%, rgba(70, 120, 249, 0.14) 0%, rgba(70, 120, 249, 0) 52%),
-        linear-gradient(135deg, rgba(0, 0, 0, 0.95) 60%, rgba(70, 120, 249, 0.25) 100%);
+        radial-gradient(900px circle at 20% 15%, rgba(1, 111, 237, 0.22) 0%, rgba(1, 111, 237, 0) 55%),
+        radial-gradient(700px circle at 80% 85%, rgba(1, 111, 237, 0.14) 0%, rgba(1, 111, 237, 0) 52%),
+        linear-gradient(135deg, rgba(0, 0, 0, 0.95) 60%, rgba(1, 111, 237, 0.25) 100%);
     box-shadow:
         0 8px 24px rgba(0, 0, 0, 0.45),
         inset 0 1px 0 rgba(255, 255, 255, 0.05);
@@ -1115,11 +1115,11 @@ strong {
     border: 0;
     color: #f9faff !important;
     background-color: #000000;
-    background: linear-gradient(100deg, #376df9 0, #ff5fa0 75%, #ffc55a 100%);
+    background: linear-gradient(100deg, #0339B9 0, #F44336 75%, #FFC107 100%);
 }
 
 .button-custom:hover {
-    background-color: #4678f9;
+    background-color: #016FED;
 }
 
 .button-custom.is-loading::after {
@@ -1128,7 +1128,7 @@ strong {
 
 .button-secondary {
     color: #f9faff;
-    background-color: #ff5fa0;
+    background-color: #F44336;
 }
 
 .button-secondary:hover {
@@ -1235,7 +1235,7 @@ fieldset {
 .form-radio input:active,
 .form-radio input:focus {
     outline: none;
-    border-color: #376df9;
+    border-color: #0339B9;
 }
 
 .form-input[disabled],
@@ -1251,21 +1251,21 @@ fieldset {
 .form-select.form-error,
 .form-checkbox input.form-error,
 .form-radio input.form-error {
-    border-color: #ff5fa0;
+    border-color: #F44336;
 }
 
 .form-input.form-warning,
 .form-select.form-warning,
 .form-checkbox input.form-warning,
 .form-radio input.form-warning {
-    border-color: #ffc55a;
+    border-color: #FFC107;
 }
 
 .form-input.form-success,
 .form-select.form-success,
 .form-checkbox input.form-success,
 .form-radio input.form-success {
-    border-color: #1ec198;
+    border-color: #00B86B;
 }
 
 .form-input,
@@ -1408,8 +1408,8 @@ textarea.form-input {
 
 .form-checkbox input:checked,
 .form-radio input:checked {
-    background-color: #376df9 !important;
-    border-color: #376df9 !important;
+    background-color: #0339B9 !important;
+    border-color: #0339B9 !important;
     background-position: 50%;
 }
 
@@ -1471,7 +1471,7 @@ textarea.form-input {
 }
 
 .form-switch input:checked + .form-switch-icon {
-    background: #376df9;
+    background: #0339B9;
 }
 
 .form-switch input:checked + .form-switch-icon::before {
@@ -1509,7 +1509,7 @@ textarea.form-input {
 .invert-color .form-checkbox input:focus,
 .invert-color .form-radio input:active,
 .invert-color .form-radio input:focus {
-    border-color: #376df9;
+    border-color: #0339B9;
 }
 
 .invert-color .form-input[disabled],
@@ -1574,7 +1574,7 @@ textarea.form-input {
     -webkit-backdrop-filter: blur(12px);
     border: 2px solid rgba(255, 255, 255, 0.25);
     color: #ffffff;
-    caret-color: #4678f9;
+    caret-color: #016FED;
     font-weight: 600;
     letter-spacing: 0.3px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
@@ -1585,17 +1585,17 @@ textarea.form-input {
 }
 
 .room-input-wrap .form-input:hover {
-    border-color: rgba(70, 120, 249, 0.6);
+    border-color: rgba(1, 111, 237, 0.6);
     background-color: rgba(0, 0, 0, 0.5);
-    box-shadow: 0 4px 16px rgba(70, 120, 249, 0.15);
+    box-shadow: 0 4px 16px rgba(1, 111, 237, 0.15);
 }
 
 .room-input-wrap .form-input:focus {
-    border-color: #4678f9;
+    border-color: #016FED;
     background-color: rgba(0, 0, 0, 0.55);
     box-shadow:
-        0 0 0 3px rgba(70, 120, 249, 0.2),
-        0 4px 16px rgba(70, 120, 249, 0.15);
+        0 0 0 3px rgba(1, 111, 237, 0.2),
+        0 4px 16px rgba(1, 111, 237, 0.15);
 }
 
 .room-input-wrap .form-input::placeholder {
@@ -1623,28 +1623,28 @@ textarea.form-input {
 
 .room-gen-btn:hover {
     color: #ffffff;
-    background: rgba(70, 120, 249, 0.3);
-    border-color: rgba(70, 120, 249, 0.5);
+    background: rgba(1, 111, 237, 0.3);
+    border-color: rgba(1, 111, 237, 0.5);
 }
 
 .room-gen-btn:focus-visible {
     outline: none;
     color: #ffffff;
-    background: rgba(70, 120, 249, 0.3);
-    border-color: #4678f9;
+    background: rgba(1, 111, 237, 0.3);
+    border-color: #016FED;
 }
 
 .room-gen-btn:active {
     color: #ffffff;
-    background: rgba(70, 120, 249, 0.5);
-    border-color: #4678f9;
+    background: rgba(1, 111, 237, 0.5);
+    border-color: #016FED;
     transform: translateY(-50%) scale(0.85);
-    box-shadow: 0 0 8px rgba(70, 120, 249, 0.4);
+    box-shadow: 0 0 8px rgba(1, 111, 237, 0.4);
 }
 
 .room-gen-btn.spin {
     animation: roomGenSpin 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    color: #4678f9;
+    color: #016FED;
 }
 
 @keyframes roomGenSpin {
@@ -1890,7 +1890,7 @@ textarea.form-input {
 .accordion-icon::after {
     content: '';
     position: absolute;
-    background: #376df9;
+    background: #0339B9;
     transition: transform 0.25s ease-out;
 }
 
@@ -2148,7 +2148,7 @@ textarea.form-input {
 }
 
 .invert-color .carousel-bullet:hover::before {
-    background: #376df9;
+    background: #0339B9;
 }
 
 .split-wrap {
@@ -2623,12 +2623,12 @@ textarea.form-input {
 }
 
 .footer-social a svg {
-    fill: #376df9;
+    fill: #0339B9;
     transition: fill 0.15s ease;
 }
 
 .footer-social a:hover svg {
-    fill: #6991fa;
+    fill: #016FED;
 }
 
 .footer-nav {
@@ -3360,7 +3360,7 @@ ul.pricing-item-features-list li {
     display: inline-flex;
     padding: 1rem;
     border-radius: 1rem;
-    background: radial-gradient(circle at bottom, #376df9 0%, #ff79af 50%, #ff8d74 100%);
+    background: radial-gradient(circle at bottom, #0339B9 0%, #ff79af 50%, #ff8d74 100%);
 }
 
 .pricing .tiles-item-inner {
@@ -3476,16 +3476,16 @@ ul.pricing-item-features-list li.is-checked::after {
 }
 
 .testimonial-item-link {
-    color: #376df9;
+    color: #0339B9;
 }
 
 .testimonial-item-link a {
-    color: #376df9;
+    color: #0339B9;
     text-decoration: none;
 }
 
 .testimonial-item-link a:hover {
-    color: #6991fa;
+    color: #016FED;
 }
 
 .cta .form-input {
@@ -3496,8 +3496,8 @@ ul.pricing-item-features-list li.is-checked::after {
 .cta-inner {
     padding-left: 16px;
     padding-right: 16px;
-    background-color: #376df9;
-    background: linear-gradient(100deg, #376df9 0, #ff5fa0 75%, #ffc55a 100%);
+    background-color: #0339B9;
+    background: linear-gradient(100deg, #0339B9 0, #F44336 75%, #FFC107 100%);
 }
 
 @media (min-width: 641px) {
@@ -3572,23 +3572,23 @@ ul.pricing-item-features-list li.is-checked::after {
 }
 
 .text-color-primary {
-    color: #376df9;
+    color: #0339B9;
 }
 
 .text-color-secondary {
-    color: #ff5fa0;
+    color: #F44336;
 }
 
 .text-color-error {
-    color: #ff5fa0;
+    color: #F44336;
 }
 
 .text-color-warning {
-    color: #ffc55a;
+    color: #FFC107;
 }
 
 .text-color-success {
-    color: #1ec198;
+    color: #00B86B;
 }
 
 .invert-color .text-color-high {
@@ -4196,7 +4196,7 @@ img.has-shadow {
 html,
 body {
     scrollbar-width: thin;
-    scrollbar-color: #4678f9 #1a1b1f;
+    scrollbar-color: #016FED #1a1b1f;
 }
 
 /* Target the scrollbar track */
@@ -4207,14 +4207,14 @@ body {
 
 /* Target the scrollbar thumb (the draggable part) */
 ::-webkit-scrollbar-thumb {
-    background: #4678f9;
+    background: #016FED;
     border-radius: 8px; /* rounded corners for the thumb */
     cursor: pointer;
 }
 
 /* Target the scrollbar track when the thumb is being hovered */
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #376df9; /* color of the thumb on hover */
+    background-color: #0339B9; /* color of the thumb on hover */
 }
 
 /* Target the scrollbar track when the scrollbar is being hovered */
@@ -4261,8 +4261,8 @@ body {
 }
 
 .last-room a:hover {
-    background-color: rgba(70, 120, 249, 0.15);
-    color: #4678f9;
+    background-color: rgba(1, 111, 237, 0.15);
+    color: #016FED;
     transition: all 0.2s ease;
 }
 
@@ -4537,7 +4537,7 @@ body {
 .support-footer {
     margin-top: 32px;
     padding-top: 24px;
-    border-top: 1px solid rgba(70, 120, 249, 0.2);
+    border-top: 1px solid rgba(1, 111, 237, 0.2);
 }
 
 .support-footer a {
@@ -4595,13 +4595,13 @@ body {
     --landing-surface: #1d2026;
     --landing-surface-raised: #242830;
     --landing-border: rgba(255, 255, 255, 0.1);
-    --landing-border-hover: rgba(70, 120, 249, 0.42);
+    --landing-border-hover: rgba(1, 111, 237, 0.42);
     --landing-text: #f4f7fb;
     --landing-text-muted: #959cb1;
-    --landing-primary: #376df9;
-    --landing-primary-bright: #4678f9;
-    --landing-secondary: #ff5fa0;
-    --landing-accent: #ffc55a;
+    --landing-primary: #0339B9;
+    --landing-primary-bright: #016FED;
+    --landing-secondary: #F44336;
+    --landing-accent: #FFC107;
 }
 
 .body-wrap {
@@ -4787,7 +4787,7 @@ body {
 .room-gen-btn:focus-visible,
 .past-sponsors-toggle:focus-visible,
 a:focus-visible {
-    outline: 3px solid rgba(70, 120, 249, 0.9);
+    outline: 3px solid rgba(1, 111, 237, 0.9);
     outline-offset: 3px;
 }
 
@@ -4836,7 +4836,7 @@ a:focus-visible {
     right: 24px;
     left: 24px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(70, 120, 249, 0.72), rgba(255, 95, 160, 0.5), transparent);
+    background: linear-gradient(90deg, transparent, rgba(1, 111, 237, 0.72), rgba(255, 95, 160, 0.5), transparent);
     opacity: 0.62;
 }
 
@@ -4857,7 +4857,7 @@ a:focus-visible {
     border: 0;
     border-radius: 6px;
     background:
-        radial-gradient(circle at 50% 115%, rgba(55, 109, 249, 0.62), transparent 58%),
+        radial-gradient(circle at 50% 115%, rgba(3, 57, 185, 0.62), transparent 58%),
         radial-gradient(circle at 88% 4%, rgba(255, 95, 160, 0.3), transparent 56%),
         linear-gradient(145deg, #202633, #151a22);
     box-shadow: none;
@@ -4953,12 +4953,12 @@ a:focus-visible {
 
 #tryEasier .section-inner {
     border-top-color: transparent;
-    background: linear-gradient(110deg, rgba(55, 109, 249, 0.11), rgba(255, 95, 160, 0.06));
+    background: linear-gradient(110deg, rgba(3, 57, 185, 0.11), rgba(255, 95, 160, 0.06));
 }
 
 #tryEasier .button-custom {
     background: linear-gradient(100deg, var(--landing-primary), #32b8e8);
-    box-shadow: 0 10px 28px rgba(55, 109, 249, 0.22);
+    box-shadow: 0 10px 28px rgba(3, 57, 185, 0.22);
 }
 
 .site-footer::before {

@@ -43,20 +43,20 @@
 .admission-panel{position:fixed;right:16px;bottom:16px;width:280px;max-height:60vh;overflow:auto;
   background:#fff;border:1px solid #e2e2e2;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.18);z-index:9999;font-family:inherit}
 .admission-panel-head{display:flex;align-items:center;gap:8px;padding:10px 12px;font-weight:600;border-bottom:1px solid #eee;background:#f7f7f7;border-radius:12px 12px 0 0}
-.admission-count{margin-left:auto;background:#e8492b;color:#fff;border-radius:999px;min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;padding:0 6px}
+.admission-count{margin-left:auto;background:#F44336;color:#fff;border-radius:999px;min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;padding:0 6px}
 .admission-requests{padding:8px 10px;display:flex;flex-direction:column;gap:8px}
 .admission-request{display:flex;align-items:center;gap:6px;font-size:14px}
 .admission-request .adm-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .admission-request button{font-size:12px;padding:4px 8px;border:none;border-radius:6px;cursor:pointer;color:#fff}
-.admission-request .green{background:#1f9d55}
-.admission-request .red{background:#e8492b}
+.admission-request .green{background:#00B86B}
+.admission-request .red{background:#F44336}
 .admission-overlay{position:fixed;inset:0;background:rgba(20,22,28,.82);display:flex;align-items:center;justify-content:center;z-index:10000}
 .admission-overlay.hidden{display:none !important}
 .admission-overlay-card{background:#fff;border-radius:14px;padding:28px 32px;text-align:center;max-width:360px;color:#222}
-.admission-overlay-card i{color:#e8492b;margin-bottom:10px}
+.admission-overlay-card i{color:#F44336;margin-bottom:10px}
 .admission-overlay-card h3{margin:6px 0}
 .admission-overlay-card p{color:#555;margin:6px 0 14px}
-.admission-overlay-card button{margin-top:8px;padding:8px 16px;border:none;border-radius:8px;background:#e8492b;color:#fff;cursor:pointer}
+.admission-overlay-card button{margin-top:8px;padding:8px 16px;border:none;border-radius:8px;background:#F44336;color:#fff;cursor:pointer}
 `;
         document.head.appendChild(s);
     }

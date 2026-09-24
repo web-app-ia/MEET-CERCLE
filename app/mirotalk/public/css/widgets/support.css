@@ -123,25 +123,25 @@
 
 .mirotalk-minimized-btn .status-dot.online,
 .mirotalk-support-widget .status-dot.online {
-    background: #00e676;
+    background: #00B86B;
     box-shadow: 0 0 8px rgba(0, 230, 118, 0.4);
     animation: widgetPulse 2s infinite;
 }
 
 .mirotalk-minimized-btn .status-dot.offline,
 .mirotalk-support-widget .status-dot.offline {
-    background: #ff5252;
+    background: #F44336;
     box-shadow: 0 0 8px rgba(255, 82, 82, 0.4);
 }
 
 .mirotalk-support-widget .online-text {
-    color: #00e676;
+    color: #00B86B;
     font-weight: 600;
     font-size: 14px;
 }
 
 .mirotalk-support-widget .offline-text {
-    color: #ff5252;
+    color: #F44336;
     font-weight: 600;
     font-size: 14px;
 }
@@ -304,7 +304,7 @@
 }
 
 .mirotalk-support-widget .btn-icon {
-    background: linear-gradient(135deg, #00e676 0%, #00c853 100%);
+    background: linear-gradient(135deg, #00B86B 0%, #00B86B 100%);
     border-radius: 50%;
     width: 32px;
     height: 32px;
@@ -341,22 +341,22 @@
 }
 
 .mirotalk-support-widget .footer-link {
-    color: #00e676;
+    color: #00B86B;
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .mirotalk-support-widget .footer-link:hover {
-    color: #00c853;
+    color: #00B86B;
 }
 
 .mirotalk-support-widget .mirotalk-powered-by {
-    color: #00e676;
+    color: #00B86B;
     font-weight: bold;
 }
 
 .mirotalk-support-widget.light-theme .mirotalk-powered-by {
-    color: #00c853;
+    color: #00B86B;
 }
 
 /* Widget States */
@@ -436,15 +436,15 @@
     transform: translateY(-4px) scale(1.07);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
     background: linear-gradient(135deg, #2a2a3e 0%, #23233a 100%);
-    color: #00e676;
-    border-color: #00e676;
+    color: #00B86B;
+    border-color: #00B86B;
 }
 
 .mirotalk-reopener-btn.light-theme:hover {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
     background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
-    color: #00c853;
-    border-color: #00c853;
+    color: #00B86B;
+    border-color: #00B86B;
 }
 
 .mirotalk-reopener-btn .reopener-content {
@@ -872,7 +872,7 @@
 .mirotalk-support-widget .close-btn:focus,
 .mirotalk-minimized-btn:focus,
 .mirotalk-reopener-btn:focus {
-    outline: 2px solid #00e676;
+    outline: 2px solid #00B86B;
     outline-offset: 2px;
 }
 

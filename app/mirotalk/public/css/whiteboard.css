@@ -125,7 +125,7 @@
 }
 .whiteboardColorPicker:hover {
     box-shadow: 0 0 0 2px rgba(102, 190, 255, 0.18);
-    border: 2px solid #66beff;
+    border: 2px solid #016FED;
     transform: scale(1.12);
 }
 .whiteboardColorPicker::-webkit-color-swatch {
@@ -264,7 +264,7 @@
 }
 
 .wb-shortcuts-text {
-    color: #66beff;
+    color: #016FED;
     font-weight: 600;
     font-size: 0.9rem;
     letter-spacing: 0.02em;

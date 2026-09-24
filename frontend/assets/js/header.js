@@ -40,18 +40,18 @@
         '.cm-brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#f8fafc;',
         '  font-weight:700;font-size:15px;letter-spacing:.04em;white-space:nowrap}',
         '.cm-brand:hover{color:#ffffff}',
-        '.cm-brand svg{display:block;flex:0 0 auto}',
+        '.cm-brand svg,.cm-brand img{display:block;flex:0 0 auto;border-radius:8px}',
         '.cm-site-nav{display:flex;align-items:center;gap:26px}',
         '.cm-site-nav a{position:relative;color:#cbd5e1;text-decoration:none;font-weight:600;',
         '  font-size:14px;padding:6px 2px;transition:color .15s ease}',
         '.cm-site-nav a:hover{color:#ffffff}',
         '.cm-site-nav a.is-active{color:#ffffff}',
         '.cm-site-nav a.is-active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;',
-        '  height:2px;border-radius:2px;background:#4f7cff}',
-        '.cm-site-cta{display:inline-flex;align-items:center;background:#4f7cff;color:#ffffff;',
+        '  height:2px;border-radius:2px;background:#016FED}',
+        '.cm-site-cta{display:inline-flex;align-items:center;background:#016FED;color:#ffffff;',
         '  text-decoration:none;font-weight:600;font-size:14px;padding:9px 16px;',
         '  border-radius:8px;white-space:nowrap;transition:background .15s ease}',
-        '.cm-site-cta:hover{background:#3b62d9;color:#ffffff}',
+        '.cm-site-cta:hover{background:#0339B9;color:#ffffff}',
         'body{padding-top:64px}',
         '@media(max-width:720px){',
         '  .cm-site-header{height:56px;padding:0 14px;gap:10px}',
@@ -68,10 +68,7 @@
     ].join('\n');
 
     var LOGO_SVG =
-        '<svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">' +
-        '<circle cx="14" cy="14" r="11.5" stroke="#4f7cff" stroke-width="2.5"/>' +
-        '<circle cx="14" cy="14" r="4.5" fill="#4f7cff"/>' +
-        '</svg>';
+        '<img src="/assets/img/logo-cercle.png" width="32" height="32" alt="" aria-hidden="true">';
 
     function normalize(path) {
         var p = String(path || '').replace(/\/+$/, '');

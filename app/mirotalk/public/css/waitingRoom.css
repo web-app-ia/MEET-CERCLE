@@ -4,9 +4,9 @@
     margin: 0 auto;
     padding: 48px 36px 40px;
     background:
-        radial-gradient(900px circle at 20% 15%, rgba(70, 120, 249, 0.12) 0%, rgba(70, 120, 249, 0) 55%),
-        radial-gradient(700px circle at 80% 85%, rgba(70, 120, 249, 0.08) 0%, rgba(70, 120, 249, 0) 52%),
-        linear-gradient(135deg, rgba(0, 0, 0, 0.95) 60%, rgba(70, 120, 249, 0.15) 100%);
+        radial-gradient(900px circle at 20% 15%, rgba(1, 111, 237, 0.12) 0%, rgba(1, 111, 237, 0) 55%),
+        radial-gradient(700px circle at 80% 85%, rgba(1, 111, 237, 0.08) 0%, rgba(1, 111, 237, 0) 52%),
+        linear-gradient(135deg, rgba(0, 0, 0, 0.95) 60%, rgba(1, 111, 237, 0.15) 100%);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 16px;
     box-shadow:
@@ -21,8 +21,8 @@
     height: 64px;
     margin: 0 auto 24px;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(70, 120, 249, 0.2), rgba(70, 120, 249, 0.05));
-    border: 1px solid rgba(70, 120, 249, 0.25);
+    background: linear-gradient(135deg, rgba(1, 111, 237, 0.2), rgba(1, 111, 237, 0.05));
+    border: 1px solid rgba(1, 111, 237, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,15 +30,15 @@
 }
 .waiting-icon i {
     font-size: 24px;
-    color: #4678f9;
+    color: #016FED;
 }
 @keyframes iconPulse {
     0%,
     100% {
-        box-shadow: 0 0 0 0 rgba(70, 120, 249, 0.3);
+        box-shadow: 0 0 0 0 rgba(1, 111, 237, 0.3);
     }
     50% {
-        box-shadow: 0 0 0 12px rgba(70, 120, 249, 0);
+        box-shadow: 0 0 0 12px rgba(1, 111, 237, 0);
     }
 }
 
@@ -69,7 +69,7 @@
 .waiting-spinner-dot {
     width: 10px;
     height: 10px;
-    background-color: #4678f9;
+    background-color: #016FED;
     border-radius: 50%;
     animation: bounce 1.4s ease-in-out infinite both;
 }
@@ -141,7 +141,7 @@
 .waiting-audio-btn {
     background: none;
     border: none;
-    color: #4678f9;
+    color: #016FED;
     font-size: 16px;
     cursor: pointer;
     padding: 4px;
@@ -149,7 +149,7 @@
     flex-shrink: 0;
 }
 .waiting-audio-btn:hover {
-    color: #5a8aff;
+    color: #016FED;
 }
 .waiting-audio-bar {
     flex: 1;
@@ -161,7 +161,7 @@
 .waiting-audio-progress {
     height: 100%;
     width: 0;
-    background: #4678f9;
+    background: #016FED;
     border-radius: 4px;
     transition: width 0.3s linear;
 }
@@ -180,13 +180,13 @@
     margin: 0;
 }
 .host-login-link a {
-    color: #4678f9;
+    color: #016FED;
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s ease;
 }
 .host-login-link a:hover {
-    color: #5a8aff;
+    color: #016FED;
     text-decoration: underline;
 }
 

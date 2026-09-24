@@ -403,8 +403,8 @@ body {
 
 .init-user select:focus {
     outline: none;
-    border-color: rgba(70, 120, 249, 0.6);
-    box-shadow: 0 0 0 2px rgba(70, 120, 249, 0.15);
+    border-color: rgba(1, 111, 237, 0.6);
+    box-shadow: 0 0 0 2px rgba(1, 111, 237, 0.15);
 }
 
 .init-user button {
@@ -585,13 +585,13 @@ body {
 /* Active state for chat / participants toolbar buttons (theme-aware) */
 #bottomButtons #chatRoomBtn.is-active,
 #bottomButtons #participantsBtn.is-active {
-    background: color-mix(in srgb, var(--dd-color, #4678f9) 18%, transparent) !important;
-    box-shadow: inset 0 0 0 1px var(--dd-color, #4678f9);
-    color: var(--dd-color, #4678f9) !important;
+    background: color-mix(in srgb, var(--dd-color, #016FED) 18%, transparent) !important;
+    box-shadow: inset 0 0 0 1px var(--dd-color, #016FED);
+    color: var(--dd-color, #016FED) !important;
 }
 #bottomButtons #chatRoomBtn.is-active:hover,
 #bottomButtons #participantsBtn.is-active:hover {
-    background: color-mix(in srgb, var(--dd-color, #4678f9) 28%, transparent) !important;
+    background: color-mix(in srgb, var(--dd-color, #016FED) 28%, transparent) !important;
 }
 
 /* Quick device picker (Start Audio/Video) */
@@ -849,7 +849,7 @@ body {
 }
 
 .device-menu-audio-meter .device-meter-bar.active {
-    background-color: #19bb5c;
+    background-color: #00B86B;
 }
 
 /* Settings / device menu - speaker output volume */
@@ -1563,7 +1563,7 @@ body {
     content: '\f505';
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
-    color: #4caf50;
+    color: #00B86B;
     margin-right: 6px;
 }
 
@@ -2429,7 +2429,7 @@ button {
 
 .msger-peer-inputwrap .msger-input:focus {
     outline: none;
-    border-color: #66beff;
+    border-color: #016FED;
 }
 
 .msger-peer-inputarea .dropdown-menu-custom {
@@ -3409,8 +3409,8 @@ button {
 
 #mySettings select:focus {
     outline: none;
-    border-color: rgba(70, 120, 249, 0.6);
-    box-shadow: 0 0 0 2px rgba(70, 120, 249, 0.15);
+    border-color: rgba(1, 111, 237, 0.6);
+    box-shadow: 0 0 0 2px rgba(1, 111, 237, 0.15);
 }
 
 #mySettingsCloseBtn {
@@ -3524,13 +3524,13 @@ button {
 }
 
 .theme-card.active {
-    border-color: var(--dd-color, #66beff);
+    border-color: var(--dd-color, #016FED);
     background: rgba(255, 255, 255, 0.1);
     box-shadow: 0 0 12px rgba(102, 190, 255, 0.2);
 }
 
 .theme-card.active i {
-    color: var(--dd-color, #66beff);
+    color: var(--dd-color, #016FED);
 }
 
 .theme-card.active span {
@@ -3636,8 +3636,8 @@ button {
 
 #themeColorPicker:focus {
     outline: none;
-    border-color: rgba(70, 120, 249, 0.6);
-    box-shadow: 0 0 0 2px rgba(70, 120, 249, 0.15);
+    border-color: rgba(1, 111, 237, 0.6);
+    box-shadow: 0 0 0 2px rgba(1, 111, 237, 0.15);
 }
 
 .buttons {
@@ -4103,7 +4103,7 @@ button {
     font-weight: bold;
 }
 #shortcutsTable td i {
-    color: #007bff;
+    color: #016FED;
 }
 #shortcutsTable tr:nth-child(even) {
     background: var(--body-bg);
@@ -5123,7 +5123,7 @@ input:checked + .slider:before {
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     color: #ffffff;
-    background: #376df9;
+    background: #0339B9;
     font-size: 1rem;
     font-weight: 600;
     transition:
@@ -5151,7 +5151,7 @@ input:checked + .slider:before {
     border: none;
     border-radius: 8px;
     color: #ffffff;
-    background: linear-gradient(65deg, #376df9 0, #ff5fa0 100%);
+    background: linear-gradient(65deg, #0339B9 0, #F44336 100%);
     font-size: 1.2rem;
     transition: background 0.23s;
     cursor: pointer;
@@ -5223,7 +5223,7 @@ input:checked + .slider:before {
 .bar {
     width: 6px;
     border-radius: 6px;
-    background: rgba(#19bb5c, 0.65);
+    background: rgba(#00B86B, 0.65);
     transition-property: height background-color;
     transition-duration: 0.25s;
     /*box-shadow: var(--box-shadow);*/
@@ -5261,8 +5261,8 @@ input:checked + .slider:before {
 #recognitionDialect:focus,
 #recognitionLanguage:focus {
     outline: none;
-    border-color: rgba(70, 120, 249, 0.6);
-    box-shadow: 0 0 0 2px rgba(70, 120, 249, 0.15);
+    border-color: rgba(1, 111, 237, 0.6);
+    box-shadow: 0 0 0 2px rgba(1, 111, 237, 0.15);
 }
 
 /*--------------------------------------------------------------
@@ -5307,8 +5307,8 @@ select:hover {
 
 select:focus {
     outline: none;
-    border-color: rgba(70, 120, 249, 0.6);
-    box-shadow: 0 0 0 2px rgba(70, 120, 249, 0.15);
+    border-color: rgba(1, 111, 237, 0.6);
+    box-shadow: 0 0 0 2px rgba(1, 111, 237, 0.15);
 }
 
 select option {
@@ -5464,7 +5464,7 @@ hr {
 --------------------------------------------------------------*/
 
 /* .fas.fa-bars {
-    color: #66beff !important;
+    color: #016FED !important;
 } */
 
 /* General container for the dropdown */
@@ -5813,7 +5813,7 @@ body {
 --------------------------------------------------------------*/
 
 /* strong {
-    color: #007bff;
+    color: #016FED;
 } */
 
 .w-80 {

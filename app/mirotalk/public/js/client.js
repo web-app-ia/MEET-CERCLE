@@ -3546,7 +3546,7 @@ let themeMap = {
         '--btn-bar-bg-color': '#E8F5E9',
         '--btn-bar-color': '#0d1f1a',
         '--btns-bg-color': 'rgba(13, 31, 26, 0.75)',
-        '--dd-color': '#48C79A',
+        '--dd-color': '#00B86B',
     },
     blue: {
         '--body-bg': 'radial-gradient(#1b2a4a, #0f1729)',
@@ -3564,7 +3564,7 @@ let themeMap = {
         '--btn-bar-bg-color': '#E3F2FD',
         '--btn-bar-color': '#0f1729',
         '--btns-bg-color': 'rgba(15, 23, 41, 0.75)',
-        '--dd-color': '#60A5FA',
+        '--dd-color': '#016FED',
     },
     red: {
         '--body-bg': 'radial-gradient(#3d1520, #1c0a10)',
@@ -3582,7 +3582,7 @@ let themeMap = {
         '--btn-bar-bg-color': '#FDE8E8',
         '--btn-bar-color': '#1c0a10',
         '--btns-bg-color': 'rgba(28, 10, 16, 0.75)',
-        '--dd-color': '#F87171',
+        '--dd-color': '#F44336',
     },
     purple: {
         '--body-bg': 'radial-gradient(#2a1840, #150d24)',
@@ -12793,7 +12793,7 @@ async function updateMyPeerAvatarByUrl() {
 
             const preview = document.createElement('img');
             preview.style.cssText =
-                'display:none;width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #4caf50;margin:8px auto 4px;';
+                'display:none;width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #00B86B;margin:8px auto 4px;';
             input.parentNode.insertBefore(preview, input);
 
             function updatePreview(url) {
@@ -12813,7 +12813,7 @@ async function updateMyPeerAvatarByUrl() {
                 img.title = 'Click to use this avatar';
                 img.style.cssText =
                     'width:48px;height:48px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color 0.2s;object-fit:cover;background:#222;flex-shrink:0;';
-                img.addEventListener('mouseover', () => (img.style.borderColor = '#4caf50'));
+                img.addEventListener('mouseover', () => (img.style.borderColor = '#00B86B'));
                 img.addEventListener('mouseout', () => (img.style.borderColor = 'transparent'));
                 img.addEventListener('click', () => {
                     input.value = url;
@@ -16708,7 +16708,7 @@ function bytesToSize(bytes) {
 function getVolumeColor(volume) {
     if (volume >= 80) return '#FF0000'; // Red
     if (volume >= 50) return '#FFA500'; // Orange
-    return '#19bb5c'; // Green
+    return '#00B86B'; // Green
 }
 
 /**
@@ -16742,7 +16742,7 @@ function handlePeerVolume(data) {
     //remoteVideoWrap.classList.toggle('speaking');
     clearTimeout(peerVolumeTimers[peer_id]);
     peerVolumeTimers[peer_id] = setTimeout(function () {
-        remotePitchBar.style.backgroundColor = '#19bb5c';
+        remotePitchBar.style.backgroundColor = '#00B86B';
         remotePitchBar.style.height = '0%';
         //remoteVideoWrap.classList.toggle('speaking');
     }, 100);
@@ -16774,7 +16774,7 @@ function handleMyVolume(data) {
     //myVideoWrap.classList.toggle('speaking');
     clearTimeout(myVolumeTimer);
     myVolumeTimer = setTimeout(function () {
-        myPitchBar.style.backgroundColor = '#19bb5c';
+        myPitchBar.style.backgroundColor = '#00B86B';
         myPitchBar.style.height = '0%';
         //myVideoWrap.classList.toggle('speaking');
     }, 100);

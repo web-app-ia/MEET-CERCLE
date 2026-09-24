@@ -9,10 +9,10 @@
   --border: #233047;
   --text: #e6ebf4;
   --muted: #8b98ad;
-  --accent: #4f7cff;
-  --accent-2: #22d3ee;
-  --danger: #ef4444;
-  --ok: #34d399;
+  --accent: #016FED;
+  --accent-2: #0339B9;
+  --danger: #F44336;
+  --ok: #00B86B;
   --radius: 14px;
 }
 
@@ -21,8 +21,8 @@
 .cm-header-unified .cm-logo img{width:32px;height:32px}
 .cm-nav-unified{display:flex;align-items:center;gap:18px}
 .cm-nav-unified a{color:#e8eef6;text-decoration:none;font-weight:600;font-size:14px;opacity:0.92;padding:4px 2px;position:relative}
-.cm-nav-unified a:hover,.cm-nav-unified a.active{color:#38bdf8;opacity:1}
-.cm-nav-unified a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:#38bdf8;border-radius:2px}
+.cm-nav-unified a:hover,.cm-nav-unified a.active{color:#016FED;opacity:1}
+.cm-nav-unified a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:#016FED;border-radius:2px}
 @media(max-width:640px){.cm-header-unified{height:56px;padding:0 14px}.cm-nav-unified{gap:12px}.cm-nav-unified a{font-size:13px}}
 body{padding-top:64px}
 @media(max-width:640px){body{padding-top:56px}}
@@ -91,7 +91,7 @@ body { padding-top: 64px; }
   height: 12px;
   border-radius: 50%;
   background: radial-gradient(circle at 30% 30%, var(--accent-2), var(--accent));
-  box-shadow: 0 0 12px rgba(79, 124, 255, 0.7);
+  box-shadow: 0 0 12px rgba(1, 111, 237, 0.7);
 }
 
 .tagline {
@@ -120,11 +120,11 @@ body { padding-top: 64px; }
   opacity: 0.92;
   text-decoration: none;
 }
-.topnav a:hover { color: #38bdf8; opacity:1; }
-.topnav a.active { color: #38bdf8; opacity:1; position:relative; }
+.topnav a:hover { color: #016FED; opacity:1; }
+.topnav a.active { color: #016FED; opacity:1; position:relative; }
 .topnav a.active::after{
   content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px;
-  border-radius:2px; background:#38bdf8;
+  border-radius:2px; background:#016FED;
 }
 
 /* --- Lobby ----------------------------------------------------------------- */
@@ -214,7 +214,7 @@ input[type="text"]:focus {
 }
 
 .btn.primary {
-  background: linear-gradient(90deg, var(--accent), #3b5fd9);
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
   border: none;
   font-weight: 600;
 }
@@ -343,7 +343,7 @@ body.room {
 
 .mode-badge.sfu {
   color: var(--accent-2);
-  border-color: rgba(34, 211, 238, 0.4);
+  border-color: rgba(3, 57, 185, 0.4);
 }
 
 .presence {
@@ -352,8 +352,8 @@ body.room {
 }
 
 .banner {
-  background: rgba(79, 124, 255, 0.12);
-  border-bottom: 1px solid rgba(79, 124, 255, 0.35);
+  background: rgba(1, 111, 237, 0.12);
+  border-bottom: 1px solid rgba(1, 111, 237, 0.35);
   color: var(--text);
   text-align: center;
   padding: 9px 16px;
