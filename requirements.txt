@@ -1,0 +1,3 @@
+# CERCLE MEET — Python non requis
+# Ce projet est 100% Node.js (app/mirotalk + worker) + frontend statique.
+# Aucune dépendance Python. Fichier présent pour compatibilité CI.
