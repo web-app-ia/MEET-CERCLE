@@ -348,9 +348,9 @@ module.exports = {
             language: 'fr', // https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes
             translationMode: 'native', // In-room UI: auto (native file else Google) | native (human files only, no Google) | google (default, always Google)
             name: 'CERCLE MEET',
-            title: '<h1>CERCLE MEET</h1>Visioconférence éphémère en temps réel.<br />Simple, sécurisé, rapide.',
+            title: '<h1>CERCLE MEET</h1>La visioconférence souveraine made in Africa.<br />Simple, sécurisé, rapide.',
             description:
-                "Lancez votre réunion en un clic. Sans téléchargement, sans extension, sans compte. Petit cercle en pair-à-pair ; au-delà, l'infrastructure est provisionnée à la demande puis détruite.",
+                'Lancez votre réunion en un clic. Sans téléchargement, sans extension, sans compte. Petit cercle en pair-à-pair.',
             joinDescription: 'Choisissez le nom de votre salon.<br />Partagez ensuite le lien avec vos participants.',
             joinButtonLabel: 'REJOINDRE LE SALON',
             customizeRoomButtonLabel: 'PERSONNALISER LE SALON',
