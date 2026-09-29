@@ -5030,6 +5030,22 @@ a:focus-visible {
     }
 }
 
+/* CERCLE MEET — icônes de tuiles charte */
+.features-tiles-item-image .tile-icon {
+    font-size: 64px;
+    line-height: 1;
+    color: #016FED;
+}
+.features-tiles-item-image .tile-icon.tile-icon-red {
+    color: #F44336;
+}
+.features-tiles-item-image {
+    min-height: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
