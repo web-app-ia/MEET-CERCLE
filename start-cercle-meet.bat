@@ -7,7 +7,7 @@ REM ============================================================
 
 setlocal
 
-set "PORT=3000"
+set "PORT=3001"
 set "NODE_EXE=C:\Users\Fouit\.workbuddy-ai\binaries\node\versions\22.22.2-1\node.exe"
 set "APP_DIR=%~dp0app\mirotalk"
 
